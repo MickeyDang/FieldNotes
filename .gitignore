@@ -1,0 +1,8 @@
+# OS X
+.DS_Store
+Icon
+
+# common
+*/build
+*/node_modules
+*/package-lock.json
