@@ -3,6 +3,8 @@
 Icon
 
 # common
+*/.eslintcache
 */build
 */node_modules
 */package-lock.json
+
