@@ -1,0 +1,872 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0912472,
+          49.2376161,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Jane Doe",
+        "type": "person",
+        "contacted_by": ["PRC"],
+        "last_contacted": "05-2019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0557767,
+          49.2498341,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Max Moe",
+        "type": "person",
+        "contacted_by": ["PRC"],
+        "last_contacted": "04-2019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.055605,
+          49.244063,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Ann Dee",
+        "type": "person",
+        "contacted_by": ["PRC"],
+        "last_contacted": "05-2019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0738011,
+          49.2662473,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Sienna Woo",
+        "type": "person",
+        "contacted_by": ["GV"],
+        "last_contacted": "05-2018"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0623871,
+          49.2376199,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Quinn Wish",
+        "type": "person",
+        "contacted_by": ["PRC, UZD"],
+        "last_contacted": "09-2020"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.054441,
+          49.2345375,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mitch Dan",
+        "type": "person",
+        "contacted_by": ["UZD"],
+        "last_contacted": "09-2020"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0512472,
+          49.2313536,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Jonah Langley",
+        "type": "person",
+        "contacted_by": ["UZD"],
+        "last_contacted": "02-2021"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.9933105,
+          49.2569947,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Meghan Freeman",
+        "type": "person",
+        "contacted_by": ["GV"],
+        "last_contacted": "01-2020"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0113789,
+          49.2311607,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Jeanette Gulgowski",
+        "type": "person",
+        "contacted_by": ["UZD"],
+        "last_contacted": "01-2020"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.007259,
+          49.2362048,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Cesar Leuschke",
+        "type": "person",
+        "contacted_by": ["UZD"],
+        "last_contacted": "06-2017"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.1164357,
+          49.2309365,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Poin Dex",
+        "type": "person",
+        "contacted_by": ["PRC, GV"],
+        "last_contacted": "06-2017"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0848848,
+          49.271387,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Beau Murazik",
+        "type": "person",
+        "contacted_by": ["PRC"],
+        "last_contacted": "02-2017"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.1087232,
+          49.2675218,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Gabrielle Berge",
+        "type": "person",
+        "contacted_by": ["PRC"],
+        "last_contacted": "07-2019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.104775,
+          49.2662897,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Walton Konopelski",
+        "type": "person",
+        "contacted_by": ["UZD"],
+        "last_contacted": "12-2019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.1275659,
+          49.2865082,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Andy Lee",
+        "type": "person",
+        "contacted_by": ["GV"],
+        "last_contacted": "11-2019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0791574,
+          49.2818787,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Cameron Park",
+        "type": "person",
+        "contacted_by": ["GV"],
+        "last_contacted": "09-2017"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.1186677,
+          49.1968251,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Lia Metz",
+        "type": "person",
+        "contacted_by": ["UZD"],
+        "last_contacted": "03-2020"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.1421853,
+          49.2552334,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Michael Li",
+        "type": "person",
+        "contacted_by": ["PRC"],
+        "last_contacted": "04-2015"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.8974946,
+          49.2573914,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Jaida Daniel",
+        "contacted_by": ["GV"],
+        "type": "person",
+        "last_contacted": "08-2020"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.9421266,
+          49.2150233,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Rebeka Greenfelder",
+        "contacted_by": ["PRC"],
+        "type": "person",
+        "last_contacted": "03-2020"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0794557,
+          49.31584,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mollie Bailey",
+        "contacted_by": ["PRC"],
+        "type": "person",
+        "last_contacted": "02-2020"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.1312974,
+          49.1754245,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Opal Keebler",
+        "contacted_by": ["PRC"],
+        "type": "person",
+        "last_contacted": "03-2021"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.006472,
+          49.269852,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Nora Dicki",
+        "contacted_by": ["UZD"],
+        "type": "person",
+        "last_contacted": "12-2021"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.1827958,
+          49.232625,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Henri Reinger",
+        "contacted_by": ["UZD"],
+        "type": "person",
+        "last_contacted": "12-2021"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.9541429,
+          49.2144626,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Clint Champlin",
+        "contacted_by": ["UZD"],
+        "type": "person",
+        "last_contacted": "12-2021"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.9026445,
+          49.2072855,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Albin Keebler",
+        "contacted_by": ["GV"],
+        "type": "person",
+        "last_contacted": "11-2021"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.8899415,
+          49.2496603,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Watson Gylord",
+        "contacted_by": ["PRC", "GV"],
+        "type": "person",
+        "last_contacted": "10-2021"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.9551728,
+          49.232625,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Jayden Kiehn",
+        "contacted_by": ["PRC"],
+        "type": "person",
+        "last_contacted": "06-2021"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.1488069,
+          49.2436089,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Kristofer Volkman",
+        "contacted_by": ["PRC"],
+        "type": "person",
+        "last_contacted": "06-2019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.1073305,
+          49.2823398,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Vancouver Community Network",
+        "contacted_by": ["PRC", "GV"],
+        "type": "org",
+        "last_contacted": "06-2019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.1318423,
+          49.2632234,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Greater Vancouver Community Services Society",
+        "contacted_by": ["UZD"],
+        "type": "org",
+        "last_contacted": "04-2019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.090098,
+          49.256131,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Salvation Army - Boundless Vancouver Community Ministries",
+        "contacted_by": ["UZD"],
+        "type": "org",
+        "last_contacted": "03-2019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.1157718,
+          49.2812842,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Vancouver Foundation",
+        "contacted_by": ["PRC", "UZD"],
+        "type": "org",
+        "last_contacted": "05-2019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.1096006,
+          49.2629027,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Oromo Community Association of British Columbia",
+        "contacted_by": ["UZD"],
+        "type": "org",
+        "last_contacted": "06-2017"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0678279,
+          49.2504406,
+          0
+        ]
+      },
+      "properties": {
+        "name": "PLEA Community Services Society of BC",
+        "contacted_by": ["PRC"],
+        "type": "org",
+        "last_contacted": "10-2019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.1149929,
+          49.2856162,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Vancouver Metis Community Association",
+        "contacted_by": ["PRC", "UZD", "GV"],
+        "type": "org",
+        "last_contacted": "06-2020"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.1012762,
+          49.2614991,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mount Pleasant War Memorial Community Cooperative Association",
+        "contacted_by": ["GV"],
+        "type": "org",
+        "last_contacted": "02-2020"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0958844,
+          49.28328,
+          0
+        ]
+      },
+      "properties": {
+        "name": "The Bloom Group Community Services Society",
+        "contacted_by": ["PRC", "UZD"],
+        "type": "org",
+        "last_contacted": "01-2020"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.1580675,
+          49.2659164,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Kitsilano Neighbourhood House",
+        "contacted_by": ["UZD"],
+        "type": "org",
+        "last_contacted": "06-2020"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0861821,
+          49.3378379,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Capilano Community Services Society",
+        "contacted_by": ["UZD"],
+        "type": "org",
+        "last_contacted": "09-2021"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.1428317,
+          49.1736429,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Connections Community Services Society",
+        "contacted_by": ["PRC"],
+        "type": "org",
+        "last_contacted": "09-2021"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0655073,
+          49.2255249,
+          0
+        ]
+      },
+      "properties": {
+        "name": "South Vancouver Neighbourhood House",
+        "contacted_by": ["PRC"],
+        "type": "org",
+        "last_contacted": "02-2021"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0043572,
+          49.225381,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Burnaby Neighbourhood House (South House)",
+        "contacted_by": ["PRC"],
+        "type": "org",
+        "last_contacted": "02-2021"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0869757,
+          49.2623148,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mount Pleasant Neighbourhood House",
+        "contacted_by": ["PRC"],
+        "type": "org",
+        "last_contacted": "03-2021"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0725807,
+          49.325841,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Canadian Mental Health Association",
+        "contacted_by": ["PRC"],
+        "type": "org",
+        "last_contacted": "12-2021"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0556082,
+          49.2860192,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Vancouver Family Connections",
+        "contacted_by": ["UZD"],
+        "type": "org",
+        "last_contacted": "12-2019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.122041,
+          49.3235007,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Reconciliation Canada",
+        "contacted_by": ["UZD", "GV"],
+        "type": "org",
+        "last_contacted": "11-2019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.1008882,
+          49.2572483,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Association of Neighbourhood Houses BC - ANHBC",
+        "contacted_by": ["UZD"],
+        "type": "org",
+        "last_contacted": "12-2016"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.103288,
+          49.18598,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Developmental Disabilities Association",
+        "contacted_by": ["UZD"],
+        "type": "org",
+        "last_contacted": "07-2018"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0745391,
+          49.1915359,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Touchstone Family Association",
+        "contacted_by": ["UZD"],
+        "type": "org",
+        "last_contacted": "07-2018"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.0893581,
+          49.2629037,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Leave Out Violence",
+        "contacted_by": ["UZD"],
+        "type": "org",
+        "last_contacted": "03-2018"
+      }
+    }
+  ]
+}

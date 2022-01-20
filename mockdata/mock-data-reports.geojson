@@ -1,0 +1,1301 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -123.0901216,
+              49.2486046,
+              0
+            ],
+            [
+              -123.0838988,
+              49.2485485,
+              0
+            ],
+            [
+              -123.0836843,
+              49.2535908,
+              0
+            ],
+            [
+              -123.0875466,
+              49.2537029,
+              0
+            ],
+            [
+              -123.0875466,
+              49.2527225,
+              0
+            ],
+            [
+              -123.089907,
+              49.2528065,
+              0
+            ],
+            [
+              -123.0901216,
+              49.2486046,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Kensington-Cedar Cottage Study",
+        "creation_date": "04-2017",
+        "last_updated": "04-2017",
+        "tags": ["Homes", "Temperature", "Green Infrastructure"],
+        "department": "UZD",
+        "methods": ["TH", "FG", "QS"],
+        "description": "The strategy and its action plans reimagine how we can manage rainwater, representing a significant opportunity to take bold strides toward becoming a water-sensitive city."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -123.2057985,
+              49.2688776,
+              0
+            ],
+            [
+              -123.2060989,
+              49.2637249,
+              0
+            ],
+            [
+              -123.1860145,
+              49.2634448,
+              0
+            ],
+            [
+              -123.1858429,
+              49.2686536,
+              0
+            ],
+            [
+              -123.1995758,
+              49.2688216,
+              0
+            ],
+            [
+              -123.2022365,
+              49.2681496,
+              0
+            ],
+            [
+              -123.2057985,
+              49.2688776,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Jericho Lands Planning Program",
+        "creation_date": "09-2019",
+        "last_updated": "09-2019",
+        "tags": ["Parks and Recreation", "Nature Restoration", "Green Infrastructure"],
+        "department": "PRC",
+        "methods": ["TH", "FG", "OS"],
+        "description": "The Jericho Lands planning program is a comprehensive planning process which will help create a policy statement to guide future development of the site."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -123.1575969,
+              49.2682591,
+              0
+            ],
+            [
+              -123.1578115,
+              49.2629802,
+              0
+            ],
+            [
+              -123.0814865,
+              49.261888,
+              0
+            ],
+            [
+              -123.0813631,
+              49.2614925,
+              0
+            ],
+            [
+              -123.0735579,
+              49.2614329,
+              0
+            ],
+            [
+              -123.0735687,
+              49.2641705,
+              0
+            ],
+            [
+              -123.0929664,
+              49.2643385,
+              0
+            ],
+            [
+              -123.0929664,
+              49.2660188,
+              0
+            ],
+            [
+              -123.0953697,
+              49.2660748,
+              0
+            ],
+            [
+              -123.1009487,
+              49.2682031,
+              0
+            ],
+            [
+              -123.1105617,
+              49.2682031,
+              0
+            ],
+            [
+              -123.1163124,
+              49.2659068,
+              0
+            ],
+            [
+              -123.134766,
+              49.2661308,
+              0
+            ],
+            [
+              -123.1427482,
+              49.2662428,
+              0
+            ],
+            [
+              -123.1467095,
+              49.2662998,
+              0
+            ],
+            [
+              -123.1517925,
+              49.2679022,
+              0
+            ],
+            [
+              -123.1575969,
+              49.2682591,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Broadway Plan",
+        "creation_date": "05-2020",
+        "last_updated": "05-2020",
+        "tags": ["Transit", "Rain and Snow", "Green Infrastructure", "Parks and Recreation"],
+        "department": "UZD",
+        "methods": ["TH", "FG"],
+        "description": "The 30-year plan will focus on opportunities to integrate new housing, jobs, and amenities around the new Broadway Subway in the neighbourhoods of Mount Pleasant, Fairview, and Kitsilano."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -123.1109942,
+              49.2847346,
+              0
+            ],
+            [
+              -123.1115092,
+              49.2842867,
+              0
+            ],
+            [
+              -123.1105222,
+              49.2836148,
+              0
+            ],
+            [
+              -123.1093205,
+              49.282747,
+              0
+            ],
+            [
+              -123.1086339,
+              49.282747,
+              0
+            ],
+            [
+              -123.1042995,
+              49.2818791,
+              0
+            ],
+            [
+              -123.1003942,
+              49.2818512,
+              0
+            ],
+            [
+              -123.1003942,
+              49.2822991,
+              0
+            ],
+            [
+              -123.0995359,
+              49.2822151,
+              0
+            ],
+            [
+              -123.0995359,
+              49.2832229,
+              0
+            ],
+            [
+              -123.1038274,
+              49.2832789,
+              0
+            ],
+            [
+              -123.1043424,
+              49.2835028,
+              0
+            ],
+            [
+              -123.1109942,
+              49.2847346,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Gastown Complete Streets",
+        "creation_date": "02-2020",
+        "last_updated": "02-2020",
+        "tags": ["Sea Level Rise", "Green Infrastructure", "Rain and Snow"],
+        "department": "GV",
+        "methods": ["TH", "FG", "OS"],
+        "description": "Gastown Complete Streets considers the future of the area to create a plan for the streets and transportation network."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -123.0769774,
+              49.2894538,
+              0
+            ],
+            [
+              -123.077371,
+              49.269393,
+              0
+            ],
+            [
+              -123.0562922,
+              49.2693521,
+              0
+            ],
+            [
+              -123.0564639,
+              49.2919169,
+              0
+            ],
+            [
+              -123.0611846,
+              49.2897337,
+              0
+            ],
+            [
+              -123.064532,
+              49.2869905,
+              0
+            ],
+            [
+              -123.0671927,
+              49.2869905,
+              0
+            ],
+            [
+              -123.0673644,
+              49.2865426,
+              0
+            ],
+            [
+              -123.068566,
+              49.2866546,
+              0
+            ],
+            [
+              -123.0686519,
+              49.2893978,
+              0
+            ],
+            [
+              -123.0696818,
+              49.2893978,
+              0
+            ],
+            [
+              -123.0696818,
+              49.2879982,
+              0
+            ],
+            [
+              -123.0769774,
+              49.2894538,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Grandview-Woodland Community Plan",
+        "creation_date": "09-2021",
+        "last_updated": "09-2021",
+        "tags": ["Homes", "Transit", "Parks and Recreation"],
+        "department": "UZD",
+        "methods": ["TH", "WK"],
+        "description": "The goal is for the community to continue to evolve as a mixed-income, socially-sensitive place that is transit-oriented and rich in heritage and culture."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -123.0697227,
+              49.2596049,
+              0
+            ],
+            [
+              -123.0698515,
+              49.2563559,
+              0
+            ],
+            [
+              -123.0662036,
+              49.2529105,
+              0
+            ],
+            [
+              -123.0650878,
+              49.2514259,
+              0
+            ],
+            [
+              -123.0566335,
+              49.2483444,
+              0
+            ],
+            [
+              -123.0565477,
+              49.2576163,
+              0
+            ],
+            [
+              -123.0611396,
+              49.2594649,
+              0
+            ],
+            [
+              -123.0697227,
+              49.2596049,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "John Hendry Park Development",
+        "creation_date": "01-2021",
+        "last_updated": "02-2021",
+        "tags": ["Parks and Recreation", "Nature Restoration", "Green Infrastructure"],
+        "department": "PRC",
+        "methods": ["TH", "FG", "QS"],
+        "description": "Local community consultation project for a park."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -123.1380945,
+              49.2806961,
+              0
+            ],
+            [
+              -123.1418067,
+              49.2831596,
+              0
+            ],
+            [
+              -123.1407766,
+              49.2838875,
+              0
+            ],
+            [
+              -123.1422787,
+              49.2848673,
+              0
+            ],
+            [
+              -123.1402188,
+              49.286225,
+              0
+            ],
+            [
+              -123.1417851,
+              49.2872607,
+              0
+            ],
+            [
+              -123.1407552,
+              49.2879465,
+              0
+            ],
+            [
+              -123.1423002,
+              49.2890382,
+              0
+            ],
+            [
+              -123.1436949,
+              49.2899059,
+              0
+            ],
+            [
+              -123.1443172,
+              49.289486,
+              0
+            ],
+            [
+              -123.144847,
+              49.28923,
+              0
+            ],
+            [
+              -123.143772,
+              49.288512,
+              0
+            ],
+            [
+              -123.144008,
+              49.284336,
+              0
+            ],
+            [
+              -123.141741,
+              49.281804,
+              0
+            ],
+            [
+              -123.1395107,
+              49.2800382,
+              0
+            ],
+            [
+              -123.1380945,
+              49.2806961,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "English Bay Plan",
+        "creation_date": "05-2020",
+        "last_updated": "05-2020",
+        "tags": ["Sea Level Rise", "Rain and Snow", "Temperature", "Green Infrastructure"],
+        "department": "GV",
+        "methods": ["WK", "QS"],
+        "description": "Local community consultation project for a coastal area."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -123.1711347,
+              49.271057,
+              0
+            ],
+            [
+              -123.1682165,
+              49.271029,
+              0
+            ],
+            [
+              -123.1682165,
+              49.2713931,
+              0
+            ],
+            [
+              -123.1645687,
+              49.2727651,
+              0
+            ],
+            [
+              -123.1454284,
+              49.2723451,
+              0
+            ],
+            [
+              -123.14448,
+              49.272954,
+              0
+            ],
+            [
+              -123.141492,
+              49.274047,
+              0
+            ],
+            [
+              -123.1398523,
+              49.274645,
+              0
+            ],
+            [
+              -123.1390769,
+              49.2749211,
+              0
+            ],
+            [
+              -123.1400211,
+              49.276545,
+              0
+            ],
+            [
+              -123.1411798,
+              49.2777209,
+              0
+            ],
+            [
+              -123.1434114,
+              49.2787288,
+              0
+            ],
+            [
+              -123.1448705,
+              49.2788688,
+              0
+            ],
+            [
+              -123.1454284,
+              49.2781409,
+              0
+            ],
+            [
+              -123.1461151,
+              49.2780009,
+              0
+            ],
+            [
+              -123.1477029,
+              49.2785329,
+              0
+            ],
+            [
+              -123.1478317,
+              49.2791208,
+              0
+            ],
+            [
+              -123.1482608,
+              49.2787568,
+              0
+            ],
+            [
+              -123.1496341,
+              49.2779729,
+              0
+            ],
+            [
+              -123.1521232,
+              49.2779729,
+              0
+            ],
+            [
+              -123.1526382,
+              49.2775809,
+              0
+            ],
+            [
+              -123.1526811,
+              49.276937,
+              0
+            ],
+            [
+              -123.1556423,
+              49.2738291,
+              0
+            ],
+            [
+              -123.1592042,
+              49.2738291,
+              0
+            ],
+            [
+              -123.1604488,
+              49.2743891,
+              0
+            ],
+            [
+              -123.1641395,
+              49.2741091,
+              0
+            ],
+            [
+              -123.1664569,
+              49.2728211,
+              0
+            ],
+            [
+              -123.1686885,
+              49.2722051,
+              0
+            ],
+            [
+              -123.1710918,
+              49.2721771,
+              0
+            ],
+            [
+              -123.1711347,
+              49.271057,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Kitsilano Beach Plan",
+        "creation_date": "05-2016",
+        "last_updated": "05-2016",
+        "department": "PRC",
+        "tags": ["Sea Level Rise", "Rain and Snow", "Temperature", "Green Infrastructure"],
+        "methods": ["TH", "WK"],
+        "description": "Local community consultation project for a coastal area."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -123.1852353,
+              49.2732338,
+              0
+            ],
+            [
+              -123.1882833,
+              49.27323,
+              0
+            ],
+            [
+              -123.1953214,
+              49.2726699,
+              0
+            ],
+            [
+              -123.1964372,
+              49.274014,
+              0
+            ],
+            [
+              -123.200128,
+              49.2756939,
+              0
+            ],
+            [
+              -123.2021021,
+              49.2762539,
+              0
+            ],
+            [
+              -123.210256,
+              49.2755819,
+              0
+            ],
+            [
+              -123.2112001,
+              49.2765899,
+              0
+            ],
+            [
+              -123.2125734,
+              49.2765899,
+              0
+            ],
+            [
+              -123.2130026,
+              49.2772058,
+              0
+            ],
+            [
+              -123.2154917,
+              49.2772058,
+              0
+            ],
+            [
+              -123.2162641,
+              49.2775418,
+              0
+            ],
+            [
+              -123.2185816,
+              49.2774858,
+              0
+            ],
+            [
+              -123.2197832,
+              49.2775978,
+              0
+            ],
+            [
+              -123.2207273,
+              49.2779898,
+              0
+            ],
+            [
+              -123.2221006,
+              49.2782137,
+              0
+            ],
+            [
+              -123.2232164,
+              49.2781577,
+              0
+            ],
+            [
+              -123.2239889,
+              49.2781577,
+              0
+            ],
+            [
+              -123.2253622,
+              49.2780458,
+              0
+            ],
+            [
+              -123.227508,
+              49.2787177,
+              0
+            ],
+            [
+              -123.229997,
+              49.2789417,
+              0
+            ],
+            [
+              -123.2300829,
+              49.2781577,
+              0
+            ],
+            [
+              -123.2242464,
+              49.2774858,
+              0
+            ],
+            [
+              -123.220899,
+              49.2767579,
+              0
+            ],
+            [
+              -123.2155775,
+              49.2760859,
+              0
+            ],
+            [
+              -123.2100843,
+              49.2743499,
+              0
+            ],
+            [
+              -123.2087969,
+              49.2745739,
+              0
+            ],
+            [
+              -123.208711,
+              49.273678,
+              0
+            ],
+            [
+              -123.2056211,
+              49.273566,
+              0
+            ],
+            [
+              -123.2057928,
+              49.2713259,
+              0
+            ],
+            [
+              -123.2027029,
+              49.2712699,
+              0
+            ],
+            [
+              -123.2027029,
+              49.2689737,
+              0
+            ],
+            [
+              -123.2020162,
+              49.2690857,
+              0
+            ],
+            [
+              -123.1995758,
+              49.2688216,
+              0
+            ],
+            [
+              -123.1895708,
+              49.2686937,
+              0
+            ],
+            [
+              -123.189485,
+              49.2700938,
+              0
+            ],
+            [
+              -123.189485,
+              49.2716619,
+              0
+            ],
+            [
+              -123.1873811,
+              49.2723378,
+              0
+            ],
+            [
+              -123.1852353,
+              49.2722258,
+              0
+            ],
+            [
+              -123.1852353,
+              49.2732338,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Jericho Beach Plan",
+        "creation_date": "02-2017",
+        "last_updated": "02-2017",
+        "department": "GV",
+        "tags": ["Sea Level Rise", "Rain and Snow", "Temperature", "Parks and Recreation"],
+        "methods": ["TH", "WK", "OS"],
+        "description": "Local community consultation project for a coastal area."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -123.136084,
+              49.273148,
+              0
+            ],
+            [
+              -123.137012,
+              49.272659,
+              0
+            ],
+            [
+              -123.137368,
+              49.2716,
+              0
+            ],
+            [
+              -123.1366529,
+              49.2703534,
+              0
+            ],
+            [
+              -123.1356659,
+              49.2694853,
+              0
+            ],
+            [
+              -123.130986,
+              49.268351,
+              0
+            ],
+            [
+              -123.130538,
+              49.269512,
+              0
+            ],
+            [
+              -123.134764,
+              49.272952,
+              0
+            ],
+            [
+              -123.135809,
+              49.273184,
+              0
+            ],
+            [
+              -123.136084,
+              49.273148,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Granville Island Plan",
+        "creation_date": "11-2016",
+        "last_updated": "11-2016",
+        "department": "GV",
+        "tags": ["Sea Level Rise", "Rain and Snow", "Temperature", "Green Infrastructure"],
+        "methods": ["TH", "WK", "OS"],
+        "description": "Local community consultation project for Granville Island."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -123.148283,
+              49.2595505,
+              0
+            ],
+            [
+              -123.1483259,
+              49.2571977,
+              0
+            ],
+            [
+              -123.138794,
+              49.257053,
+              0
+            ],
+            [
+              -123.1387558,
+              49.2607548,
+              0
+            ],
+            [
+              -123.1459227,
+              49.2608948,
+              0
+            ],
+            [
+              -123.1459656,
+              49.2594944,
+              0
+            ],
+            [
+              -123.148283,
+              49.2595505,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Granville Park Plan",
+        "creation_date": "08-2016",
+        "last_updated": "01-2020",
+        "department": "PRC",
+        "tags": ["Sea Level Rise", "Rain and Snow", "Temperature", "Green Infrastructure"],
+        "methods": ["TH", "WK", "OS"],
+        "description": "Local community consultation project for a park."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -123.127695,
+              49.2463459,
+              0
+            ],
+            [
+              -123.1278237,
+              49.2413589,
+              0
+            ],
+            [
+              -123.1184253,
+              49.2411068,
+              0
+            ],
+            [
+              -123.1178245,
+              49.2434042,
+              0
+            ],
+            [
+              -123.11555,
+              49.2451693,
+              0
+            ],
+            [
+              -123.1205711,
+              49.2452253,
+              0
+            ],
+            [
+              -123.1204852,
+              49.2462058,
+              0
+            ],
+            [
+              -123.127695,
+              49.2463459,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Children's Hospital Plan",
+        "creation_date": "10-2019",
+        "last_updated": "10-2019",
+        "department": "UZD",
+        "tags": ["Nature Restoration", "Rain and Snow", "Temperature", "Transit"],
+        "methods": ["WK"],
+        "description": "Local community consultation project for The Children's Hospital."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -123.1646792,
+              49.2631977,
+              0
+            ],
+            [
+              -123.1696145,
+              49.2632257,
+              0
+            ],
+            [
+              -123.16631,
+              49.2613073,
+              0
+            ],
+            [
+              -123.164808,
+              49.2611532,
+              0
+            ],
+            [
+              -123.1530492,
+              49.2609852,
+              0
+            ],
+            [
+              -123.1529204,
+              49.2628476,
+              0
+            ],
+            [
+              -123.1624262,
+              49.2630017,
+              0
+            ],
+            [
+              -123.1647007,
+              49.2630157,
+              0
+            ],
+            [
+              -123.1646792,
+              49.2631977,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Connaught Park Plan",
+        "creation_date": "07-2019",
+        "last_updated": "07-2019",
+        "tags": ["Nature Restoration", "Temperature", "Homes"],
+        "methods": ["TH", "OS"],
+        "department": "PRC",
+        "description": "Local community consultation project for a park."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -123.1018578,
+              49.2748669,
+              0
+            ],
+            [
+              -123.1019504,
+              49.2756163,
+              0
+            ],
+            [
+              -123.1034754,
+              49.2755205,
+              0
+            ],
+            [
+              -123.1035814,
+              49.2749935,
+              0
+            ],
+            [
+              -123.1038264,
+              49.2737605,
+              0
+            ],
+            [
+              -123.1043966,
+              49.2736914,
+              0
+            ],
+            [
+              -123.1043884,
+              49.2730765,
+              0
+            ],
+            [
+              -123.1039204,
+              49.2729335,
+              0
+            ],
+            [
+              -123.1035164,
+              49.2730305,
+              0
+            ],
+            [
+              -123.1029482,
+              49.2730404,
+              0
+            ],
+            [
+              -123.103034,
+              49.2723264,
+              0
+            ],
+            [
+              -123.1043524,
+              49.2722955,
+              0
+            ],
+            [
+              -123.1072826,
+              49.2722914,
+              0
+            ],
+            [
+              -123.107347,
+              49.2717733,
+              0
+            ],
+            [
+              -123.107823,
+              49.2717029,
+              0
+            ],
+            [
+              -123.1076994,
+              49.2721925,
+              0
+            ],
+            [
+              -123.1094538,
+              49.2721509,
+              0
+            ],
+            [
+              -123.1094109,
+              49.2702748,
+              0
+            ],
+            [
+              -123.1025873,
+              49.2702468,
+              0
+            ],
+            [
+              -123.101729,
+              49.2729069,
+              0
+            ],
+            [
+              -123.1018578,
+              49.2748669,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Olympic Village Consultation Plan",
+        "creation_date": "12-2018",
+        "last_updated": "12-2018",
+        "tags": ["Nature Restoration", "Sea Level Rise", "Rain and Snow"],
+        "methods": ["TH", "WK", "OS"],
+        "department": "UZD",
+        "description": "Local community consultation project for flood mitigation around Olympic Village."
+      }
+    }
+  ]
+}
