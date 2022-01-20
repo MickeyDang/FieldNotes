@@ -23,7 +23,7 @@ jobs:
     
     # Install dependencies
     - name: Install dependencies
-      run: npm install --cwd ./frontend && npm install --cwd ./backend
+      run: npm --prefix ./frontend install && npm --prefix ./backend install
 
     # Linting check
     - name: Run lint for frontend
