@@ -22,6 +22,7 @@ const relatedReportsSchema = new mongoose.Schema({
   },
 });
 
+// GeoJSON schema based on: https://mongoosejs.com/docs/geojson.html
 const pointSchema = new mongoose.Schema({
   type: {
     type: String,
@@ -41,7 +42,7 @@ const relationshipSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ["Person", "Organization"],
+    enum: ["person", "org"],
   },
   contact: contactInformationSchema,
   contactedBy: {

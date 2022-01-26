@@ -1,4 +1,8 @@
+// import 'dotenv/config';
+// import {DATABASE_CONNECTION_TOKEN} from '@env';
 import express from 'express';
+
+require('dotenv').config();
 
 const app = express();
 const PORT = 8000;
@@ -7,54 +11,31 @@ const ReportModel = require('./models/Reports');
 const RelationshipModel = require('./models/Relationships');
 const ProjectModel = require('./models/Projects');
 
+const DATABASE_CONNECTION_TOKEN = 'mongodb+srv://fydpTeam:figgiRocks99@cluster0.fgosq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+
 // Convert body of JSON requests to an object
 app.use(express.json());
 
-mongoose.connect('mongodb+srv://fydpTeam:figgiRocks99@cluster0.fgosq.mongodb.net/fieldNotes?retryWrites=true&w=majority');
+mongoose.connect(DATABASE_CONNECTION_TOKEN);
 
 app.get('/', (req, res) => res.send('Express and TypeScript Server'));
 
-// Return all documents in reports collection
-app.get('/getReports', (req, res) => {
+app.get('/reports', (req, res) => {
   ReportModel.find({}, (err: any, result: any) => {
-    if (err) {
-      res.json(err);
-    } else {
-      res.json(result);
-    }
+    res.json(err ?? result);
   });
 });
 
-
-// Return all documents in relationships collection
-app.get('/getRelationships', (req, res) => {
+app.get('/relationships', (req, res) => {
   RelationshipModel.find({}, (err: any, result: any) => {
-    if (err) {
-      res.json(err);
-    } else {
-      res.json(result);
-    }
+    res.json(err ?? result);
   });
 });
 
-// Return all documents in projects collection
-app.get('/getProjects', (req, res) => {
+app.get('/projects', (req, res) => {
   ProjectModel.find({}, (err: any, result: any) => {
-    if (err) {
-      res.json(err);
-    } else {
-      res.json(result);
-    }
+    res.json(err ?? result);
   });
-});
-
-// Add new report to Reports collection
-app.post('/createReport', async (req, res) => {
-  const report = req.body;
-  const newReport = new ReportModel(report);
-  await newReport.save();
-
-  res.json(report);
 });
 
 app.listen(PORT, () => {

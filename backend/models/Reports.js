@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// GeoJSON schema based on: https://mongoosejs.com/docs/geojson.html
 const polygonSchema = new mongoose.Schema({
   type: {
     type: String,
@@ -7,7 +8,7 @@ const polygonSchema = new mongoose.Schema({
     required: true,
   },
   coordinates: {
-    type: [[[Number]]], // Array of arrays of arrays of numbers
+    type: [[[Number]]],
     required: true,
   },
 });
@@ -17,11 +18,9 @@ const reportSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  tags: [
-    {
-      type: String,
-    },
-  ],
+  tags: {
+    type: [String],
+  },
   description: {
     type: String,
   },
