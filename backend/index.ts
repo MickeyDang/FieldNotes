@@ -8,9 +8,9 @@ const RelationshipModel = require('./models/Relationships');
 const ProjectModel = require('./models/Projects');
 
 // Convert body of JSON requests to an object
-app.use(express.json())
+app.use(express.json());
 
-mongoose.connect('mongodb+srv://fydpTeam:figgiRocks99@cluster0.fgosq.mongodb.net/fieldNotes?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://fydpTeam:figgiRocks99@cluster0.fgosq.mongodb.net/fieldNotes?retryWrites=true&w=majority');
 
 app.get('/', (req, res) => res.send('Express and TypeScript Server'));
 
@@ -18,12 +18,35 @@ app.get('/', (req, res) => res.send('Express and TypeScript Server'));
 app.get('/getReports', (req, res) => {
   ReportModel.find({}, (err: any, result: any) => {
     if (err) {
-      res.json(err)
+      res.json(err);
     } else {
-      res.json(result)
+      res.json(result);
     }
-  })
-})
+  });
+});
+
+
+// Return all documents in relationships collection
+app.get('/getRelationships', (req, res) => {
+  RelationshipModel.find({}, (err: any, result: any) => {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(result);
+    }
+  });
+});
+
+// Return all documents in projects collection
+app.get('/getProjects', (req, res) => {
+  ProjectModel.find({}, (err: any, result: any) => {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(result);
+    }
+  });
+});
 
 // Add new report to Reports collection
 app.post('/createReport', async (req, res) => {
@@ -31,8 +54,8 @@ app.post('/createReport', async (req, res) => {
   const newReport = new ReportModel(report);
   await newReport.save();
 
-  res.json(report)
-})
+  res.json(report);
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running at https://localhost:${PORT}`);
