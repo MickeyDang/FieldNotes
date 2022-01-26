@@ -42,7 +42,7 @@ const relationshipSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ["person", "org"],
+    enum: ["Person", "Organization"],
   },
   contact: contactInformationSchema,
   contactedBy: {
