@@ -35,27 +35,21 @@ const reportSchema = new mongoose.Schema({
     type: String,
     enum: ["GV", "PRC", "UZD"],
   },
-  methods: [
-    {
-      type: String,
-      enum: ["TH", "FG", "WK", "QS", "OS"],
-    },
-  ],
-  contacts: [
-    {
-      type: String,
-    },
-  ],
+  methods: {
+    type: [String],
+    enum: ["TH", "FG", "WK", "QS", "OS"],
+  },
+  contacts: {
+    type: [String],
+  },
   project: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "ProjectModel",
   },
-  relationships: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "RelationshipModel",
-    },
-  ],
+  relationships: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "RelationshipModel",
+  },
   location: polygonSchema,
 });
 

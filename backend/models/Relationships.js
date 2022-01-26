@@ -13,17 +13,13 @@ const contactInformationSchema = new mongoose.Schema({
 });
 
 const relatedReportsSchema = new mongoose.Schema({
-  reportIDs: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "ReportModel",
-    },
-  ],
-  reportNames: [
-    {
-      type: String,
-    },
-  ],
+  reportIDs: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "ReportModel",
+  },
+  reportNames: {
+    type: [String],
+  },
 });
 
 const pointSchema = new mongoose.Schema({

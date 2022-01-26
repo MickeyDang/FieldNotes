@@ -15,12 +15,10 @@ const projectSchema = new mongoose.Schema({
   lastUpdated: {
     type: Date,
   },
-  reports: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "ReportModel",
-    },
-  ],
+  reports: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "ReportModel",
+  },
   researchStatus: {
     type: String,
     enum: [
@@ -32,12 +30,10 @@ const projectSchema = new mongoose.Schema({
       "Cancelled",
     ],
   },
-  relationships: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "RelationshipModel",
-    },
-  ],
+  relationships: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "RelationshipModel",
+  },
 });
 
 const ProjectModel = mongoose.model("projects", projectSchema);
