@@ -13,13 +13,15 @@ const contactInformationSchema = new mongoose.Schema({
 });
 
 const relatedReportsSchema = new mongoose.Schema({
-  reportIDs: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: "ReportModel",
-  },
-  reportNames: {
-    type: [String],
-  },
+  reports: [
+    [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "ReportModel",
+      },
+      String,
+    ],
+  ],
 });
 
 // GeoJSON schema based on: https://mongoosejs.com/docs/geojson.html
