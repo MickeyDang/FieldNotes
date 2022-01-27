@@ -13,12 +13,12 @@ const contactInformationSchema = new mongoose.Schema({
 });
 
 const relatedReportsSchema = new mongoose.Schema({
-  reportIDs: {
-    type: [mongoose.Schema.Types.ObjectId],
+  reportID: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: "ReportModel",
   },
-  reportNames: {
-    type: [String],
+  reportName: {
+    type: String,
   },
 });
 
@@ -55,7 +55,7 @@ const relationshipSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  reports: relatedReportsSchema,
+  reports: [relatedReportsSchema],
   location: pointSchema,
 });
 
