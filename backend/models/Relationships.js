@@ -12,18 +12,6 @@ const contactInformationSchema = new mongoose.Schema({
   },
 });
 
-const relatedReportsSchema = new mongoose.Schema({
-  reports: [
-    [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "ReportModel",
-      },
-      String,
-    ],
-  ],
-});
-
 // GeoJSON schema based on: https://mongoosejs.com/docs/geojson.html
 const pointSchema = new mongoose.Schema({
   type: {
@@ -57,7 +45,15 @@ const relationshipSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  reports: relatedReportsSchema,
+  reports: [
+    [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "ReportModel",
+      },
+      String,
+    ],
+  ],
   location: pointSchema,
 });
 
