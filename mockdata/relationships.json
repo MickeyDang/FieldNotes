@@ -1,0 +1,1292 @@
+[{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e84"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.1164357,
+      49.2309365,
+      0
+    ]
+  },
+  "name": "Poin Dex",
+  "type": "Person",
+  "contactedBy": [
+    "PRC, GV"
+  ],
+  "lastContacted": "2017-06",
+  "reports": [
+    [
+      "61f176664c843262d91d4df6",
+      "Jericho Lands Planning Program"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e7b"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0557767,
+      49.2498341,
+      0
+    ]
+  },
+  "name": "Max Moe",
+  "type": "Person",
+  "contactedBy": [
+    "PRC"
+  ],
+  "lastContacted": "2019-04",
+  "reports": [
+    [
+      "61f176664c843262d91d4df5",
+      "Kensington-Cedar Cottage Study"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e93"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -122.9026445,
+      49.2072855,
+      0
+    ]
+  },
+  "name": "Albin Keebler",
+  "contactedBy": [
+    "GV"
+  ],
+  "type": "Person",
+  "lastContacted": "2021-11",
+  "reports": [
+    [
+      "61f176664c843262d91d4df7",
+      "Broadway Plan"
+    ],
+    [
+      "61f176664c843262d91d4dfe",
+      "Granville Island Plan"
+    ],
+    [
+      "61f176664c843262d91d4dff",
+      "Granville Park Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e82"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0113789,
+      49.2311607,
+      0
+    ]
+  },
+  "name": "Jeanette Gulgowski",
+  "type": "Person",
+  "contactedBy": [
+    "UZD"
+  ],
+  "lastContacted": "2020-01",
+  "reports": [
+    [
+      "61f176664c843262d91d4df6",
+      "Jericho Lands Planning Program"
+    ],
+    [
+      "61f176664c843262d91d4dfc",
+      "Kitsilano Beach Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e7d"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0738011,
+      49.2662473,
+      0
+    ]
+  },
+  "name": "Sienna Woo",
+  "type": "Person",
+  "contactedBy": [
+    "GV"
+  ],
+  "lastContacted": "2018-05",
+  "reports": [
+    [
+      "61f176664c843262d91d4df5",
+      "Kensington-Cedar Cottage Study"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4ea6"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0725807,
+      49.325841,
+      0
+    ]
+  },
+  "name": "Canadian Mental Health Association",
+  "contactedBy": [
+    "PRC"
+  ],
+  "type": "Organization",
+  "lastContacted": "2021-12",
+  "reports": [
+    [
+      "61f176664c843262d91d4df9",
+      "Grandview-Woodland Community Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e98"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.1318423,
+      49.2632234,
+      0
+    ]
+  },
+  "name": "Greater Vancouver Community Services Society",
+  "contactedBy": [
+    "UZD"
+  ],
+  "type": "Organization",
+  "lastContacted": "2019-04",
+  "reports": [
+    [
+      "61f176664c843262d91d4df7",
+      "Broadway Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e9c"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0678279,
+      49.2504406,
+      0
+    ]
+  },
+  "name": "PLEA Community Services Society of BC",
+  "contactedBy": [
+    "PRC"
+  ],
+  "type": "Organization",
+  "lastContacted": "2019-10",
+  "reports": [
+    [
+      "61f176664c843262d91d4df8",
+      "Gastown Complete Streets"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4ea0"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.1580675,
+      49.2659164,
+      0
+    ]
+  },
+  "name": "Kitsilano Neighbourhood House",
+  "contactedBy": [
+    "UZD"
+  ],
+  "type": "Organization",
+  "lastContacted": "2020-06",
+  "reports": [
+    [
+      "61f176664c843262d91d4df8",
+      "Gastown Complete Streets"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4ea5"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0869757,
+      49.2623148,
+      0
+    ]
+  },
+  "name": "Mount Pleasant Neighbourhood House",
+  "contactedBy": [
+    "PRC"
+  ],
+  "type": "Organization",
+  "lastContacted": "2021-03",
+  "reports": [
+    [
+      "61f176664c843262d91d4df9",
+      "Grandview-Woodland Community Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e88"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.1275659,
+      49.2865082,
+      0
+    ]
+  },
+  "name": "Andy Lee",
+  "type": "Person",
+  "contactedBy": [
+    "GV"
+  ],
+  "lastContacted": "2019-11",
+  "reports": [
+    [
+      "61f176664c843262d91d4df6",
+      "Jericho Lands Planning Program"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e7e"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0623871,
+      49.2376199,
+      0
+    ]
+  },
+  "name": "Quinn Wish",
+  "type": "Person",
+  "contactedBy": [
+    "PRC, UZD"
+  ],
+  "lastContacted": "2020-09",
+  "reports": [
+    [
+      "61f176664c843262d91d4df5",
+      "Kensington-Cedar Cottage Study"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e8d"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -122.9421266,
+      49.2150233,
+      0
+    ]
+  },
+  "name": "Rebeka Greenfelder",
+  "contactedBy": [
+    "PRC"
+  ],
+  "type": "Person",
+  "lastContacted": "2020-03",
+  "reports": [
+    [
+      "61f176664c843262d91d4df7",
+      "Broadway Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4ea7"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0556082,
+      49.2860192,
+      0
+    ]
+  },
+  "name": "Vancouver Family Connections",
+  "contactedBy": [
+    "UZD"
+  ],
+  "type": "Organization",
+  "lastContacted": "2019-12",
+  "reports": [
+    [
+      "61f176664c843262d91d4df9",
+      "Grandview-Woodland Community Plan"
+    ],
+    [
+      "61f176664c843262d91d4dfd",
+      "Jericho Beach Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e87"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.104775,
+      49.2662897,
+      0
+    ]
+  },
+  "name": "Walton Konopelski",
+  "type": "Person",
+  "contactedBy": [
+    "UZD"
+  ],
+  "lastContacted": "2019-12",
+  "reports": [
+    [
+      "61f176664c843262d91d4df6",
+      "Jericho Lands Planning Program"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e9a"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.1157718,
+      49.2812842,
+      0
+    ]
+  },
+  "name": "Vancouver Foundation",
+  "contactedBy": [
+    "PRC",
+    "UZD"
+  ],
+  "type": "Organization",
+  "lastContacted": "2019-05",
+  "reports": [
+    [
+      "61f176664c843262d91d4df7",
+      "Broadway Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4ea1"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0861821,
+      49.3378379,
+      0
+    ]
+  },
+  "name": "Capilano Community Services Society",
+  "contactedBy": [
+    "UZD"
+  ],
+  "type": "Organization",
+  "lastContacted": "2021-09",
+  "reports": [
+    [
+      "61f176664c843262d91d4df8",
+      "Gastown Complete Streets"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4ea2"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.1428317,
+      49.1736429,
+      0
+    ]
+  },
+  "name": "Connections Community Services Society",
+  "contactedBy": [
+    "PRC"
+  ],
+  "type": "Organization",
+  "lastContacted": "2021-09",
+  "reports": [
+    [
+      "61f176664c843262d91d4df8",
+      "Gastown Complete Streets"
+    ],
+    [
+      "61f176664c843262d91d4dfc",
+      "Kitsilano Beach Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4ea4"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0043572,
+      49.225381,
+      0
+    ]
+  },
+  "name": "Burnaby Neighbourhood House (South House)",
+  "contactedBy": [
+    "PRC"
+  ],
+  "type": "Organization",
+  "lastContacted": "2021-02",
+  "reports": [
+    [
+      "61f176664c843262d91d4df9",
+      "Grandview-Woodland Community Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e97"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.1073305,
+      49.2823398,
+      0
+    ]
+  },
+  "name": "Vancouver Community Network",
+  "contactedBy": [
+    "PRC",
+    "GV"
+  ],
+  "type": "Organization",
+  "lastContacted": "2019-06",
+  "reports": [
+    [
+      "61f176664c843262d91d4df7",
+      "Broadway Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e99"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.090098,
+      49.256131,
+      0
+    ]
+  },
+  "name": "Salvation Army - Boundless Vancouver Community Ministries",
+  "contactedBy": [
+    "UZD"
+  ],
+  "type": "Organization",
+  "lastContacted": "2019-03",
+  "reports": [
+    [
+      "61f176664c843262d91d4df7",
+      "Broadway Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4ea8"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.122041,
+      49.3235007,
+      0
+    ]
+  },
+  "name": "Reconciliation Canada",
+  "contactedBy": [
+    "UZD",
+    "GV"
+  ],
+  "type": "Organization",
+  "lastContacted": "2019-11",
+  "reports": [
+    [
+      "61f176664c843262d91d4df9",
+      "Grandview-Woodland Community Plan"
+    ],
+    [
+      "61f176664c843262d91d4dfd",
+      "Jericho Beach Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4eac"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0893581,
+      49.2629037,
+      0
+    ]
+  },
+  "name": "Leave Out Violence",
+  "contactedBy": [
+    "UZD"
+  ],
+  "type": "Organization",
+  "lastContacted": "2018-03",
+  "reports": [
+    [
+      "61f176664c843262d91d4dfb",
+      "English Bay Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e80"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0512472,
+      49.2313536,
+      0
+    ]
+  },
+  "name": "Jonah Langley",
+  "type": "Person",
+  "contactedBy": [
+    "UZD"
+  ],
+  "lastContacted": "2021-02",
+  "reports": [
+    [
+      "61f176664c843262d91d4df6",
+      "Jericho Lands Planning Program"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e81"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -122.9933105,
+      49.2569947,
+      0
+    ]
+  },
+  "name": "Meghan Freeman",
+  "type": "Person",
+  "contactedBy": [
+    "GV"
+  ],
+  "lastContacted": "2020-01",
+  "reports": [
+    [
+      "61f176664c843262d91d4df6",
+      "Jericho Lands Planning Program"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e8a"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.1186677,
+      49.1968251,
+      0
+    ]
+  },
+  "name": "Lia Metz",
+  "type": "Person",
+  "contactedBy": [
+    "UZD"
+  ],
+  "lastContacted": "2020-03",
+  "reports": [
+    [
+      "61f176664c843262d91d4df7",
+      "Broadway Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4ea9"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.1008882,
+      49.2572483,
+      0
+    ]
+  },
+  "name": "Association of Neighbourhood Houses BC - ANHBC",
+  "contactedBy": [
+    "UZD"
+  ],
+  "type": "Organization",
+  "lastContacted": "2016-12",
+  "reports": [
+    [
+      "61f176664c843262d91d4dfa",
+      "John Hendry Park Development"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e92"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -122.9541429,
+      49.2144626,
+      0
+    ]
+  },
+  "name": "Clint Champlin",
+  "contactedBy": [
+    "UZD"
+  ],
+  "type": "Person",
+  "lastContacted": "2021-12",
+  "reports": [
+    [
+      "61f176664c843262d91d4df7",
+      "Broadway Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e9d"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.1149929,
+      49.2856162,
+      0
+    ]
+  },
+  "name": "Vancouver Metis Community Association",
+  "contactedBy": [
+    "PRC",
+    "UZD",
+    "GV"
+  ],
+  "type": "Organization",
+  "lastContacted": "2020-06",
+  "reports": [
+    [
+      "61f176664c843262d91d4df8",
+      "Gastown Complete Streets"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e83"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.007259,
+      49.2362048,
+      0
+    ]
+  },
+  "name": "Cesar Leuschke",
+  "type": "Person",
+  "contactedBy": [
+    "UZD"
+  ],
+  "lastContacted": "2017-06",
+  "reports": [
+    [
+      "61f176664c843262d91d4df6",
+      "Jericho Lands Planning Program"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e86"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.1087232,
+      49.2675218,
+      0
+    ]
+  },
+  "name": "Gabrielle Berge",
+  "type": "Person",
+  "contactedBy": [
+    "PRC"
+  ],
+  "lastContacted": "2019-07",
+  "reports": [
+    [
+      "61f176664c843262d91d4df6",
+      "Jericho Lands Planning Program"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e8b"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.1421853,
+      49.2552334,
+      0
+    ]
+  },
+  "name": "Michael Li",
+  "type": "Person",
+  "contactedBy": [
+    "PRC"
+  ],
+  "lastContacted": "2015-04",
+  "reports": [
+    [
+      "61f176664c843262d91d4df7",
+      "Broadway Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e8c"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -122.8974946,
+      49.2573914,
+      0
+    ]
+  },
+  "name": "Jaida Daniel",
+  "contactedBy": [
+    "GV"
+  ],
+  "type": "Person",
+  "lastContacted": "2020-08",
+  "reports": [
+    [
+      "61f176664c843262d91d4df7",
+      "Broadway Plan"
+    ],
+    [
+      "61f176664c843262d91d4dfd",
+      "Jericho Beach Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e7c"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.055605,
+      49.244063,
+      0
+    ]
+  },
+  "name": "Ann Dee",
+  "type": "Person",
+  "contactedBy": [
+    "PRC"
+  ],
+  "lastContacted": "2019-05",
+  "reports": [
+    [
+      "61f176664c843262d91d4df5",
+      "Kensington-Cedar Cottage Study"
+    ],
+    [
+      "61f176664c843262d91d4dfd",
+      "Jericho Beach Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e94"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -122.8899415,
+      49.2496603,
+      0
+    ]
+  },
+  "name": "Watson Gylord",
+  "contactedBy": [
+    "PRC",
+    "GV"
+  ],
+  "type": "Person",
+  "lastContacted": "2021-10",
+  "reports": [
+    [
+      "61f176664c843262d91d4df7",
+      "Broadway Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e8f"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.1312974,
+      49.1754245,
+      0
+    ]
+  },
+  "name": "Opal Keebler",
+  "contactedBy": [
+    "PRC"
+  ],
+  "type": "Person",
+  "lastContacted": "2021-03",
+  "reports": [
+    [
+      "61f176664c843262d91d4df7",
+      "Broadway Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e9b"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.1096006,
+      49.2629027,
+      0
+    ]
+  },
+  "name": "Oromo Community Association of British Columbia",
+  "contactedBy": [
+    "UZD"
+  ],
+  "type": "Organization",
+  "lastContacted": "2017-06",
+  "reports": [
+    [
+      "61f176664c843262d91d4df8",
+      "Gastown Complete Streets"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4eab"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0745391,
+      49.1915359,
+      0
+    ]
+  },
+  "name": "Touchstone Family Association",
+  "contactedBy": [
+    "UZD"
+  ],
+  "type": "Organization",
+  "lastContacted": "2018-07",
+  "reports": [
+    [
+      "61f176664c843262d91d4dfb",
+      "English Bay Plan"
+    ],
+    [
+      "61f176664c843262d91d4dfd",
+      "Jericho Beach Plan"
+    ],
+    [
+      "61f176664c843262d91d4e02",
+      "Olympic Village Consultation Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e89"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0791574,
+      49.2818787,
+      0
+    ]
+  },
+  "name": "Cameron Park",
+  "type": "Person",
+  "contactedBy": [
+    "GV"
+  ],
+  "lastContacted": "2017-09",
+  "reports": [
+    [
+      "61f176664c843262d91d4df6",
+      "Jericho Lands Planning Program"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e9f"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0958844,
+      49.28328,
+      0
+    ]
+  },
+  "name": "The Bloom Group Community Services Society",
+  "contactedBy": [
+    "PRC",
+    "UZD"
+  ],
+  "type": "Organization",
+  "lastContacted": "2020-01",
+  "reports": [
+    [
+      "61f176664c843262d91d4df8",
+      "Gastown Complete Streets"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4eaa"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.103288,
+      49.18598,
+      0
+    ]
+  },
+  "name": "Developmental Disabilities Association",
+  "contactedBy": [
+    "UZD"
+  ],
+  "type": "Organization",
+  "lastContacted": "2018-07",
+  "reports": [
+    [
+      "61f176664c843262d91d4dfb",
+      "English Bay Plan"
+    ],
+    [
+      "61f176664c843262d91d4dfd",
+      "Jericho Beach Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e95"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -122.9551728,
+      49.232625,
+      0
+    ]
+  },
+  "name": "Jayden Kiehn",
+  "contactedBy": [
+    "PRC"
+  ],
+  "type": "Person",
+  "lastContacted": "2021-06",
+  "reports": [
+    [
+      "61f176664c843262d91d4df7",
+      "Broadway Plan"
+    ],
+    [
+      "61f176664c843262d91d4dfd",
+      "Jericho Beach Plan"
+    ],
+    [
+      "61f176664c843262d91d4dfe",
+      "Granville Island Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e85"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0848848,
+      49.271387,
+      0
+    ]
+  },
+  "name": "Beau Murazik",
+  "type": "Person",
+  "contactedBy": [
+    "PRC"
+  ],
+  "lastContacted": "2017-02",
+  "reports": [
+    [
+      "61f176664c843262d91d4df6",
+      "Jericho Lands Planning Program"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e7a"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0912472,
+      49.2376161,
+      0
+    ]
+  },
+  "name": "Jane Doe",
+  "type": "Person",
+  "contactedBy": [
+    "PRC"
+  ],
+  "lastContacted": "2019-05",
+  "reports": [
+    [
+      "61f176664c843262d91d4df5",
+      "Kensington-Cedar Cottage Study"
+    ],
+    [
+      "61f176664c843262d91d4dfc",
+      "Kitsilano Beach Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e8e"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0794557,
+      49.31584,
+      0
+    ]
+  },
+  "name": "Mollie Bailey",
+  "contactedBy": [
+    "PRC"
+  ],
+  "type": "Person",
+  "lastContacted": "2020-02",
+  "reports": [
+    [
+      "61f176664c843262d91d4df7",
+      "Broadway Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e96"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.1488069,
+      49.2436089,
+      0
+    ]
+  },
+  "name": "Kristofer Volkman",
+  "contactedBy": [
+    "PRC"
+  ],
+  "type": "Person",
+  "lastContacted": "2019-06",
+  "reports": [
+    [
+      "61f176664c843262d91d4df7",
+      "Broadway Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e9e"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.1012762,
+      49.2614991,
+      0
+    ]
+  },
+  "name": "Mount Pleasant War Memorial Community Cooperative Association",
+  "contactedBy": [
+    "GV"
+  ],
+  "type": "Organization",
+  "lastContacted": "2020-02",
+  "reports": [
+    [
+      "61f176664c843262d91d4df8",
+      "Gastown Complete Streets"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4ea3"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.0655073,
+      49.2255249,
+      0
+    ]
+  },
+  "name": "South Vancouver Neighbourhood House",
+  "contactedBy": [
+    "PRC"
+  ],
+  "type": "Organization",
+  "lastContacted": "2021-02",
+  "reports": [
+    [
+      "61f176664c843262d91d4df8",
+      "Gastown Complete Streets"
+    ],
+    [
+      "61f176664c843262d91d4dfc",
+      "Kitsilano Beach Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e7f"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.054441,
+      49.2345375,
+      0
+    ]
+  },
+  "name": "Mitch Dan",
+  "type": "Person",
+  "contactedBy": [
+    "UZD"
+  ],
+  "lastContacted": "2020-09",
+  "reports": [
+    [
+      "61f176664c843262d91d4df5",
+      "Kensington-Cedar Cottage Study"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e90"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.006472,
+      49.269852,
+      0
+    ]
+  },
+  "name": "Nora Dicki",
+  "contactedBy": [
+    "UZD"
+  ],
+  "type": "Person",
+  "lastContacted": "2021-12",
+  "reports": [
+    [
+      "61f176664c843262d91d4df7",
+      "Broadway Plan"
+    ]
+  ]
+},{
+  "_id": {
+    "$oid": "61f187a24c843262d91d4e91"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -123.1827958,
+      49.232625,
+      0
+    ]
+  },
+  "name": "Henri Reinger",
+  "contactedBy": [
+    "UZD"
+  ],
+  "type": "Person",
+  "lastContacted": "2021-12",
+  "reports": [
+    [
+      "61f176664c843262d91d4df7",
+      "Broadway Plan"
+    ]
+  ]
+}]
