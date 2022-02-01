@@ -5,12 +5,14 @@ require('dotenv').config();
 const app = express();
 const PORT = 8000;
 const mongoose = require('mongoose');
+const cors = require('cors');
 const ReportModel = require('./models/Reports');
 const RelationshipModel = require('./models/Relationships');
 const ProjectModel = require('./models/Projects');
 
 // Convert body of JSON requests to an object
 app.use(express.json());
+app.use(cors());
 
 mongoose.connect(process.env.DATABASE_CONNECTION_TOKEN);
 
