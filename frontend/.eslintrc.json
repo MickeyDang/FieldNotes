@@ -6,6 +6,7 @@
     },
     "extends": [
         "plugin:react/recommended",
+        "plugin:css-modules/recommended",
         "airbnb"
     ],
     "parser": "@typescript-eslint/parser",
@@ -18,7 +19,8 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "css-modules"
     ],
     "settings": {
         "import/resolver": {
