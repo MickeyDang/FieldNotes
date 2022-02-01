@@ -27,6 +27,34 @@ async function getReports() {
   return reports;
 }
 
+async function getRelationships() {
+  const res = await fetch('http://localhost:8000/relationships/');
+  const data = await res.json();
+
+  // shape into valid geojson for adding to the map
+  // eslint-disable-next-line max-len
+  const relationships = data.map((rel: { location: { coordinates: any[]; }; _id: any; name: any; type: any; lastContacted: any; reports: any; }) => (
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [rel.location.coordinates[0], rel.location.coordinates[1]],
+      },
+      properties: {
+        // eslint-disable-next-line no-underscore-dangle
+        id: rel._id,
+        name: rel.name,
+        type: rel.type,
+        lastContacted: rel.lastContacted,
+        reports: rel.reports,
+      },
+    }
+  ));
+
+  console.log(data);
+  return relationships;
+}
+
 function MapPanel() {
   const mapContainerRef = useRef(null);
 
@@ -39,15 +67,23 @@ function MapPanel() {
       zoom: 12.5,
     });
 
-    // fetch and display reports
+    // fetch and display reports and relationships
     map.on('load', async () => {
       const reports = await getReports();
-      console.log(reports);
+      const relationships = await getRelationships();
+      console.log(relationships);
       map.addSource('reports', {
         type: 'geojson',
         data: {
           type: 'FeatureCollection',
           features: reports,
+        },
+      });
+      map.addSource('relationships', {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: relationships,
         },
       });
 
@@ -70,6 +106,18 @@ function MapPanel() {
           'line-width': 1,
         },
         filter: ['==', '$type', 'Polygon'],
+      });
+
+      map.addLayer({
+        id: 'relationship-fill',
+        type: 'circle',
+        source: 'relationships',
+        paint: {
+          // Make circles larger as the user zooms from z12 to z22.
+          'circle-radius': { base: 1, stops: [[12, 2], [22, 180]] },
+          'circle-color': '#F29D49', // orange color fill
+          'circle-opacity': 1,
+        },
       });
     });
 
