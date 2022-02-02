@@ -1,8 +1,9 @@
 import React from 'react';
+import './MapPanel.css';
 
 function MapPanel() {
   return (
-    <div>
+    <div className="map-panel-container">
       <p>This is the Map Panel</p>
     </div>
   );

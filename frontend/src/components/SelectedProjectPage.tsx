@@ -1,12 +1,17 @@
 import React from 'react';
+import ListPanel from './ListPanel';
 import MapPanel from './MapPanel';
+import './SelectedProjectPage.css';
 
 function SelectedProjectPage() {
   return (
-    <div>
+    <>
       <p>This is the Selected Project Page</p>
-      <MapPanel />
-    </div>
+      <div className="container">
+        <ListPanel />
+        <MapPanel />
+      </div>
+    </>
   );
 }
 
