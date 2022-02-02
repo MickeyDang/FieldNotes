@@ -141,8 +141,8 @@ function MapPanel() {
   }, []);
 
   return (
-    <div>
-      <div className="map-container" ref={mapContainerRef} />
+    <div className="map-panel-container">
+      <div className="map" ref={mapContainerRef} />
     </div>
   );
 }
