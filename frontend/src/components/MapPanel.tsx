@@ -5,6 +5,13 @@ import './MapPanel.css';
 
 mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_API}`;
 
+const VANCOUVER_LAT = -123.127;
+const VANCOUVER_LNG = 49.28;
+const ZOOM_LVL = 12.5;
+const BLUE = '#8FB1BB';
+const DARKBLUE = '#1A85A7';
+const ORANGE = '#F29D49';
+
 async function getReports() {
   const res = await fetch('http://localhost:8000/reports/');
   const data = await res.json();
@@ -23,7 +30,6 @@ async function getReports() {
     }
   ));
 
-  console.log(data);
   return reports;
 }
 
@@ -31,7 +37,6 @@ async function getRelationships() {
   const res = await fetch('http://localhost:8000/relationships/');
   const data = await res.json();
 
-  // shape into valid geojson for adding to the map
   // eslint-disable-next-line max-len
   const relationships = data.map((rel: { location: { coordinates: any[]; }; _id: any; name: any; type: any; lastContacted: any; reports: any; }) => (
     {
@@ -51,8 +56,71 @@ async function getRelationships() {
     }
   ));
 
-  console.log(data);
   return relationships;
+}
+
+async function setupDataSources(map: mapboxgl.Map) {
+  const reports = await getReports();
+  const relationships = await getRelationships();
+  map.addSource('reports', {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: reports,
+    },
+  });
+  map.addSource('relationships', {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: relationships,
+    },
+  });
+}
+
+function setupMapInteractions(map: mapboxgl.Map) {
+  // Add zoom controls to the map.
+  map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'bottom-right');
+}
+
+function setupLayers(map: mapboxgl.Map) {
+  const reportFillLayer:mapboxgl.AnyLayer = {
+    id: 'report-fill',
+    type: 'fill',
+    source: 'reports',
+    paint: {
+      'fill-color': BLUE,
+      'fill-opacity': 0.6,
+    },
+    filter: ['==', '$type', 'Polygon'],
+  };
+
+  const reportLineLayer:mapboxgl.AnyLayer = {
+    id: 'report-boundary',
+    type: 'line',
+    source: 'reports',
+    paint: {
+      'line-color': DARKBLUE,
+      'line-width': 1,
+    },
+    filter: ['==', '$type', 'Polygon'],
+  };
+
+  const relationshipFillLayer:mapboxgl.AnyLayer = {
+    id: 'relationship-fill',
+    type: 'circle',
+    source: 'relationships',
+    paint: {
+      // Make circles larger as the user zooms from z12 to z22.
+      'circle-radius': { base: 1, stops: [[12, 2], [22, 180]] },
+      'circle-color': ORANGE,
+      'circle-opacity': 1,
+    },
+  };
+
+  map.addLayer(reportFillLayer);
+  map.addLayer(reportLineLayer);
+  map.addLayer(relationshipFillLayer);
 }
 
 function MapPanel() {
@@ -63,66 +131,14 @@ function MapPanel() {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current!,
       style: 'mapbox://styles/mapbox/light-v10',
-      center: [-123.127, 49.28],
-      zoom: 12.5,
+      center: [VANCOUVER_LAT, VANCOUVER_LNG],
+      zoom: ZOOM_LVL,
     });
 
-    // fetch and display reports and relationships
     map.on('load', async () => {
-      const reports = await getReports();
-      const relationships = await getRelationships();
-      console.log(relationships);
-      map.addSource('reports', {
-        type: 'geojson',
-        data: {
-          type: 'FeatureCollection',
-          features: reports,
-        },
-      });
-      map.addSource('relationships', {
-        type: 'geojson',
-        data: {
-          type: 'FeatureCollection',
-          features: relationships,
-        },
-      });
-
-      map.addLayer({
-        id: 'report-fill',
-        type: 'fill',
-        source: 'reports',
-        paint: {
-          'fill-color': '#8FB1BB', // blue color fill
-          'fill-opacity': 0.6,
-        },
-        filter: ['==', '$type', 'Polygon'],
-      });
-      map.addLayer({
-        id: 'report-boundary',
-        type: 'line',
-        source: 'reports',
-        paint: {
-          'line-color': '#1A85A7',
-          'line-width': 1,
-        },
-        filter: ['==', '$type', 'Polygon'],
-      });
-
-      map.addLayer({
-        id: 'relationship-fill',
-        type: 'circle',
-        source: 'relationships',
-        paint: {
-          // Make circles larger as the user zooms from z12 to z22.
-          'circle-radius': { base: 1, stops: [[12, 2], [22, 180]] },
-          'circle-color': '#F29D49', // orange color fill
-          'circle-opacity': 1,
-        },
-      });
+      await setupDataSources(map);
+      setupLayers(map);
     });
-
-    // Add zoom controls to the map.
-    map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'bottom-right');
 
     // change cursor to pointer when user hovers over a clickable feature
     map.on('mouseenter', (e) => {
@@ -136,7 +152,8 @@ function MapPanel() {
       map.getCanvas().style.cursor = '';
     });
 
-    // Clean up on unmount
+    setupMapInteractions(map);
+
     return () => map.remove();
   }, []);
 
