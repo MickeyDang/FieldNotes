@@ -44,12 +44,18 @@ const relationshipSchema = new mongoose.Schema({
     type: String,
     enum: ["Person", "Organization"],
   },
+  tags: {
+    type: [String],
+  },
   contact: contactInformationSchema,
   contactedBy: {
     type: String,
     enum: ["GV", "PRC", "UZD"],
   },
   lastContacted: {
+    type: Date,
+  },
+  createdDate: {
     type: Date,
   },
   description: {
