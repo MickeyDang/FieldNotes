@@ -7,9 +7,9 @@ mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_API}`;
 
 const VANCOUVER_LAT = -123.127;
 const VANCOUVER_LNG = 49.28;
-const ZOOM_LVL = 12.5;
+const DEFAULT_ZOOM_LEVEL = 12.5;
 const BLUE = '#8FB1BB';
-const DARKBLUE = '#1A85A7';
+const DARK_BLUE = '#1A85A7';
 const ORANGE = '#F29D49';
 
 async function getReports() {
@@ -100,7 +100,7 @@ function setupLayers(map: mapboxgl.Map) {
     type: 'line',
     source: 'reports',
     paint: {
-      'line-color': DARKBLUE,
+      'line-color': DARK_BLUE,
       'line-width': 1,
     },
     filter: ['==', '$type', 'Polygon'],
@@ -132,7 +132,7 @@ function MapPanel() {
       container: mapContainerRef.current!,
       style: 'mapbox://styles/mapbox/light-v10',
       center: [VANCOUVER_LAT, VANCOUVER_LNG],
-      zoom: ZOOM_LVL,
+      zoom: DEFAULT_ZOOM_LEVEL,
     });
 
     map.on('load', async () => {
