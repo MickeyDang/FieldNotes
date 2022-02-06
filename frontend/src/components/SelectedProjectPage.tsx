@@ -5,13 +5,10 @@ import './SelectedProjectPage.css';
 
 function SelectedProjectPage() {
   return (
-    <>
-      <p>This is the Selected Project Page</p>
-      <div className="container">
-        <ListPanel />
-        <MapPanel />
-      </div>
-    </>
+    <div className="container">
+      <ListPanel />
+      <MapPanel />
+    </div>
   );
 }
 

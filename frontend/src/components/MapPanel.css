@@ -3,5 +3,19 @@
   flex: 3;
   height: 100%;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
+}
+
+.map {
+  height: 85vh;
+  margin: 16px;
+}
+
+/* code below hides logos to match our Figma, but should be removed for non-prototyping purposes */
+.mapboxgl-ctrl-logo {
+  display: none !important;
+}
+
+.mapbox-improve-map {
+  display: none !important;
 }
