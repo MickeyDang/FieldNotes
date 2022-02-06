@@ -18,6 +18,11 @@ mongoose.connect(process.env.DATABASE_CONNECTION_TOKEN);
 
 app.get('/', (req, res) => res.send('Express and TypeScript Server'));
 
+app.get('/alldata', (req, res) => {
+  console.log(req.body);
+  res.send('Success');
+});
+
 app.get('/reports', (req, res) => {
   ReportModel.find({}, (err: any, result: any) => {
     res.json(err ?? result);

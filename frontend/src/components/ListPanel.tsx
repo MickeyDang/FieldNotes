@@ -1,11 +1,19 @@
 import React from 'react';
 import './ListPanel.css';
 
-function ListPanel() {
+interface ListPanelProps {
+  onSearchChange: Function,
+}
+
+function ListPanel({ onSearchChange }: ListPanelProps) {
+  const updateSearch = () => onSearchChange('Community Centres');
   return (
-    <div className="list-container">
-      <p>This is the List Panel</p>
-    </div>
+    <>
+      <button type="button" onClick={updateSearch}>Search for Community Centres</button>
+      <div className="list-container">
+        <p>This is the List Panel</p>
+      </div>
+    </>
   );
 }
 

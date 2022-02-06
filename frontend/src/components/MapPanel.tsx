@@ -3,6 +3,10 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './MapPanel.css';
 
+interface MapPanelProps {
+  onBoundingBoxChange: Function,
+}
+
 mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_API}`;
 
 const VANCOUVER_LAT = -123.127;
@@ -125,8 +129,10 @@ function setupLayers(map: mapboxgl.Map) {
   map.addLayer(relationshipFillLayer);
 }
 
-function MapPanel() {
+function MapPanel({ onBoundingBoxChange }: MapPanelProps) {
   const mapContainerRef = useRef(null);
+
+  const updateSearch = () => onBoundingBoxChange();
 
   // Initialize map when component mounts
   useEffect(() => {
@@ -143,7 +149,7 @@ function MapPanel() {
     });
 
     // change cursor to pointer when user hovers over a clickable feature
-    map.on('mouseenter', (e) => {
+    map.on('mouseenter', (e: any) => {
       if (e.features.length) {
         map.getCanvas().style.cursor = 'pointer';
       }
@@ -160,9 +166,12 @@ function MapPanel() {
   }, []);
 
   return (
-    <div className="map-panel-container">
-      <div className="map" ref={mapContainerRef} />
-    </div>
+    <>
+      <button type="button" onClick={updateSearch}>Search Area</button>
+      <div className="map-panel-container">
+        <p>This is the Map Panel</p>
+      </div>
+    </>
   );
 }
 

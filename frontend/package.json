@@ -12,7 +12,11 @@
     "@types/node": "^16.11.21",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
+<<<<<<< HEAD
     "mapbox-gl": "^2.6.1",
+=======
+    "lodash": "^4.17.21",
+>>>>>>> 073ce81 (setting up frontend search service)
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "^5.0.0",
@@ -46,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.178",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
     "eslint": "^8.7.0",
