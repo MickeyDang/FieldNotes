@@ -37,8 +37,10 @@ async function getRelationships() {
   const res = await fetch('http://localhost:8000/relationships/');
   const data = await res.json();
 
-  // eslint-disable-next-line max-len
-  const relationships = data.map((rel: { location: { coordinates: any[]; }; _id: any; name: any; type: any; lastContacted: any; reports: any; }) => (
+  const relationships = data.map((
+    rel: { location: { coordinates: any[]; }; _id: any;
+    name: any; type: any; lastContacted: any; reports: any; },
+  ) => (
     {
       type: 'Feature',
       geometry: {
