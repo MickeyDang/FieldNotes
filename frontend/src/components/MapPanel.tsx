@@ -10,6 +10,10 @@ interface MapPanelProps {
   onBoundingBoxChange: Function,
 }
 
+interface MapPanelProps {
+  onBoundingBoxChange: Function,
+}
+
 mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_API}`;
 
 const VANCOUVER_LAT = -123.127;
