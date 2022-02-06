@@ -55,6 +55,9 @@ const relationshipSchema = new mongoose.Schema({
   lastContacted: {
     type: Date,
   },
+  createdDate: {
+    type: Date,
+  },
   description: {
     type: String,
   },
