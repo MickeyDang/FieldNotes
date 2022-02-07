@@ -1,14 +1,56 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import _ from 'lodash';
+import searchData, { BoundingBox } from '../services/SearchService';
 import ListPanel from './ListPanel';
 import MapPanel from './MapPanel';
 import './SelectedProjectPage.css';
 
 function SelectedProjectPage() {
+  const [searchParams, setSearchParams] = useState({});
+  const [reports, setReports] = useState({});
+  const [relationships, setRelationships] = useState({});
+
+  const executeSearch = useCallback(async () => {
+    const response = await searchData(searchParams);
+    setReports(response.reports);
+    setRelationships(response.relationships);
+  }, [searchParams]);
+
+  useEffect(() => {
+    executeSearch();
+  }, [executeSearch]);
+
+  const updateSearchQuery = (updatedSearchQuery: string[]) => {
+    const updatedParams = { ...searchParams, searchQuery: updatedSearchQuery };
+    if (!_.isEqual(updatedParams, searchParams)) {
+      setSearchParams(updatedParams);
+    }
+  };
+
+  const updateBoundingBoxQuery = (updatedBoundingBoxQuery: BoundingBox) => {
+    const updatedParams = { ...searchParams, boundingBox: updatedBoundingBoxQuery };
+    if (!_.isEqual(updatedParams, searchParams)) {
+      setSearchParams(updatedParams);
+    }
+  };
+
+  const clearQuery = () => setSearchParams({});
+
   return (
-    <div className="container">
-      <ListPanel />
-      <MapPanel />
-    </div>
+    <>
+      <p>This is the Selected Project Page</p>
+      <button type="button" onClick={clearQuery}>Clear All Filters</button>
+      <div className="container">
+        <ListPanel
+          onSearchChange={updateSearchQuery}
+        />
+        <MapPanel
+          reportResults={reports}
+          relationshipResults={relationships}
+          onBoundingBoxChange={updateBoundingBoxQuery}
+        />
+      </div>
+    </>
   );
 }
 
