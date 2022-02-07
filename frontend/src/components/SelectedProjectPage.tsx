@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
-import getAllData from '../services/SearchService';
+import searchData, { BoundingBox } from '../services/SearchService';
 import ListPanel from './ListPanel';
 import MapPanel from './MapPanel';
 import './SelectedProjectPage.css';
 
-type BoundingBox = [[number, number], [number, number]];
-
-export interface SearchParameters {
-  searchQuery?: string[];
-  boundingBox?: BoundingBox;
-}
-
 function SelectedProjectPage() {
   const [searchParams, setSearchParams] = useState({});
+  const [reports, setReports] = useState({});
+  const [relationships, setRelationships] = useState({});
 
   useEffect(() => {
-    getAllData(searchParams);
+    const executeSearch = async () => {
+      const response = await searchData(searchParams);
+      setReports(response.reports);
+      setRelationships(response.relationships);
+    };
+
+    executeSearch();
   }, [searchParams]);
 
-  const updateSearchQuery = (updatedSearchQuery: string) => {
+  const updateSearchQuery = (updatedSearchQuery: string[]) => {
     const updatedParams = { ...searchParams, searchQuery: updatedSearchQuery };
     if (!_.isEqual(updatedParams, searchParams)) {
       setSearchParams(updatedParams);
@@ -33,14 +34,19 @@ function SelectedProjectPage() {
     }
   };
 
+  const clearQuery = () => setSearchParams({});
+
   return (
     <>
       <p>This is the Selected Project Page</p>
+      <button type="button" onClick={clearQuery}>Clear All Filters</button>
       <div className="container">
         <ListPanel
           onSearchChange={updateSearchQuery}
         />
         <MapPanel
+          reportResults={reports}
+          relationshipResults={relationships}
           onBoundingBoxChange={updateBoundingBoxQuery}
         />
       </div>

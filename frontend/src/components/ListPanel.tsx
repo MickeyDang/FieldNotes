@@ -6,14 +6,14 @@ interface ListPanelProps {
 }
 
 function ListPanel({ onSearchChange }: ListPanelProps) {
-  const updateSearch = () => onSearchChange('Community Centres');
+  // TODO: make the search query change based on form input.
+  const updateSearch = () => onSearchChange(['Community Centres']);
+
   return (
-    <>
+    <div className="list-container">
+      <p>This is the List Panel</p>
       <button type="button" onClick={updateSearch}>Search for Community Centres</button>
-      <div className="list-container">
-        <p>This is the List Panel</p>
-      </div>
-    </>
+    </div>
   );
 }
 

@@ -3,12 +3,12 @@
   flex: 3;
   height: 100%;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
 }
 
 .map {
-  height: 85vh;
-  margin: 16px;
+  height: 70vh;
+  width: 100%;
 }
 
 /* code below hides logos to match our Figma, but should be removed for non-prototyping purposes */
