@@ -21,10 +21,6 @@ mongoose.connect(process.env.DATABASE_CONNECTION_TOKEN);
 app.get('/', (req, res) => res.send('Express and TypeScript Server'));
 
 app.get('/alldata', async (req, res) => {
-  // TODO: extract the filter information from the query parameters.
-  // TODO: construct the database querries.
-  // TODO: format the response of reports and relationships.
-
   const queryObject = url.parse(req.url, true).query;
 
   const { boundingBox } = queryObject;
@@ -43,6 +39,8 @@ app.get('/alldata', async (req, res) => {
       $and: [{
         location: { $geoWithin: { $box: [lowerLeft, upperRight] } },
       }, { tags: { $all: keywords } }],
+    }, {
+      name: 1, reports: 1, tags: 1, location: 1,
     });
 
     queryReports = ReportModel.find({
@@ -58,23 +56,27 @@ app.get('/alldata', async (req, res) => {
           },
         }, { tags: { $all: keywords } }],
     }, {
-      lastUpdated: 0, department: 0, methods: 0, description: 0, 
+      name: 1, relationships: 1, tags: 1, location: 1,
     }).sort({ creationDate: -1 });
   } else if (keywords) {
     queryReports = ReportModel.find(
       { tags: { $all: keywords } },
       {
-        lastUpdated: 0, department: 0, methods: 0, description: 0,
+        name: 1, relationships: 1, tags: 1, location: 1,
       },
     ).sort({ creationDate: -1 });
 
-    queryRelationships = RelationshipModel.find({ tags: { $all: keywords } });
+    queryRelationships = RelationshipModel.find({ tags: { $all: keywords } }, {
+      name: 1, reports: 1, tags: 1, location: 1,
+    });
   } else if (boundingBox) {
     queryRelationships = RelationshipModel.find({
       location: { $geoWithin: { $box: [lowerLeft, upperRight] } },
+    }, {
+      name: 1, reports: 1, tags: 1, location: 1,
     });
 
-    queryRelationships = RelationshipModel.find(
+    queryReports = ReportModel.find(
       {
         location: {
           $geoWithin: {
@@ -84,6 +86,9 @@ app.get('/alldata', async (req, res) => {
             },
           },
         },
+      },
+      {
+        name: 1, relationships: 1, tags: 1, location: 1,
       },
     ).sort({ creationDate: -1 });
   }
