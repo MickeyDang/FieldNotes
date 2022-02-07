@@ -20,7 +20,8 @@
     "plugins": [
         "react",
         "@typescript-eslint",
-        "css-modules"
+        "css-modules",
+        "react-hooks"
     ],
     "settings": {
         "import/resolver": {
