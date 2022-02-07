@@ -5,8 +5,8 @@ import './MapPanel.css';
 import { setupDataSources, setupLayers, setupMapInteractions } from './MapRenderer';
 
 interface MapPanelProps {
-  reportResults: {},
-  relationshipResults: {},
+  reportResults: any[],
+  relationshipResults: any[],
   onBoundingBoxChange: Function,
 }
 
@@ -36,7 +36,7 @@ function MapPanel({ reportResults, relationshipResults, onBoundingBoxChange }: M
     });
 
     map.on('load', async () => {
-      await setupDataSources(reportResults, relationshipResults, map);
+      setupDataSources(reportResults, relationshipResults, map);
       setupLayers(map);
     });
 

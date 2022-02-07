@@ -1,22 +1,16 @@
-export type BoundingBox = [[number, number], [number, number]];
-
-export interface SearchParameters {
-  searchQuery?: string[];
-  boundingBox?: BoundingBox;
-}
+import { SearchParameters } from '../models/types';
 
 type RelationshipFeature = {
-  location: { coordinates: any[]; };
-  _id: any;
-  name: any;
-  type: any;
-  lastContacted: any;
+  location: { coordinates: number[]; };
+  name: string;
+  type: string;
+  lastContacted: Date;
   reports: any;
 };
 
 type ReportFeature = {
-  location: { coordinates: any[]; };
-  name: any;
+  location: { coordinates: number[]; };
+  name: string;
 }
 
 function formatParameters(params: SearchParameters) {
@@ -31,7 +25,6 @@ function formatParameters(params: SearchParameters) {
 }
 
 function formatReports(data: any) {
-  // shape into valid geojson for adding to the map
   const reports = data.map((report: ReportFeature) => (
     {
       type: 'Feature',
@@ -59,8 +52,6 @@ function formatRelationships(data: any) {
         coordinates: [rel.location.coordinates[0], rel.location.coordinates[1]],
       },
       properties: {
-        // eslint-disable-next-line no-underscore-dangle
-        id: rel._id,
         name: rel.name,
         type: rel.type,
         lastContacted: rel.lastContacted,
