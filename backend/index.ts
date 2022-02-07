@@ -21,37 +21,22 @@ app.get('/', (req, res) => res.send('Express and TypeScript Server'));
 app.get('/alldata', async (req, res) => {
   const queryParams = req.query;
   console.info(`Request: ${JSON.stringify(queryParams)}`);
+  console.log('bounding box ', JSON.parse(queryParams));
+  console.log('keys ', JSON.stringify(queryParams.keywords));
   // TODO: extract the filter information from the query parameters.
   // TODO: construct the database querries.
   // TODO: format the response of reports and relationships.
 
-  const reports = await ReportModel.find({});
-  const relationships = await RelationshipModel.find({});
-
-  res.status(200).json({
-    reports,
-    relationships,
-  });
-});
-
-app.get('/projects', (req, res) => {
-  ProjectModel.find({}, (err: any, result: any) => {
-    if (err) {
-      res.status(500).send();
-    } else {
-      res.status(200).json(result);
-    }
-  });
-});
-
-app.get('/temp-filter-search', (req, res) => {
   const boundingBox = [[-124, 49], [-123, 50]];
   const lowerLeft = boundingBox[0];
   const upperRight = boundingBox[1];
   const polygon = [
     lowerLeft, [lowerLeft[0], upperRight[1]], upperRight, [upperRight[0], lowerLeft[1]], lowerLeft,
   ];
+  // const keywords = JSON.stringify(queryParams.keywords); // ['Rain and Snow', 'Sea Level Rise'];
   const keywords = ['Rain and Snow', 'Sea Level Rise'];
+  // console.log('type mine: ',typeof keywords);
+  // console.log('type: ',typeof JSON.stringify(queryParams.keywords));
 
   let queryReports;
   let queryRelationships;
@@ -90,34 +75,37 @@ app.get('/temp-filter-search', (req, res) => {
       location: { $geoWithin: { $box: [lowerLeft, upperRight] } },
     });
 
-    queryRelationships = RelationshipModel.find({
-      $and: [
-        {
-          location: {
-            $geoWithin: {
-              $geometry: {
-                type: 'Polygon',
-                coordinates: [polygon],
-              },
+    queryRelationships = RelationshipModel.find(
+      {
+        location: {
+          $geoWithin: {
+            $geometry: {
+              type: 'Polygon',
+              coordinates: [polygon],
             },
           },
-        }, { tags: { $all: keywords } }],
-    }).sort({ creationDate: -1 });
+        },
+      },
+    ).sort({ creationDate: -1 });
   }
 
-  Promise.all([
-    queryReports,
-    queryRelationships,
-  ])
-    .then((results) => {
-      res.json(results);
-      const [reports, relationships] = results;
-      console.log('reports: ', reports);
-      console.log('relationships: ', relationships);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  const reports = await queryReports;
+  const relationships = await queryRelationships;
+
+  res.status(200).json({
+    reports,
+    relationships,
+  });
+});
+
+app.get('/projects', (req, res) => {
+  ProjectModel.find({}, (err: any, result: any) => {
+    if (err) {
+      res.status(500).send();
+    } else {
+      res.status(200).json(result);
+    }
+  });
 });
 
 app.listen(PORT, () => {
