@@ -34,6 +34,82 @@ app.get('/projects', (req, res) => {
   });
 });
 
+app.get('/temp-filter-search', (req, res) => {
+  const boundingBox = [[-124, 49], [-123, 50]];
+  const lowerLeft = boundingBox[0];
+  const upperRight = boundingBox[1];
+  const polygon = [
+    lowerLeft, [lowerLeft[0], upperRight[1]], upperRight, [upperRight[0], lowerLeft[1]], lowerLeft,
+  ];
+  const keywords = ['Rain and Snow', 'Sea Level Rise'];
+
+  let queryReports;
+  let queryRelationships;
+
+  if (boundingBox && keywords) {
+    queryRelationships = RelationshipModel.find({
+      $and: [{
+        location: { $geoWithin: { $box: [lowerLeft, upperRight] } },
+      }, { tags: { $all: keywords } }],
+    });
+
+    queryReports = ReportModel.find({
+      $and: [
+        {
+          location: {
+            $geoWithin: {
+              $geometry: {
+                type: 'Polygon',
+                coordinates: [polygon],
+              },
+            },
+          },
+        }, { tags: { $all: keywords } }],
+    }).sort({ creationDate: -1 });
+  } else if (keywords) {
+    queryReports = ReportModel.find(
+      { tags: { $all: keywords } },
+      {
+        lastUpdated: 0, department: 0, methods: 0, description: 0,
+      },
+    ).sort({ creationDate: -1 });
+
+    queryRelationships = RelationshipModel.find({ tags: { $all: keywords } });
+  } else if (boundingBox) {
+    queryRelationships = RelationshipModel.find({
+      location: { $geoWithin: { $box: [lowerLeft, upperRight] } },
+    });
+
+    queryRelationships = RelationshipModel.find({
+      $and: [
+        {
+          location: {
+            $geoWithin: {
+              $geometry: {
+                type: 'Polygon',
+                coordinates: [polygon],
+              },
+            },
+          },
+        }, { tags: { $all: keywords } }],
+    }).sort({ creationDate: -1 });
+  }
+
+  Promise.all([
+    queryReports,
+    queryRelationships,
+  ])
+    .then((results) => {
+      res.json(results);
+      const [reports, relationships] = results;
+      console.log('reports: ', reports);
+      console.log('relationships: ', relationships);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running at https://localhost:${PORT}`);
 });
