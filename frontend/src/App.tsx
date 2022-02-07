@@ -1,12 +1,24 @@
 import React from 'react';
+import {
+  Container,
+  Row,
+} from 'react-bootstrap';
 import './App.css';
+import Header from './components/Header';
 import SelectedProjectPage from './components/SelectedProjectPage';
 
 function App() {
   return (
-    <div className="App">
-      <SelectedProjectPage />
-    </div>
+    <Container fluid className="App">
+      <Row>
+        <Header />
+      </Row>
+
+      <Row>
+        <SelectedProjectPage />
+      </Row>
+
+    </Container>
   );
 }
 

@@ -31,6 +31,10 @@ function MapPanel({ reportResults, relationshipResults, onBoundingBoxChange }: M
       zoom: DEFAULT_ZOOM_LEVEL,
     });
 
+    map.on('render', () => {
+      map.resize();
+    });
+
     map.on('load', async () => {
       await setupDataSources(reportResults, relationshipResults, map);
       setupLayers(map);
@@ -55,7 +59,6 @@ function MapPanel({ reportResults, relationshipResults, onBoundingBoxChange }: M
 
   return (
     <div className="map-panel-container">
-      <p>This is the Map Panel</p>
       <button type="button" onClick={updateSearch}>Search Area</button>
       <div className="map" ref={mapContainerRef} />
     </div>
