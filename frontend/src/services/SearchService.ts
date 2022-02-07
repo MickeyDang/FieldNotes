@@ -22,9 +22,6 @@ type ReportFeature = {
 function formatParameters(params: SearchParameters) {
   const bottomLeftLatLng = params.boundingBox?.[0];
   const topRightLatLng = params.boundingBox?.[1];
-
-  console.log(bottomLeftLatLng);
-  console.log(topRightLatLng);
   return {
     query: params.searchQuery?.join(',') ?? '',
     box: bottomLeftLatLng && topRightLatLng
@@ -33,10 +30,7 @@ function formatParameters(params: SearchParameters) {
   };
 }
 
-async function getReports() {
-  const res = await fetch('http://localhost:8000/reports/');
-  const data = await res.json();
-
+function formatReports(data: any) {
   // shape into valid geojson for adding to the map
   const reports = data.map((report: ReportFeature) => (
     {
@@ -54,10 +48,7 @@ async function getReports() {
   return reports;
 }
 
-async function getRelationships() {
-  const res = await fetch('http://localhost:8000/relationships/');
-  const data = await res.json();
-
+function formatRelationships(data: any) {
   const relationships = data.map((
     rel: RelationshipFeature,
   ) => (
@@ -83,11 +74,10 @@ async function getRelationships() {
 
 async function searchData(params: SearchParameters) {
   const res = await (await fetch(`http://localhost:8000/alldata?${new URLSearchParams(formatParameters(params))}`)).json();
-  console.debug(`Response: ${JSON.stringify(res)}`);
 
   const allData = {
-    reports: await getReports(),
-    relationships: await getRelationships(),
+    reports: formatReports(res.reports),
+    relationships: formatRelationships(res.relationships),
   };
 
   return allData;

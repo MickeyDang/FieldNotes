@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import _ from 'lodash';
 import searchData, { BoundingBox } from '../services/SearchService';
 import ListPanel from './ListPanel';
@@ -10,15 +10,15 @@ function SelectedProjectPage() {
   const [reports, setReports] = useState({});
   const [relationships, setRelationships] = useState({});
 
-  useEffect(() => {
-    const executeSearch = async () => {
-      const response = await searchData(searchParams);
-      setReports(response.reports);
-      setRelationships(response.relationships);
-    };
-
-    executeSearch();
+  const executeSearch = useCallback(async () => {
+    const response = await searchData(searchParams);
+    setReports(response.reports);
+    setRelationships(response.relationships);
   }, [searchParams]);
+
+  useEffect(() => {
+    executeSearch();
+  }, [executeSearch]);
 
   const updateSearchQuery = (updatedSearchQuery: string[]) => {
     const updatedParams = { ...searchParams, searchQuery: updatedSearchQuery };

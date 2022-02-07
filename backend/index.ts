@@ -18,32 +18,19 @@ mongoose.connect(process.env.DATABASE_CONNECTION_TOKEN);
 
 app.get('/', (req, res) => res.send('Express and TypeScript Server'));
 
-app.get('/alldata', (req, res) => {
+app.get('/alldata', async (req, res) => {
   const queryParams = req.query;
+  console.info(`Request: ${JSON.stringify(queryParams)}`);
   // TODO: extract the filter information from the query parameters.
   // TODO: construct the database querries.
   // TODO: format the response of reports and relationships.
-  console.debug(`Request: ${JSON.stringify(queryParams)}`);
-  res.status(200).json({ data: queryParams });
-});
 
-app.get('/reports', (req, res) => {
-  ReportModel.find({}, (err: any, result: any) => {
-    if (err) {
-      res.status(500).send();
-    } else {
-      res.status(200).json(result);
-    }
-  });
-});
+  const reports = await ReportModel.find({});
+  const relationships = await RelationshipModel.find({});
 
-app.get('/relationships', (req, res) => {
-  RelationshipModel.find({}, (err: any, result: any) => {
-    if (err) {
-      res.status(500).send();
-    } else {
-      res.status(200).json(result);
-    }
+  res.status(200).json({
+    reports,
+    relationships,
   });
 });
 
