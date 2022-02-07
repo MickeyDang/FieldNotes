@@ -25,9 +25,9 @@ function ListPanel({ onSearchChange }: ListPanelProps) {
       </Row>
       <Row>
         <Col>
-          <Accordion defaultActiveKey={['0', '1']} flush alwaysOpen>
+          <Accordion defaultActiveKey={['reports', 'relationships']} flush alwaysOpen>
 
-            <Accordion.Item eventKey="0">
+            <Accordion.Item eventKey="reports">
               <Accordion.Header> Reports </Accordion.Header>
               <Accordion.Body>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -40,7 +40,7 @@ function ListPanel({ onSearchChange }: ListPanelProps) {
               </Accordion.Body>
             </Accordion.Item>
 
-            <Accordion.Item eventKey="1">
+            <Accordion.Item eventKey="relationships">
               <Accordion.Header> Relationships </Accordion.Header>
               <Accordion.Body>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
