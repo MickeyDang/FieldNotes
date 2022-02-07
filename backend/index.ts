@@ -1,5 +1,7 @@
 import express from 'express';
 
+const url = require('url');
+
 require('dotenv').config();
 
 const app = express();
@@ -19,24 +21,19 @@ mongoose.connect(process.env.DATABASE_CONNECTION_TOKEN);
 app.get('/', (req, res) => res.send('Express and TypeScript Server'));
 
 app.get('/alldata', async (req, res) => {
-  const queryParams = req.query;
-  console.info(`Request: ${JSON.stringify(queryParams)}`);
-  console.log('bounding box ', JSON.stringify(queryParams));
-  console.log('keys ', JSON.stringify(queryParams.keywords));
   // TODO: extract the filter information from the query parameters.
   // TODO: construct the database querries.
   // TODO: format the response of reports and relationships.
 
-  const boundingBox = [[-124, 49], [-123, 50]];
-  const lowerLeft = boundingBox[0];
-  const upperRight = boundingBox[1];
+  const queryObject = url.parse(req.url, true).query;
+
+  const { boundingBox } = queryObject;
+  const lowerLeft = Array.from(boundingBox[0].split(','), (x) => Number(x));
+  const upperRight = Array.from(boundingBox[1].split(','), (x) => Number(x));
   const polygon = [
     lowerLeft, [lowerLeft[0], upperRight[1]], upperRight, [upperRight[0], lowerLeft[1]], lowerLeft,
   ];
-  // const keywords = JSON.stringify(queryParams.keywords); // ['Rain and Snow', 'Sea Level Rise'];
-  const keywords = ['Rain and Snow', 'Sea Level Rise'];
-  // console.log('type mine: ',typeof keywords);
-  // console.log('type: ',typeof JSON.stringify(queryParams.keywords));
+  const { keywords } = queryObject;
 
   let queryReports;
   let queryRelationships;
@@ -60,6 +57,8 @@ app.get('/alldata', async (req, res) => {
             },
           },
         }, { tags: { $all: keywords } }],
+    }, {
+      lastUpdated: 0, department: 0, methods: 0, description: 0, 
     }).sort({ creationDate: -1 });
   } else if (keywords) {
     queryReports = ReportModel.find(
