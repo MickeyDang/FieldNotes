@@ -5,13 +5,18 @@ import {
   Col,
   Accordion,
 } from 'react-bootstrap';
+import { RelationshipProperties, ReportProperties } from '../models/types';
 import './ListPanel.css';
+import RelationshipList from './RelationshipList';
+import ReportList from './ReportList';
 
 interface ListPanelProps {
+  reportResults: ReportProperties[],
+  relationshipResults: RelationshipProperties[],
   onSearchChange: Function,
 }
 
-function ListPanel({ onSearchChange }: ListPanelProps) {
+function ListPanel({ onSearchChange, reportResults, relationshipResults }: ListPanelProps) {
   // TODO: make the search query change based on form input.
   const updateSearch = () => onSearchChange(['Community Centres']);
 
@@ -20,7 +25,7 @@ function ListPanel({ onSearchChange }: ListPanelProps) {
       <Row>
         <Col>
           Searchbar
-          <button type="button" onClick={updateSearch}>Search for Community Centres</button>
+          <button type="button" onClick={updateSearch}>Search for Keywords</button>
         </Col>
       </Row>
       <Row>
@@ -30,26 +35,14 @@ function ListPanel({ onSearchChange }: ListPanelProps) {
             <Accordion.Item eventKey="reports">
               <Accordion.Header> Reports </Accordion.Header>
               <Accordion.Body>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-                est laborum.
+                <ReportList reports={reportResults} />
               </Accordion.Body>
             </Accordion.Item>
 
             <Accordion.Item eventKey="relationships">
               <Accordion.Header> Relationships </Accordion.Header>
               <Accordion.Body>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-                est laborum.
+                <RelationshipList relationships={relationshipResults} />
               </Accordion.Body>
             </Accordion.Item>
 
