@@ -21,7 +21,7 @@ app.get('/', (req, res) => res.send('Express and TypeScript Server'));
 app.get('/alldata', async (req, res) => {
   const queryParams = req.query;
   console.info(`Request: ${JSON.stringify(queryParams)}`);
-  console.log('bounding box ', JSON.parse(queryParams));
+  console.log('bounding box ', JSON.stringify(queryParams));
   console.log('keys ', JSON.stringify(queryParams.keywords));
   // TODO: extract the filter information from the query parameters.
   // TODO: construct the database querries.
