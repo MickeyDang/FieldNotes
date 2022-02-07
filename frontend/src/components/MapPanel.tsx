@@ -11,6 +11,8 @@ interface MapPanelProps {
 }
 
 interface MapPanelProps {
+  reportResults: {},
+  relationshipResults: {},
   onBoundingBoxChange: Function,
 }
 

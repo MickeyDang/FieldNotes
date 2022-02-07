@@ -1,22 +1,9 @@
-<<<<<<< HEAD
 import React, { useCallback, useEffect, useState } from 'react';
 import _ from 'lodash';
 import searchData, { BoundingBox } from '../services/SearchService';
-=======
-import React, { useEffect, useState } from 'react';
-import _ from 'lodash';
-import getAllData from '../services/SearchService';
->>>>>>> b8cd68c (setting up frontend search service)
 import ListPanel from './ListPanel';
 import MapPanel from './MapPanel';
 import './SelectedProjectPage.css';
-
-type BoundingBox = [[number, number], [number, number]];
-
-export interface SearchParameters {
-  searchQuery?: string[];
-  boundingBox?: BoundingBox;
-}
 
 function SelectedProjectPage() {
   const [searchParams, setSearchParams] = useState({});
