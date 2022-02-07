@@ -1,4 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import {
+  Container,
+  Col,
+} from 'react-bootstrap';
 import _ from 'lodash';
 import searchData, { BoundingBox } from '../services/SearchService';
 import ListPanel from './ListPanel';
@@ -37,20 +41,21 @@ function SelectedProjectPage() {
   const clearQuery = () => setSearchParams({});
 
   return (
-    <>
-      <p>This is the Selected Project Page</p>
-      <button type="button" onClick={clearQuery}>Clear All Filters</button>
-      <div className="container">
+    <Container>
+      <Col xs={8} md={6} lg={5}>
+        <button type="button" onClick={clearQuery}>Clear All Filters</button>
         <ListPanel
           onSearchChange={updateSearchQuery}
         />
+      </Col>
+      <Col xs={4} md={6} lg={7}>
         <MapPanel
           reportResults={reports}
           relationshipResults={relationships}
           onBoundingBoxChange={updateBoundingBoxQuery}
         />
-      </div>
-    </>
+      </Col>
+    </Container>
   );
 }
 
