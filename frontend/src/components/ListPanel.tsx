@@ -13,14 +13,14 @@ interface ListPanelProps {
 
 function ListPanel({ onSearchChange }: ListPanelProps) {
   // TODO: make the search query change based on form input.
-  const updateSearch = () => onSearchChange(['Community Centres']);
+  const updateSearch = () => onSearchChange(['Temperature']);
 
   return (
     <Container fluid className="list-container">
       <Row>
         <Col>
           Searchbar
-          <button type="button" onClick={updateSearch}>Search for Community Centres</button>
+          <button type="button" onClick={updateSearch}>Search for Temperature</button>
         </Col>
       </Row>
       <Row>

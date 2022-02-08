@@ -1,6 +1,7 @@
 import express from 'express';
+// import { type } from 'os';
 
-const url = require('url');
+// const url = require('url');
 
 require('dotenv').config();
 
@@ -21,20 +22,20 @@ mongoose.connect(process.env.DATABASE_CONNECTION_TOKEN);
 app.get('/', (req, res) => res.send('Express and TypeScript Server'));
 
 app.get('/alldata', async (req, res) => {
-  const queryObject = url.parse(req.url, true).query;
+  const queryParams = req.query;
 
-  const { boundingBox } = queryObject;
-  const lowerLeft = Array.from(boundingBox[0].split(','), (x) => Number(x));
-  const upperRight = Array.from(boundingBox[1].split(','), (x) => Number(x));
+  const keywords = [queryParams.query];
+  const coordinates = Array.from((<string>queryParams.box).split(','), (x) => Number(x));
+  const lowerLeft = coordinates.slice(0, 2);
+  const upperRight = coordinates.slice(2, 4);
   const polygon = [
     lowerLeft, [lowerLeft[0], upperRight[1]], upperRight, [upperRight[0], lowerLeft[1]], lowerLeft,
   ];
-  const { keywords } = queryObject;
 
   let queryReports;
   let queryRelationships;
 
-  if (boundingBox && keywords) {
+  if (keywords[0] && coordinates[0]) {
     queryRelationships = RelationshipModel.find({
       $and: [{
         location: { $geoWithin: { $box: [lowerLeft, upperRight] } },
@@ -58,7 +59,7 @@ app.get('/alldata', async (req, res) => {
     }, {
       name: 1, relationships: 1, tags: 1, location: 1,
     }).sort({ creationDate: -1 });
-  } else if (keywords) {
+  } else if (keywords[0]) {
     queryReports = ReportModel.find(
       { tags: { $all: keywords } },
       {
@@ -69,7 +70,7 @@ app.get('/alldata', async (req, res) => {
     queryRelationships = RelationshipModel.find({ tags: { $all: keywords } }, {
       name: 1, reports: 1, tags: 1, location: 1,
     });
-  } else if (boundingBox) {
+  } else if (coordinates[0]) {
     queryRelationships = RelationshipModel.find({
       location: { $geoWithin: { $box: [lowerLeft, upperRight] } },
     }, {
