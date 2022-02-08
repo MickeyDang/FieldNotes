@@ -1,7 +1,4 @@
 import express from 'express';
-// import { type } from 'os';
-
-// const url = require('url');
 
 require('dotenv').config();
 
@@ -24,78 +21,72 @@ app.get('/', (req, res) => res.send('Express and TypeScript Server'));
 app.get('/alldata', async (req, res) => {
   const queryParams = req.query;
 
-  const keywords = [queryParams.query];
-  const coordinates = Array.from((<string>queryParams.box).split(','), (x) => Number(x));
+  const keywords = (<string>queryParams?.query)?.split(',') ?? [];
+  const coordinates = (<string>queryParams?.box)?.split(',')?.map((x) => Number(x)) ?? [];
+
+  // Expected behaviour is that if no filters are applied, no data is returned.
+  if (keywords.length === 0 && coordinates.length === 0) {
+    res.status(200).json({
+      reports: [],
+      relationships: [],
+    });
+    return;
+  }
+
   const lowerLeft = coordinates.slice(0, 2);
   const upperRight = coordinates.slice(2, 4);
   const polygon = [
     lowerLeft, [lowerLeft[0], upperRight[1]], upperRight, [upperRight[0], lowerLeft[1]], lowerLeft,
   ];
 
-  let queryReports;
-  let queryRelationships;
+  const reportFilters = [];
+  const relationshipFilters = [];
 
-  if (keywords[0] && coordinates[0]) {
-    queryRelationships = RelationshipModel.find({
-      $and: [{
-        location: { $geoWithin: { $box: [lowerLeft, upperRight] } },
-      }, { tags: { $all: keywords } }],
-    }, {
-      name: 1, reports: 1, tags: 1, location: 1,
-    });
+  const KEYWORDS_FILTER = { tags: { $all: keywords } };
 
-    queryReports = ReportModel.find({
-      $and: [
-        {
-          location: {
-            $geoWithin: {
-              $geometry: {
-                type: 'Polygon',
-                coordinates: [polygon],
-              },
-            },
-          },
-        }, { tags: { $all: keywords } }],
-    }, {
-      name: 1, relationships: 1, tags: 1, location: 1,
-    }).sort({ creationDate: -1 });
-  } else if (keywords[0]) {
-    queryReports = ReportModel.find(
-      { tags: { $all: keywords } },
-      {
-        name: 1, relationships: 1, tags: 1, location: 1,
-      },
-    ).sort({ creationDate: -1 });
-
-    queryRelationships = RelationshipModel.find({ tags: { $all: keywords } }, {
-      name: 1, reports: 1, tags: 1, location: 1,
-    });
-  } else if (coordinates[0]) {
-    queryRelationships = RelationshipModel.find({
-      location: { $geoWithin: { $box: [lowerLeft, upperRight] } },
-    }, {
-      name: 1, reports: 1, tags: 1, location: 1,
-    });
-
-    queryReports = ReportModel.find(
-      {
-        location: {
-          $geoWithin: {
-            $geometry: {
-              type: 'Polygon',
-              coordinates: [polygon],
-            },
-          },
-        },
-      },
-      {
-        name: 1, relationships: 1, tags: 1, location: 1,
-      },
-    ).sort({ creationDate: -1 });
+  if (keywords.length > 0) {
+    reportFilters.push(KEYWORDS_FILTER);
+    relationshipFilters.push(KEYWORDS_FILTER);
   }
 
-  const reports = await queryReports;
-  const relationships = await queryRelationships;
+  const BOUNDING_BOX_FILTER = {
+    location: {
+      $geoWithin: {
+        $geometry: {
+          type: 'Polygon',
+          coordinates: [polygon],
+        },
+      },
+    },
+  };
+
+  if (coordinates.length > 0) {
+    reportFilters.push(BOUNDING_BOX_FILTER);
+    relationshipFilters.push(BOUNDING_BOX_FILTER);
+  }
+
+  const REPORT_RESPONSE_FIELDS = {
+    name: 1, relationships: 1, tags: 1, location: 1,
+  };
+
+  const CREATION_DATE_SORT_ORDER = { creationDate: -1 };
+
+  const reportQuery = ReportModel.find({
+    $and: reportFilters,
+    REPORT_RESPONSE_FIELDS,
+  }).sort(CREATION_DATE_SORT_ORDER);
+
+  const RELATIOSHIP_RESPONSE_FIELDS = {
+    name: 1, reports: 1, tags: 1, location: 1,
+  };
+
+  const relationshipQuery = RelationshipModel.find({
+    $and: relationshipFilters,
+    RELATIOSHIP_RESPONSE_FIELDS,
+  });
+
+  const reports = await reportQuery;
+  const relationships = await relationshipQuery;
 
   res.status(200).json({
     reports,
