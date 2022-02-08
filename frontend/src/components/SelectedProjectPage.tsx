@@ -4,15 +4,16 @@ import {
   Col,
 } from 'react-bootstrap';
 import _ from 'lodash';
-import searchData, { BoundingBox } from '../services/SearchService';
+import searchData from '../services/SearchService';
 import ListPanel from './ListPanel';
 import MapPanel from './MapPanel';
 import './SelectedProjectPage.css';
+import { BoundingBox } from '../models/types';
 
 function SelectedProjectPage() {
   const [searchParams, setSearchParams] = useState({});
-  const [reports, setReports] = useState({});
-  const [relationships, setRelationships] = useState({});
+  const [reports, setReports] = useState([]);
+  const [relationships, setRelationships] = useState([]);
 
   const executeSearch = useCallback(async () => {
     const response = await searchData(searchParams);
@@ -45,6 +46,8 @@ function SelectedProjectPage() {
       <Col xs={8} md={6} lg={5}>
         <button type="button" onClick={clearQuery}>Clear All Filters</button>
         <ListPanel
+          reportResults={reports}
+          relationshipResults={relationships}
           onSearchChange={updateSearchQuery}
         />
       </Col>
