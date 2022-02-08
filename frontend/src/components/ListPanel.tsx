@@ -18,7 +18,7 @@ interface ListPanelProps {
 
 function ListPanel({ onSearchChange, reportResults, relationshipResults }: ListPanelProps) {
   // TODO: make the search query change based on form input.
-  const updateSearch = () => onSearchChange(['Community Centres']);
+  const updateSearch = () => onSearchChange(['Temperature']);
 
   return (
     <Container fluid className="list-container">
