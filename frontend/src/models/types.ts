@@ -8,6 +8,8 @@ export interface SearchParameters {
 export type ReportProperties = {
   properties: {
     name: string
+    tags: string[]
+    creationDate: string
   }
 }
 

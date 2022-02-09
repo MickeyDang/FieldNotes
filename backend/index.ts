@@ -20,7 +20,6 @@ app.get('/', (req, res) => res.send('Express and TypeScript Server'));
 
 app.get('/alldata', async (req, res) => {
   const queryParams = req.query;
-
   const keywords = (<string>queryParams.query).split(',').filter((s) => s !== '');
   const coordinates = (<string>queryParams.box).split(',').filter((s) => s !== '').map((x) => Number(x));
 
@@ -65,7 +64,7 @@ app.get('/alldata', async (req, res) => {
   }
 
   const REPORT_RESPONSE_FIELDS = {
-    name: 1, relationships: 1, tags: 1, location: 1,
+    name: 1, relationships: 1, tags: 1, location: 1, creationDate: 1,
   };
   const RELATIOSHIP_RESPONSE_FIELDS = {
     name: 1, reports: 1, tags: 1, location: 1,
