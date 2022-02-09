@@ -20,8 +20,9 @@ app.get('/', (req, res) => res.send('Express and TypeScript Server'));
 
 app.get('/alldata', async (req, res) => {
   const queryParams = req.query;
-  const keywords = (<string>queryParams?.query)?.split(',') ?? [];
-  const coordinates = (<string>queryParams?.box)?.split(',')?.map((x) => Number(x)) ?? [];
+
+  const keywords = (<string>queryParams.query).split(',').filter((s) => s !== '');
+  const coordinates = (<string>queryParams.box).split(',').filter((s) => s !== '').map((x) => Number(x));
 
   // Expected behaviour is that if no filters are applied, no data is returned.
   if (keywords.length === 0 && coordinates.length === 0) {
