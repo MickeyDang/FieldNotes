@@ -39,12 +39,9 @@ function SelectedProjectPage() {
     }
   };
 
-  const clearQuery = () => setSearchParams({});
-
   return (
     <Container>
       <Col xs={8} md={6} lg={5}>
-        <button type="button" onClick={clearQuery}>Clear All Filters</button>
         <ListPanel
           reportResults={reports}
           relationshipResults={relationships}

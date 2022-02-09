@@ -5,10 +5,13 @@ import {
   Col,
   Accordion,
 } from 'react-bootstrap';
+import Autocomplete from '@mui/material/Autocomplete';
+import { Chip, TextField } from '@mui/material';
 import { RelationshipProperties, ReportProperties } from '../models/types';
 import './ListPanel.css';
 import RelationshipList from './RelationshipList';
 import ReportList from './ReportList';
+import hints from '../constants';
 
 interface ListPanelProps {
   reportResults: ReportProperties[],
@@ -17,15 +20,30 @@ interface ListPanelProps {
 }
 
 function ListPanel({ onSearchChange, reportResults, relationshipResults }: ListPanelProps) {
-  // TODO: make the search query change based on form input.
-  const updateSearch = () => onSearchChange(['Temperature']);
+  const updateSearch = (_: any, values: string[]) => onSearchChange(values);
 
   return (
     <Container fluid className="list-container">
-      <Row>
+      <Row className="searchbar">
         <Col>
-          Searchbar
-          <button type="button" onClick={updateSearch}>Search for Keywords</button>
+          <Autocomplete
+            multiple
+            selectOnFocus
+            clearOnBlur
+            options={hints}
+            renderInput={(params) => (
+              <TextField
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...params}
+                label="keywords"
+              />
+            )}
+            renderTags={(value, getTagProps) => value.map((option, index) => (
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              <Chip variant="outlined" label={option} {...getTagProps({ index })} />
+            ))}
+            onChange={updateSearch}
+          />
         </Col>
       </Row>
       <Row>
