@@ -11,6 +11,8 @@ type RelationshipFeature = {
 type ReportFeature = {
   location: { coordinates: number[]; };
   name: string;
+  tags: string[];
+  creationDate: Date;
 }
 
 function formatParameters(params: SearchParameters) {
@@ -34,6 +36,8 @@ function formatReports(data: any) {
       },
       properties: {
         name: report.name,
+        tags: report.tags,
+        creationDate: report.creationDate,
       },
     }
   ));

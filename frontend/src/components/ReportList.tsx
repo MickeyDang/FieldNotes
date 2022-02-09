@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-  Row,
-} from 'react-bootstrap';
 import { ReportProperties } from '../models/types';
+import ReportListItem from './ReportListItem';
 
 interface ReportListProps {
   reports: ReportProperties[]
@@ -11,7 +9,7 @@ interface ReportListProps {
 function ReportList({ reports }: ReportListProps) {
   return (
     <>
-      {reports.map((report, index) => <Row key={index.toString()}>{report.properties.name}</Row>)}
+      {reports.map((report, index) => <ReportListItem key={index.toString()} report={report} />)}
     </>
   );
 }
