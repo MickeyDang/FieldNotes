@@ -14,7 +14,7 @@ function ReportListItem({ report }: ReportListItemProps) {
   const formatTags = (tags: string[]) => (
     // eslint-disable-next-line no-nested-ternary
     tags.length > 1
-      ? `${tags[0]}...`
+      ? `${tags[0]} and more...`
       : tags.length > 0
         ? tags[0]
         : ''
@@ -26,7 +26,7 @@ function ReportListItem({ report }: ReportListItemProps) {
       <Row className="description">
         {formatTags(report.properties.tags)}
         {' '}
-        *
+        &#8226;
         {' '}
         {report.properties.creationDate}
       </Row>
