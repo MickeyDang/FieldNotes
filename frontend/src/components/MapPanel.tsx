@@ -59,8 +59,8 @@ function MapPanel({ reportResults, relationshipResults, onBoundingBoxChange }: M
 
   return (
     <div className="map-panel-container">
-      <button type="button" onClick={updateSearch}>Search Area</button>
       <div className="map" ref={mapContainerRef} />
+      <button className="search-button" type="button" onClick={updateSearch}>Search Area</button>
     </div>
   );
 }

@@ -1,7 +1,7 @@
-.container {
+.project-view {
   display: flex;
   flex-flow: row wrap;
-  align-items: stretch;
+  align-items: flex-start;
   height: 100%;
   width: 100%;
 }
