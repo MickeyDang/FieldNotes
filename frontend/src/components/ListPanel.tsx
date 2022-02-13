@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Row,
@@ -6,7 +6,8 @@ import {
 } from 'react-bootstrap';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Chip, TextField } from '@mui/material';
-import { RelationshipProperties, ReportProperties } from '../models/types';
+import Slider from '@mui/material/Slider';
+import { RelationshipProperties, ReportProperties, DateRangeProperties } from '../models/types';
 import './ListPanel.css';
 import RelationshipList from './RelationshipList';
 import ReportList from './ReportList';
@@ -16,10 +17,37 @@ interface ListPanelProps {
   reportResults: ReportProperties[],
   relationshipResults: RelationshipProperties[],
   onSearchChange: Function,
+  onTimeRangeChange: Function,
+  dateRangeResults: DateRangeProperties,
 }
 
-function ListPanel({ onSearchChange, reportResults, relationshipResults }: ListPanelProps) {
+function ListPanel({
+  onSearchChange, onTimeRangeChange, reportResults, relationshipResults, dateRangeResults,
+}: ListPanelProps) {
   const updateSearch = (_: any, values: string[]) => onSearchChange(values);
+  const updateTimeRange = (values: number[]) => onTimeRangeChange(values);
+
+  console.log('in listpanel, daterange: ', dateRangeResults.monthsInRange);
+  // const numMonths = (dateRangeResults.newestYear)
+
+  const maxMonths = dateRangeResults.monthsInRange ?? 0;
+  const [timeRange, setTimeRange] = useState<number[]>([0, maxMonths]);
+
+  const marks = [
+    {
+      value: 0,
+      label: dateRangeResults.oldestDateDisplay,
+    },
+    {
+      value: maxMonths,
+      label: dateRangeResults.newestDateDisplay,
+    },
+  ];
+
+  const handleChange = (event: Event, newValue: number | number[]) => {
+    setTimeRange(newValue as number[]);
+    updateTimeRange(newValue as number[]);
+  };
 
   return (
     <Container fluid className="list-container">
@@ -43,6 +71,19 @@ function ListPanel({ onSearchChange, reportResults, relationshipResults }: ListP
             <Chip variant="outlined" label={option} {...getTagProps({ index })} />
           ))}
           onChange={updateSearch}
+        />
+      </Row>
+      <Row className="time-slider-container">
+        <Slider
+          // getAriaLabel={() => ''}
+          value={timeRange}
+          onChange={handleChange}
+          valueLabelDisplay="auto"
+          step={1}
+          marks={marks}
+          min={0}
+          max={maxMonths}
+          // getAriaValueText={timeRange}
         />
       </Row>
       <Row>

@@ -5,6 +5,7 @@ import {
 } from 'react-bootstrap';
 import _ from 'lodash';
 import searchData from '../services/SearchService';
+import findDateRange from '../services/FindDateRange';
 import ListPanel from './ListPanel';
 import MapPanel from './MapPanel';
 import './SelectedProjectPage.css';
@@ -14,6 +15,7 @@ function SelectedProjectPage() {
   const [searchParams, setSearchParams] = useState({});
   const [reports, setReports] = useState([]);
   const [relationships, setRelationships] = useState([]);
+  const [dateRange, setDateRange] = useState({});
 
   const executeSearch = useCallback(async () => {
     const response = await searchData(searchParams);
@@ -24,6 +26,21 @@ function SelectedProjectPage() {
   useEffect(() => {
     executeSearch();
   }, [executeSearch]);
+
+  useEffect(() => {
+    // declare the data fetching function
+    console.log('testttttttt');
+    const fetchData = async () => {
+      const response = await findDateRange();
+      console.log('SelectedProjPage, res: ', response);
+      setDateRange(response);
+    };
+
+    // call the function
+    fetchData()
+      // make sure to catch any error
+      .catch(console.error);
+  }, []);
 
   const updateSearchQuery = (updatedSearchQuery: string[]) => {
     const updatedParams = { ...searchParams, searchQuery: updatedSearchQuery };
@@ -39,6 +56,13 @@ function SelectedProjectPage() {
     }
   };
 
+  const updateTimeRange = (updatedTimeRangeQuery: Date[]) => {
+    const updatedParams = { ...searchParams, timeRange: updatedTimeRangeQuery };
+    if (!_.isEqual(updatedParams, searchParams)) {
+      setSearchParams(updatedParams);
+    }
+  };
+
   return (
     <Container className="project-view">
       <Col xs={8} md={6} lg={5}>
@@ -46,6 +70,8 @@ function SelectedProjectPage() {
           reportResults={reports}
           relationshipResults={relationships}
           onSearchChange={updateSearchQuery}
+          onTimeRangeChange={updateTimeRange}
+          dateRangeResults={dateRange}
         />
       </Col>
       <Col xs={4} md={6} lg={7}>

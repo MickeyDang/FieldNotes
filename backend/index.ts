@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { query } from 'express';
 
 require('dotenv').config();
 
@@ -22,9 +22,13 @@ app.get('/alldata', async (req, res) => {
   const queryParams = req.query;
   const keywords = (<string>queryParams.query).split(',').filter((s) => s !== '');
   const coordinates = (<string>queryParams.box).split(',').filter((s) => s !== '').map((x) => Number(x));
+  const timeRange = (<string>queryParams.time).split(',').filter((s) => s !== '').map((x) => Number(x));
+  console.info('test: ', typeof queryParams.time, ' hi: ', timeRange);
+  // console.info('test 2: ', queryParams.time.toISOString())
 
   // Expected behaviour is that if no filters are applied, no data is returned.
   if (keywords.length === 0 && coordinates.length === 0) {
+    // if (keywords.length === 0 && coordinates.length === 0 && timeRange.length === 0) {
     return res.status(200).json({
       reports: [],
       relationships: [],
@@ -63,6 +67,16 @@ app.get('/alldata', async (req, res) => {
     relationshipFilters.push(BOUNDING_BOX_FILTER);
   }
 
+  // if (timeRange.length > 0) {
+  //   // add case for start date only and end date only
+  //   const TIME_RANGE_FILTER = {};
+  //   // must be y-m-d
+  //   // {createdAt:{$gte:ISODate("2021-01-01"),$lt:ISODate("2020-05-01"}}
+
+  //   reportFilters.push(TIME_RANGE_FILTER);
+  //   relationshipFilters.push(TIME_RANGE_FILTER);
+  // }
+
   const REPORT_RESPONSE_FIELDS = {
     name: 1, relationships: 1, tags: 1, location: 1, creationDate: 1,
   };
@@ -84,6 +98,16 @@ app.get('/alldata', async (req, res) => {
   return res.status(200).json({
     reports: await reportQuery,
     relationships: await relationshipQuery,
+  });
+});
+
+app.get('/dateRange', async (req, res) => {
+  const oldest = ReportModel.find({}, { creationDate: 1 }).sort({ creationDate: 1 }).limit(1);
+  const newest = ReportModel.find({}, { creationDate: 1 }).sort({ creationDate: -1 }).limit(1);
+
+  return res.status(200).json({
+    oldestDate: await oldest,
+    newestDate: await newest,
   });
 });
 
