@@ -5,7 +5,18 @@
 
 .map {
   width: 100%;
-  height: 90vh;
+  height: 88vh;
+}
+
+.search-button {
+  z-index: 9;
+  position: absolute;
+  top: 15%;
+  left: 65%;
+  width: 10%;
+  height: 36px;
+  border-radius: 8px;
+  background-color: #FCF9F2;
 }
 
 /* code below hides logos to match our Figma, but should be removed for non-prototyping purposes */

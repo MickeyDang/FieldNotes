@@ -1,0 +1,28 @@
+.header {
+  margin-bottom: 16px;
+  padding-top: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+}
+
+.text {
+  margin-left: 24px;
+  text-align: start;
+}
+
+.project-text {
+  margin-left: 16px;
+  color: #ffffff;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.header-text {
+  color: #ffffff50
+}
+
+.description-text {
+  color: #ffffff80;
+}

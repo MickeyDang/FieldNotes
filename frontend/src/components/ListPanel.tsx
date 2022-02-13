@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Container,
   Row,
-  Col,
   Accordion,
 } from 'react-bootstrap';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -24,48 +23,43 @@ function ListPanel({ onSearchChange, reportResults, relationshipResults }: ListP
 
   return (
     <Container fluid className="list-container">
-      <Row className="searchbar">
-        <Col>
-          <Autocomplete
-            multiple
-            selectOnFocus
-            clearOnBlur
-            options={hints}
-            renderInput={(params) => (
-              <TextField
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...params}
-                label="keywords"
-              />
-            )}
-            renderTags={(value, getTagProps) => value.map((option, index) => (
+      <Row className="searchbar-container">
+        <Autocomplete
+          className="searchbar"
+          multiple
+          selectOnFocus
+          clearOnBlur
+          options={hints}
+          renderInput={(params) => (
+            <TextField
               // eslint-disable-next-line react/jsx-props-no-spreading
-              <Chip variant="outlined" label={option} {...getTagProps({ index })} />
-            ))}
-            onChange={updateSearch}
-          />
-        </Col>
+              {...params}
+              hiddenLabel
+              placeholder="keywords"
+            />
+          )}
+          renderTags={(value, getTagProps) => value.map((option, index) => (
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            <Chip variant="outlined" label={option} {...getTagProps({ index })} />
+          ))}
+          onChange={updateSearch}
+        />
       </Row>
       <Row>
-        <Col>
-          <Accordion defaultActiveKey={['reports', 'relationships']} flush alwaysOpen>
-
-            <Accordion.Item eventKey="reports">
-              <Accordion.Header> Reports </Accordion.Header>
-              <Accordion.Body>
-                <ReportList reports={reportResults} />
-              </Accordion.Body>
-            </Accordion.Item>
-
-            <Accordion.Item eventKey="relationships">
-              <Accordion.Header> Relationships </Accordion.Header>
-              <Accordion.Body>
-                <RelationshipList relationships={relationshipResults} />
-              </Accordion.Body>
-            </Accordion.Item>
-
-          </Accordion>
-        </Col>
+        <Accordion defaultActiveKey={['reports', 'relationships']} flush alwaysOpen>
+          <Accordion.Item eventKey="reports">
+            <Accordion.Header> Reports </Accordion.Header>
+            <Accordion.Body className="section-body">
+              <ReportList reports={reportResults} />
+            </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="relationships">
+            <Accordion.Header> Relationships </Accordion.Header>
+            <Accordion.Body className="section-body">
+              <RelationshipList relationships={relationshipResults} />
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
       </Row>
     </Container>
   );

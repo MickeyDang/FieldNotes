@@ -1,35 +1,30 @@
 import React from 'react';
-import {
-  Container,
-  Row,
-  Navbar,
-} from 'react-bootstrap';
+import './Header.css';
 
 function Header() {
   return (
-    <Navbar>
-      <Container>
-        <Navbar.Brand>
-          Project # X
-        </Navbar.Brand>
-        <Navbar.Text>
-          <Row>
-            PURPOSE
-          </Row>
-          <Row>
-            XXXX
-          </Row>
-        </Navbar.Text>
-        <Navbar.Text>
-          <Row>
-            CREATED
-          </Row>
-          <Row>
-            XXXX
-          </Row>
-        </Navbar.Text>
-      </Container>
-    </Navbar>
+    <div className="header">
+      <div className="project-text">
+        Project #22
+      </div>
+      <div>
+        <div className="text header-text">
+          PURPOSE
+        </div>
+        <div className="text description-text">
+          Research planning for equitable park space development in East Vancouver.
+        </div>
+      </div>
+      <div>
+        <div className="text header-text">
+          CREATED
+        </div>
+        <div className="text description-text">
+          October 8, 2021
+        </div>
+      </div>
+    </div>
+
   );
 }
 

@@ -1,8 +1,4 @@
 import React from 'react';
-import {
-  Col,
-  Row,
-} from 'react-bootstrap';
 import { ReportProperties } from '../models/types';
 import './ReportListItem.css';
 
@@ -21,16 +17,16 @@ function ReportListItem({ report }: ReportListItemProps) {
   );
 
   return (
-    <Col>
-      <Row className="header">{report.properties.name}</Row>
-      <Row className="description">
-        {formatTags(report.properties.tags)}
+    <>
+      <div className="list-item-header">{report.properties.name}</div>
+      <div className="description">
+        <span className="tag-color">{formatTags(report.properties.tags)}</span>
         {' '}
-        &#8226;
+        <span className="dot">&#8226;</span>
         {' '}
-        {report.properties.creationDate}
-      </Row>
-    </Col>
+        <span className="date-color">{report.properties.creationDate}</span>
+      </div>
+    </>
   );
 }
 
