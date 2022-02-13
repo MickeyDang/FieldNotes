@@ -46,7 +46,14 @@ function ListPanel({
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     setTimeRange(newValue as number[]);
-    updateTimeRange(newValue as number[]);
+    const newTimeValues = [
+      newValue,
+      dateRangeResults.oldestYearMonth,
+      dateRangeResults.newestYearMonth,
+      maxMonths,
+    ];
+    console.log('sending: ', newTimeValues);
+    updateTimeRange(newTimeValues as number[]);
   };
 
   return (
@@ -79,10 +86,12 @@ function ListPanel({
           value={timeRange}
           onChange={handleChange}
           valueLabelDisplay="auto"
+          defaultValue={maxMonths}
           step={1}
           marks={marks}
           min={0}
           max={maxMonths}
+          color="primary"
           // getAriaValueText={timeRange}
         />
       </Row>

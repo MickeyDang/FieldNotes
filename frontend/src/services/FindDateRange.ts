@@ -17,6 +17,8 @@ function formatDateRange(data: any) {
     oldestDateDisplay,
     newestDateDisplay,
     monthsInRange,
+    oldestYearMonth,
+    newestYearMonth,
   };
 
   return dateRange;

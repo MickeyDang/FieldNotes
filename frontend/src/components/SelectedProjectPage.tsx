@@ -56,7 +56,7 @@ function SelectedProjectPage() {
     }
   };
 
-  const updateTimeRange = (updatedTimeRangeQuery: Date[]) => {
+  const updateTimeRange = (updatedTimeRangeQuery: number[]) => {
     const updatedParams = { ...searchParams, timeRange: updatedTimeRangeQuery };
     if (!_.isEqual(updatedParams, searchParams)) {
       setSearchParams(updatedParams);

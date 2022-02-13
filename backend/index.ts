@@ -23,11 +23,11 @@ app.get('/alldata', async (req, res) => {
   const keywords = (<string>queryParams.query).split(',').filter((s) => s !== '');
   const coordinates = (<string>queryParams.box).split(',').filter((s) => s !== '').map((x) => Number(x));
   const timeRange = (<string>queryParams.time).split(',').filter((s) => s !== '').map((x) => Number(x));
-  console.info('test: ', typeof queryParams.time, ' hi: ', timeRange);
+  console.info('test: ', typeof queryParams.time, ' hi: ', timeRange.length === 0, ' q ', queryParams);
   // console.info('test 2: ', queryParams.time.toISOString())
 
   // Expected behaviour is that if no filters are applied, no data is returned.
-  if (keywords.length === 0 && coordinates.length === 0) {
+  if (keywords.length === 0 && coordinates.length === 0 && queryParams.time === 'undefined') {
     // if (keywords.length === 0 && coordinates.length === 0 && timeRange.length === 0) {
     return res.status(200).json({
       reports: [],
@@ -67,15 +67,30 @@ app.get('/alldata', async (req, res) => {
     relationshipFilters.push(BOUNDING_BOX_FILTER);
   }
 
-  // if (timeRange.length > 0) {
-  //   // add case for start date only and end date only
-  //   const TIME_RANGE_FILTER = {};
-  //   // must be y-m-d
-  //   // {createdAt:{$gte:ISODate("2021-01-01"),$lt:ISODate("2020-05-01"}}
+  function addMonths(date: Date, months: number) {
+    const d = date.getDate();
+    date.setMonth(date.getMonth() + +months);
+    if (date.getDate() !== d) {
+      date.setDate(0);
+    }
+    return date;
+  }
 
-  //   reportFilters.push(TIME_RANGE_FILTER);
-  //   relationshipFilters.push(TIME_RANGE_FILTER);
-  // }
+  if (timeRange.length > 0) {
+    const startDate = timeRange.slice(2, 4);
+    const endDate = timeRange.slice(4, 6);
+    const lowerRange = addMonths(new Date(startDate[0], startDate[1], 1), timeRange[0] - 1);
+    const upperRange = addMonths(new Date(endDate[0], endDate[1], 1), -((timeRange[6] - timeRange[1]) + 1));
+    const TIME_RANGE_FILTER = {
+      creationDate: {
+        $gte: lowerRange,
+        $lt: upperRange,
+      },
+    };
+
+    reportFilters.push(TIME_RANGE_FILTER);
+    relationshipFilters.push(TIME_RANGE_FILTER);
+  }
 
   const REPORT_RESPONSE_FIELDS = {
     name: 1, relationships: 1, tags: 1, location: 1, creationDate: 1,

@@ -28,5 +28,7 @@ export type DateRangeProperties = {
     oldestDateDisplay: string,
     newestDateDisplay: string,
     monthsInRange: number,
+    oldestYearMonth: number[],
+    newestYearMonth: number[],
   }
 }
