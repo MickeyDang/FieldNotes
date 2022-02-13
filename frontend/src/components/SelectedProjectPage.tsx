@@ -40,7 +40,7 @@ function SelectedProjectPage() {
   };
 
   return (
-    <Container>
+    <Container className="project-view">
       <Col xs={8} md={6} lg={5}>
         <ListPanel
           reportResults={reports}

@@ -1,8 +1,22 @@
 .list-container {
-  height: 90vh;
+  height: 100%;
   width: 100%;
 }
 
-.searchbar {
+.section-body {
+  background-color: #2A2925;
+}
+
+.searchbar-container {
   margin-bottom: 16px;
+  background-color: #FCF9F2;
+  border-radius: 8px !important;
+  padding: 0px;
+}
+
+.searchbar {
+  margin: 0px;
+  padding: 0px !important;
+  border-radius: 8px !important;
+  background-color: #FCF9F2;
 }

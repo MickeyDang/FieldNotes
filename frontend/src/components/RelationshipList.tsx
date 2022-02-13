@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-  Row,
-} from 'react-bootstrap';
 import { RelationshipProperties } from '../models/types';
+import RelationshipListItem from './RelationshipListItem';
 
 interface RelationshipListProps {
   relationships: RelationshipProperties[]
@@ -11,7 +9,12 @@ interface RelationshipListProps {
 function RelationshipList({ relationships }: RelationshipListProps) {
   return (
     <>
-      {relationships.map((rels, index) => <Row key={index.toString()}>{rels.properties.name}</Row>)}
+      {relationships.map((rel, index) => (
+        <RelationshipListItem
+          key={index.toString()}
+          relationship={rel}
+        />
+      ))}
     </>
   );
 }
