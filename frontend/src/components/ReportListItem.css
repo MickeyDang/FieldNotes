@@ -1,10 +1,12 @@
 .list-item-header {
   font-size: small;
   color: #ffffff;
+  margin-bottom: -6px;
 }
 
 .description {
   font-size: x-small;
+  margin-bottom: 8px;
 }
 
 .dot {

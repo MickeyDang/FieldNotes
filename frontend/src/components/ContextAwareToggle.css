@@ -1,0 +1,29 @@
+.section-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.title-badge-container {
+  flex: 3;
+  text-align: start;
+}
+
+.accordion-badge {
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 4px;
+}
+
+.accordion-title {
+  font-weight: bold;
+  text-align: start;
+}
+
+.accordion-label {
+  flex: 1;
+  font-size: small;
+  text-align: end;
+}

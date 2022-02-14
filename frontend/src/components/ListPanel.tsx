@@ -3,6 +3,7 @@ import {
   Container,
   Row,
   Accordion,
+  Card,
 } from 'react-bootstrap';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Chip, TextField } from '@mui/material';
@@ -11,6 +12,7 @@ import './ListPanel.css';
 import RelationshipList from './RelationshipList';
 import ReportList from './ReportList';
 import hints from '../constants';
+import ContextAwareToggle from './ContextAwareToggle';
 
 interface ListPanelProps {
   reportResults: ReportProperties[],
@@ -47,18 +49,18 @@ function ListPanel({ onSearchChange, reportResults, relationshipResults }: ListP
       </Row>
       <Row>
         <Accordion defaultActiveKey={['reports', 'relationships']} flush alwaysOpen>
-          <Accordion.Item eventKey="reports">
-            <Accordion.Header> Reports </Accordion.Header>
-            <Accordion.Body className="section-body">
+          <ContextAwareToggle textBody="Reports" numItems={reportResults.length} eventKey="reports" />
+          <Accordion.Collapse className="section-body" eventKey="reports">
+            <Card.Body>
               <ReportList reports={reportResults} />
-            </Accordion.Body>
-          </Accordion.Item>
-          <Accordion.Item eventKey="relationships">
-            <Accordion.Header> Relationships </Accordion.Header>
-            <Accordion.Body className="section-body">
+            </Card.Body>
+          </Accordion.Collapse>
+          <ContextAwareToggle textBody="Relationships" numItems={relationshipResults.length} eventKey="relationships" />
+          <Accordion.Collapse className="section-body" eventKey="relationships">
+            <Card.Body>
               <RelationshipList relationships={relationshipResults} />
-            </Accordion.Body>
-          </Accordion.Item>
+            </Card.Body>
+          </Accordion.Collapse>
         </Accordion>
       </Row>
     </Container>
