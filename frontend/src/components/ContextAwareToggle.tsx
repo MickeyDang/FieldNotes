@@ -14,19 +14,9 @@ function ContextAwareToggle({ textBody, numItems, eventKey }: any) {
 
   return (
     <>
-      <hr style={{
-        borderWidth: '2px',
-        borderColor: '#545148',
-        borderStyle: 'solid',
-        width: '100%',
-      }}
-      />
+      <hr id="accordion-divider" />
       <button
-        style={{
-          backgroundColor: '#2A2925',
-          borderWidth: '0px',
-        }}
-        className="section-container"
+        id="section-container"
         type="button"
         onClick={decoratedOnClick}
       >

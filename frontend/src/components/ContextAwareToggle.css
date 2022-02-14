@@ -1,8 +1,17 @@
-.section-container {
+#section-container {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  width: 100%;
+  background-color: #2A2925;
+  border-width: 0px;
+}
+
+#accordion-divider {
+  border-width: 2px;
+  border-color: #545148;
+  border-style: solid;
   width: 100%;
 }
 

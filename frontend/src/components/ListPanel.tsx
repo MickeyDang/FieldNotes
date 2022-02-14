@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Row,
@@ -13,6 +13,7 @@ import RelationshipList from './RelationshipList';
 import ReportList from './ReportList';
 import hints from '../constants';
 import ContextAwareToggle from './ContextAwareToggle';
+import PaginationSelector from './PaginationSelector';
 
 interface ListPanelProps {
   reportResults: ReportProperties[],
@@ -20,8 +21,18 @@ interface ListPanelProps {
   onSearchChange: Function,
 }
 
+const PAGE_LENGTH = 6;
+
 function ListPanel({ onSearchChange, reportResults, relationshipResults }: ListPanelProps) {
   const updateSearch = (_: any, values: string[]) => onSearchChange(values);
+
+  const [reportCursor, setReportCursor] = useState(0);
+  const [relCursor, setRelCursor] = useState(0);
+
+  const handleReportCursorNext = () => setReportCursor(reportCursor + PAGE_LENGTH);
+  const handleReportCursorPrev = () => setReportCursor(reportCursor - PAGE_LENGTH);
+  const handleRelCursorNext = () => setRelCursor(relCursor + PAGE_LENGTH);
+  const handleRelCursorPrev = () => setRelCursor(relCursor - PAGE_LENGTH);
 
   return (
     <Container fluid className="list-container">
@@ -52,13 +63,29 @@ function ListPanel({ onSearchChange, reportResults, relationshipResults }: ListP
           <ContextAwareToggle textBody="Reports" numItems={reportResults.length} eventKey="reports" />
           <Accordion.Collapse className="section-body" eventKey="reports">
             <Card.Body>
-              <ReportList reports={reportResults} />
+              <ReportList reports={reportResults.slice(reportCursor, reportCursor + PAGE_LENGTH)} />
+              <PaginationSelector
+                items={reportResults}
+                pageLimit={PAGE_LENGTH}
+                cursor={reportCursor}
+                onNext={handleReportCursorNext}
+                onPrev={handleReportCursorPrev}
+              />
             </Card.Body>
           </Accordion.Collapse>
           <ContextAwareToggle textBody="Relationships" numItems={relationshipResults.length} eventKey="relationships" />
           <Accordion.Collapse className="section-body" eventKey="relationships">
             <Card.Body>
-              <RelationshipList relationships={relationshipResults} />
+              <RelationshipList
+                relationships={relationshipResults.slice(relCursor, relCursor + PAGE_LENGTH)}
+              />
+              <PaginationSelector
+                items={relationshipResults}
+                pageLimit={PAGE_LENGTH}
+                cursor={relCursor}
+                onNext={handleRelCursorNext}
+                onPrev={handleRelCursorPrev}
+              />
             </Card.Body>
           </Accordion.Collapse>
         </Accordion>
