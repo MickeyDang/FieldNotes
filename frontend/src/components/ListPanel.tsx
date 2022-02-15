@@ -93,7 +93,7 @@ function ListPanel({
                   onChange={handleSortReportsChange}
                 >
                   <MenuItem value="creationDate">Created Date</MenuItem>
-                  <MenuItem value="name">Name</MenuItem>
+                  <MenuItem value="name">Alphabetical</MenuItem>
                 </Select>
               </FormControl>
               <PaginationSelector
@@ -120,7 +120,8 @@ function ListPanel({
                   onChange={handleSortRelationshipsChange}
                 >
                   <MenuItem value="lastContacted">Last Contacted</MenuItem>
-                  <MenuItem value="name">Name</MenuItem>
+                  <MenuItem value="firstContacted">First Contacted</MenuItem>
+                  <MenuItem value="name">Alphabetical</MenuItem>
                 </Select>
               </FormControl>
               <PaginationSelector

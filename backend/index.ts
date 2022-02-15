@@ -66,20 +66,20 @@ app.get('/alldata', async (req, res) => {
     relationshipFilters.push(BOUNDING_BOX_FILTER);
   }
 
-  const reportSortOrder = -1; // Descending by default
   let reportSort = {};
-  const relationshipSortOrder = 1;
   let relationshipSort = {};
   if (sortReportsOn === 'creationDate') {
-    reportSort = { creationDate: reportSortOrder };
+    reportSort = { creationDate: -1 };
   } else if (sortReportsOn === 'name') {
-    reportSort = { name: reportSortOrder };
+    reportSort = { name: 1 };
   }
 
   if (sortRelationshipsOn === 'lastContacted') {
-    relationshipSort = { lastContacted: relationshipSortOrder };
+    relationshipSort = { lastContacted: -1 };
+  } else if (sortRelationshipsOn === 'firstContacted') {
+    relationshipSort = { lastContacted: 1 };
   } else if (sortRelationshipsOn === 'name') {
-    relationshipSort = { name: relationshipSortOrder };
+    relationshipSort = { name: 1 };
   }
 
   const REPORT_RESPONSE_FIELDS = {
