@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Row,
@@ -7,6 +7,9 @@ import {
 } from 'react-bootstrap';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Chip, TextField } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { RelationshipProperties, ReportProperties } from '../models/types';
 import './ListPanel.css';
 import RelationshipList from './RelationshipList';
@@ -19,20 +22,37 @@ interface ListPanelProps {
   reportResults: ReportProperties[],
   relationshipResults: RelationshipProperties[],
   onSearchChange: Function,
+  onSortChange: Function,
 }
 
 const PAGE_LENGTH = 6;
 
-function ListPanel({ onSearchChange, reportResults, relationshipResults }: ListPanelProps) {
+function ListPanel({
+  onSearchChange, onSortChange, reportResults, relationshipResults,
+}: ListPanelProps) {
   const updateSearch = (_: any, values: string[]) => onSearchChange(values);
+  const updateSort = (values: string[]) => onSortChange(values);
 
   const [reportCursor, setReportCursor] = useState(0);
   const [relCursor, setRelCursor] = useState(0);
+  const [sortReports, setSortReports] = useState('creationDate');
+  const [sortRelationships, setSortRelationships] = useState('name');
 
   const handleReportCursorNext = () => setReportCursor(reportCursor + PAGE_LENGTH);
   const handleReportCursorPrev = () => setReportCursor(reportCursor - PAGE_LENGTH);
   const handleRelCursorNext = () => setRelCursor(relCursor + PAGE_LENGTH);
   const handleRelCursorPrev = () => setRelCursor(relCursor - PAGE_LENGTH);
+
+  const handleSortReportsChange = (event: SelectChangeEvent) => {
+    setSortReports(event.target.value as string);
+  };
+  const handleSortRelationshipsChange = (event: SelectChangeEvent) => {
+    setSortRelationships(event.target.value as string);
+  };
+
+  useEffect(() => {
+    updateSort([sortReports, sortRelationships]);
+  }, [sortReports, sortRelationships]);
 
   return (
     <Container fluid className="list-container">
@@ -64,6 +84,18 @@ function ListPanel({ onSearchChange, reportResults, relationshipResults }: ListP
           <Accordion.Collapse className="section-body" eventKey="reports">
             <Card.Body>
               <ReportList reports={reportResults.slice(reportCursor, reportCursor + PAGE_LENGTH)} />
+              <FormControl fullWidth>
+                <Select
+                  labelId="sort-reports-on"
+                  id="sort-reports-select"
+                  value={sortReports}
+                  label="Sort by"
+                  onChange={handleSortReportsChange}
+                >
+                  <MenuItem value="creationDate">Created Date</MenuItem>
+                  <MenuItem value="name">Name</MenuItem>
+                </Select>
+              </FormControl>
               <PaginationSelector
                 items={reportResults}
                 pageLimit={PAGE_LENGTH}
@@ -79,6 +111,18 @@ function ListPanel({ onSearchChange, reportResults, relationshipResults }: ListP
               <RelationshipList
                 relationships={relationshipResults.slice(relCursor, relCursor + PAGE_LENGTH)}
               />
+              <FormControl fullWidth>
+                <Select
+                  labelId="sort-relationships-on"
+                  id="sort-relationships-select"
+                  value={sortRelationships}
+                  label="Sort by"
+                  onChange={handleSortRelationshipsChange}
+                >
+                  <MenuItem value="lastContacted">Last Contacted</MenuItem>
+                  <MenuItem value="name">Name</MenuItem>
+                </Select>
+              </FormControl>
               <PaginationSelector
                 items={relationshipResults}
                 pageLimit={PAGE_LENGTH}
