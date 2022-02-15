@@ -2,7 +2,9 @@ import React, { useRef, useEffect } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './MapPanel.css';
-import { setupDataSources, setupLayers, setupMapInteractions } from './MapRenderer';
+import {
+  setupDataSources, setupLayers, updateDataSources, setupMapInteractions,
+} from './MapRenderer';
 
 interface MapPanelProps {
   reportResults: any[],
@@ -36,8 +38,12 @@ function MapPanel({ reportResults, relationshipResults, onBoundingBoxChange }: M
     });
 
     map.on('load', async () => {
-      setupDataSources(reportResults, relationshipResults, map);
-      setupLayers(map);
+      if (!map.isSourceLoaded('reports') || !map.isSourceLoaded('relationships')) {
+        setupDataSources(reportResults, relationshipResults, map);
+        setupLayers(map);
+        console.log('finish setting up data sources and layers');
+      }
+      updateDataSources(reportResults, relationshipResults, map);
     });
 
     // change cursor to pointer when user hovers over a clickable feature
@@ -55,7 +61,7 @@ function MapPanel({ reportResults, relationshipResults, onBoundingBoxChange }: M
     setupMapInteractions(map);
 
     return () => map.remove();
-  }, []);
+  }, [reportResults, relationshipResults]);
 
   return (
     <div className="map-panel-container">

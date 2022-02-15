@@ -21,6 +21,13 @@ export function setupDataSources(reports: any, relationships: any, map: mapboxgl
   });
 }
 
+export function updateDataSources(reports: any, relationships: any, map: mapboxgl.Map) {
+  const reportSource: mapboxgl.GeoJSONSource = map.getSource('reports') as mapboxgl.GeoJSONSource;
+  const relationshipSource: mapboxgl.GeoJSONSource = map.getSource('relationships') as mapboxgl.GeoJSONSource;
+  reportSource.setData(reports);
+  relationshipSource.setData(relationships);
+}
+
 export function setupMapInteractions(map: mapboxgl.Map) {
   // Add zoom controls to the map.
   map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'bottom-right');
