@@ -7,26 +7,6 @@ const navigation = new mapboxgl.NavigationControl({ showCompass: false });
 
 let sourceLoaded = false;
 
-function setupDataSources(reports: any, relationships: any, map: mapboxgl.Map) {
-  if (!sourceLoaded) {
-    map.addSource('reports', {
-      type: 'geojson',
-      data: {
-        type: 'FeatureCollection',
-        features: reports,
-      },
-    });
-    map.addSource('relationships', {
-      type: 'geojson',
-      data: {
-        type: 'FeatureCollection',
-        features: relationships,
-      },
-    });
-    sourceLoaded = true;
-  }
-}
-
 export function updateDataSources(reports: any, relationships: any, map: mapboxgl.Map) {
   if (sourceLoaded) {
     const reportSource: mapboxgl.GeoJSONSource = map.getSource('reports') as mapboxgl.GeoJSONSource;
@@ -47,6 +27,23 @@ export function setupMapInteractions(map: mapboxgl.Map) {
   if (!map.hasControl(navigation)) {
     map.addControl(navigation, 'bottom-right');
   }
+}
+
+function setupDataSources(reports: any, relationships: any, map: mapboxgl.Map) {
+  map.addSource('reports', {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: reports,
+    },
+  });
+  map.addSource('relationships', {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: relationships,
+    },
+  });
 }
 
 function setupLayers(map: mapboxgl.Map) {
@@ -78,7 +75,7 @@ function setupLayers(map: mapboxgl.Map) {
     source: 'relationships',
     paint: {
       // Make circles larger as the user zooms from z12 to z22.
-      'circle-radius': { base: 1, stops: [[12, 2], [22, 180]] },
+      'circle-radius': { base: 5, stops: [[12, 10], [22, 180]] },
       'circle-color': ORANGE,
       'circle-opacity': 1,
     },

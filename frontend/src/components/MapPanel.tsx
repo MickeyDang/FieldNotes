@@ -24,7 +24,6 @@ function MapPanel({ reportResults, relationshipResults, onBoundingBoxChange }: M
   // TODO: make the bounding box parameter change based on map viewport.
   const updateSearch = () => onBoundingBoxChange([[-124, 49], [-123, 50]]);
 
-  // Initialize map when component mounts
   useEffect(() => {
     if (!mapRef.current) {
       (mapRef as any).current = new mapboxgl.Map({
