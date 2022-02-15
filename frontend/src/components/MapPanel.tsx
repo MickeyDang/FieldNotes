@@ -3,7 +3,7 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './MapPanel.css';
 import {
-  setupDataSources, setupLayers, updateDataSources, setupMapInteractions,
+  setupMapFeatures, updateDataSources, setupMapInteractions,
 } from './MapRenderer';
 
 interface MapPanelProps {
@@ -20,47 +20,45 @@ const DEFAULT_ZOOM_LEVEL = 12.5;
 
 function MapPanel({ reportResults, relationshipResults, onBoundingBoxChange }: MapPanelProps) {
   const mapContainerRef = useRef(null);
-
+  const mapRef = useRef<mapboxgl.Map>(null);
   // TODO: make the bounding box parameter change based on map viewport.
   const updateSearch = () => onBoundingBoxChange([[-124, 49], [-123, 50]]);
 
   // Initialize map when component mounts
   useEffect(() => {
-    const map = new mapboxgl.Map({
-      container: mapContainerRef.current!,
-      style: 'mapbox://styles/mapbox/light-v10',
-      center: [VANCOUVER_LAT, VANCOUVER_LNG],
-      zoom: DEFAULT_ZOOM_LEVEL,
-    });
+    if (!mapRef.current) {
+      (mapRef as any).current = new mapboxgl.Map({
+        container: mapContainerRef.current!,
+        style: 'mapbox://styles/mapbox/light-v10',
+        center: [VANCOUVER_LAT, VANCOUVER_LNG],
+        zoom: DEFAULT_ZOOM_LEVEL,
+      });
+    } else {
+      const map = mapRef.current;
 
-    map.on('render', () => {
-      map.resize();
-    });
+      map.on('render', () => {
+        map.resize();
+      });
 
-    map.on('load', async () => {
-      if (!map.isSourceLoaded('reports') || !map.isSourceLoaded('relationships')) {
-        setupDataSources(reportResults, relationshipResults, map);
-        setupLayers(map);
-        console.log('finish setting up data sources and layers');
-      }
+      map.on('load', async () => {
+        setupMapFeatures(reportResults, relationshipResults, map);
+      });
+
+      // change cursor to pointer when user hovers over a clickable feature
+      map.on('mouseenter', (e: any) => {
+        if (e.features.length) {
+          map.getCanvas().style.cursor = 'pointer';
+        }
+      });
+
+      // reset cursor to default when user is no longer hovering over a clickable feature
+      map.on('mouseleave', () => {
+        map.getCanvas().style.cursor = '';
+      });
+
+      setupMapInteractions(map);
       updateDataSources(reportResults, relationshipResults, map);
-    });
-
-    // change cursor to pointer when user hovers over a clickable feature
-    map.on('mouseenter', (e: any) => {
-      if (e.features.length) {
-        map.getCanvas().style.cursor = 'pointer';
-      }
-    });
-
-    // reset cursor to default when user is no longer hovering over a clickable feature
-    map.on('mouseleave', () => {
-      map.getCanvas().style.cursor = '';
-    });
-
-    setupMapInteractions(map);
-
-    return () => map.remove();
+    }
   }, [reportResults, relationshipResults]);
 
   return (

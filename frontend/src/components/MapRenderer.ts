@@ -3,43 +3,53 @@ import mapboxgl from 'mapbox-gl';
 const BLUE = '#8FB1BB';
 const DARK_BLUE = '#1A85A7';
 const ORANGE = '#F29D49';
+const navigation = new mapboxgl.NavigationControl({ showCompass: false });
 
-export function setupDataSources(reports: any, relationships: any, map: mapboxgl.Map) {
-  map.addSource('reports', {
-    type: 'geojson',
-    data: {
-      type: 'FeatureCollection',
-      features: reports,
-    },
-  });
-  map.addSource('relationships', {
-    type: 'geojson',
-    data: {
-      type: 'FeatureCollection',
-      features: relationships,
-    },
-  });
+let sourceLoaded = false;
+
+function setupDataSources(reports: any, relationships: any, map: mapboxgl.Map) {
+  if (!sourceLoaded) {
+    map.addSource('reports', {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: reports,
+      },
+    });
+    map.addSource('relationships', {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: relationships,
+      },
+    });
+    sourceLoaded = true;
+  }
 }
 
 export function updateDataSources(reports: any, relationships: any, map: mapboxgl.Map) {
-  const reportSource: mapboxgl.GeoJSONSource = map.getSource('reports') as mapboxgl.GeoJSONSource;
-  const relationshipSource: mapboxgl.GeoJSONSource = map.getSource('relationships') as mapboxgl.GeoJSONSource;
-  reportSource.setData({
-    type: 'FeatureCollection',
-    features: reports,
-  });
-  relationshipSource.setData({
-    type: 'FeatureCollection',
-    features: relationships,
-  });
+  if (sourceLoaded) {
+    const reportSource: mapboxgl.GeoJSONSource = map.getSource('reports') as mapboxgl.GeoJSONSource;
+    const relationshipSource: mapboxgl.GeoJSONSource = map.getSource('relationships') as mapboxgl.GeoJSONSource;
+    reportSource.setData({
+      type: 'FeatureCollection',
+      features: reports,
+    });
+    relationshipSource.setData({
+      type: 'FeatureCollection',
+      features: relationships,
+    });
+  }
 }
 
 export function setupMapInteractions(map: mapboxgl.Map) {
   // Add zoom controls to the map.
-  map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'bottom-right');
+  if (!map.hasControl(navigation)) {
+    map.addControl(navigation, 'bottom-right');
+  }
 }
 
-export function setupLayers(map: mapboxgl.Map) {
+function setupLayers(map: mapboxgl.Map) {
   const reportFillLayer: mapboxgl.AnyLayer = {
     id: 'report-fill',
     type: 'fill',
@@ -77,4 +87,12 @@ export function setupLayers(map: mapboxgl.Map) {
   map.addLayer(reportFillLayer);
   map.addLayer(reportLineLayer);
   map.addLayer(relationshipFillLayer);
+}
+
+export function setupMapFeatures(reports: any, relationships: any, map: mapboxgl.Map) {
+  if (!sourceLoaded) {
+    setupDataSources(reports, relationships, map);
+    setupLayers(map);
+    sourceLoaded = true;
+  }
 }
