@@ -24,8 +24,14 @@ export function setupDataSources(reports: any, relationships: any, map: mapboxgl
 export function updateDataSources(reports: any, relationships: any, map: mapboxgl.Map) {
   const reportSource: mapboxgl.GeoJSONSource = map.getSource('reports') as mapboxgl.GeoJSONSource;
   const relationshipSource: mapboxgl.GeoJSONSource = map.getSource('relationships') as mapboxgl.GeoJSONSource;
-  reportSource.setData(reports);
-  relationshipSource.setData(relationships);
+  reportSource.setData({
+    type: 'FeatureCollection',
+    features: reports,
+  });
+  relationshipSource.setData({
+    type: 'FeatureCollection',
+    features: relationships,
+  });
 }
 
 export function setupMapInteractions(map: mapboxgl.Map) {
@@ -34,7 +40,7 @@ export function setupMapInteractions(map: mapboxgl.Map) {
 }
 
 export function setupLayers(map: mapboxgl.Map) {
-  const reportFillLayer:mapboxgl.AnyLayer = {
+  const reportFillLayer: mapboxgl.AnyLayer = {
     id: 'report-fill',
     type: 'fill',
     source: 'reports',
@@ -45,7 +51,7 @@ export function setupLayers(map: mapboxgl.Map) {
     filter: ['==', '$type', 'Polygon'],
   };
 
-  const reportLineLayer:mapboxgl.AnyLayer = {
+  const reportLineLayer: mapboxgl.AnyLayer = {
     id: 'report-boundary',
     type: 'line',
     source: 'reports',
@@ -56,7 +62,7 @@ export function setupLayers(map: mapboxgl.Map) {
     filter: ['==', '$type', 'Polygon'],
   };
 
-  const relationshipFillLayer:mapboxgl.AnyLayer = {
+  const relationshipFillLayer: mapboxgl.AnyLayer = {
     id: 'relationship-fill',
     type: 'circle',
     source: 'relationships',
