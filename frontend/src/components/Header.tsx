@@ -8,18 +8,18 @@ function Header() {
         Project #22
       </div>
       <div>
-        <div className="text header-text">
+        <div className="header-text">
           PURPOSE
         </div>
-        <div className="text description-text">
+        <div className="description-text">
           Research planning for equitable park space development in East Vancouver.
         </div>
       </div>
       <div>
-        <div className="text header-text">
+        <div className="header-text">
           CREATED
         </div>
-        <div className="text description-text">
+        <div className="description-text">
           October 8, 2021
         </div>
       </div>

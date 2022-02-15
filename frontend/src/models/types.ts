@@ -24,11 +24,9 @@ export type RelationshipProperties = {
 }
 
 export type DateRangeProperties = {
-  properties: {
-    oldestDateDisplay: string,
-    newestDateDisplay: string,
-    monthsInRange: number,
-    oldestYearMonth: number[],
-    newestYearMonth: number[],
-  }
+  oldestDateDisplay: string,
+  newestDateDisplay: string,
+  monthsInRange: number,
+  oldestYearMonth: number[],
+  newestYearMonth: number[],
 }

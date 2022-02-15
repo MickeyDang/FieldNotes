@@ -7,12 +7,8 @@
   justify-content: start;
 }
 
-.text {
-  margin-left: 24px;
-  text-align: start;
-}
-
 .project-text {
+  text-align: start;
   margin-left: 16px;
   color: #ffffff;
   font-size: x-large;
@@ -20,9 +16,13 @@
 }
 
 .header-text {
+  margin-left: 24px;
+  text-align: start;
   color: #ffffff50
 }
 
 .description-text {
+  margin-left: 24px;
+  text-align: start;
   color: #ffffff80;
 }

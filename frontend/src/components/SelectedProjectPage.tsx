@@ -9,13 +9,13 @@ import findDateRange from '../services/FindDateRange';
 import ListPanel from './ListPanel';
 import MapPanel from './MapPanel';
 import './SelectedProjectPage.css';
-import { BoundingBox } from '../models/types';
+import { BoundingBox, DateRangeProperties } from '../models/types';
 
 function SelectedProjectPage() {
   const [searchParams, setSearchParams] = useState({});
   const [reports, setReports] = useState([]);
   const [relationships, setRelationships] = useState([]);
-  const [dateRange, setDateRange] = useState({});
+  const [dateRange, setDateRange] = useState({} as DateRangeProperties);
 
   const executeSearch = useCallback(async () => {
     const response = await searchData(searchParams);
@@ -27,18 +27,14 @@ function SelectedProjectPage() {
     executeSearch();
   }, [executeSearch]);
 
+  // Get oldest and newest dates for time range filter
   useEffect(() => {
-    // declare the data fetching function
-    console.log('testttttttt');
     const fetchData = async () => {
       const response = await findDateRange();
-      console.log('SelectedProjPage, res: ', response);
-      setDateRange(response);
+      setDateRange(response as DateRangeProperties);
     };
 
-    // call the function
     fetchData()
-      // make sure to catch any error
       .catch(console.error);
   }, []);
 

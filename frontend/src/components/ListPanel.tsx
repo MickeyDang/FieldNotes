@@ -3,6 +3,7 @@ import {
   Container,
   Row,
   Accordion,
+  Card,
 } from 'react-bootstrap';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Chip, TextField } from '@mui/material';
@@ -12,6 +13,8 @@ import './ListPanel.css';
 import RelationshipList from './RelationshipList';
 import ReportList from './ReportList';
 import hints from '../constants';
+import ContextAwareToggle from './ContextAwareToggle';
+import PaginationSelector from './PaginationSelector';
 
 interface ListPanelProps {
   reportResults: ReportProperties[],
@@ -21,14 +24,13 @@ interface ListPanelProps {
   dateRangeResults: DateRangeProperties,
 }
 
+const PAGE_LENGTH = 6;
+
 function ListPanel({
   onSearchChange, onTimeRangeChange, reportResults, relationshipResults, dateRangeResults,
 }: ListPanelProps) {
   const updateSearch = (_: any, values: string[]) => onSearchChange(values);
   const updateTimeRange = (values: number[]) => onTimeRangeChange(values);
-
-  console.log('in listpanel, daterange: ', dateRangeResults.monthsInRange);
-  // const numMonths = (dateRangeResults.newestYear)
 
   const maxMonths = dateRangeResults.monthsInRange ?? 0;
   const [timeRange, setTimeRange] = useState<number[]>([0, maxMonths]);
@@ -52,9 +54,16 @@ function ListPanel({
       dateRangeResults.newestYearMonth,
       maxMonths,
     ];
-    console.log('sending: ', newTimeValues);
     updateTimeRange(newTimeValues as number[]);
   };
+
+  const [reportCursor, setReportCursor] = useState(0);
+  const [relCursor, setRelCursor] = useState(0);
+
+  const handleReportCursorNext = () => setReportCursor(reportCursor + PAGE_LENGTH);
+  const handleReportCursorPrev = () => setReportCursor(reportCursor - PAGE_LENGTH);
+  const handleRelCursorNext = () => setRelCursor(relCursor + PAGE_LENGTH);
+  const handleRelCursorPrev = () => setRelCursor(relCursor - PAGE_LENGTH);
 
   return (
     <Container fluid className="list-container">
@@ -82,7 +91,6 @@ function ListPanel({
       </Row>
       <Row className="time-slider-container">
         <Slider
-          // getAriaLabel={() => ''}
           value={timeRange}
           onChange={handleChange}
           valueLabelDisplay="auto"
@@ -92,23 +100,38 @@ function ListPanel({
           min={0}
           max={maxMonths}
           color="primary"
-          // getAriaValueText={timeRange}
         />
       </Row>
       <Row>
         <Accordion defaultActiveKey={['reports', 'relationships']} flush alwaysOpen>
-          <Accordion.Item eventKey="reports">
-            <Accordion.Header> Reports </Accordion.Header>
-            <Accordion.Body className="section-body">
-              <ReportList reports={reportResults} />
-            </Accordion.Body>
-          </Accordion.Item>
-          <Accordion.Item eventKey="relationships">
-            <Accordion.Header> Relationships </Accordion.Header>
-            <Accordion.Body className="section-body">
-              <RelationshipList relationships={relationshipResults} />
-            </Accordion.Body>
-          </Accordion.Item>
+          <ContextAwareToggle textBody="Reports" numItems={reportResults.length} eventKey="reports" />
+          <Accordion.Collapse className="section-body" eventKey="reports">
+            <Card.Body>
+              <ReportList reports={reportResults.slice(reportCursor, reportCursor + PAGE_LENGTH)} />
+              <PaginationSelector
+                items={reportResults}
+                pageLimit={PAGE_LENGTH}
+                cursor={reportCursor}
+                onNext={handleReportCursorNext}
+                onPrev={handleReportCursorPrev}
+              />
+            </Card.Body>
+          </Accordion.Collapse>
+          <ContextAwareToggle textBody="Relationships" numItems={relationshipResults.length} eventKey="relationships" />
+          <Accordion.Collapse className="section-body" eventKey="relationships">
+            <Card.Body>
+              <RelationshipList
+                relationships={relationshipResults.slice(relCursor, relCursor + PAGE_LENGTH)}
+              />
+              <PaginationSelector
+                items={relationshipResults}
+                pageLimit={PAGE_LENGTH}
+                cursor={relCursor}
+                onNext={handleRelCursorNext}
+                onPrev={handleRelCursorPrev}
+              />
+            </Card.Body>
+          </Accordion.Collapse>
         </Accordion>
       </Row>
     </Container>

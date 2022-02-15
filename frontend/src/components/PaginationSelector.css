@@ -1,0 +1,18 @@
+#pagination-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.pagination-button {
+  color: #B4A88C;
+  background-color: transparent;
+  border-width: 0px;
+  font-size: small;
+}
+
+.pagination-button:disabled {
+  color: #ffffff10;
+}

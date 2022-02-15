@@ -26,7 +26,6 @@ function formatDateRange(data: any) {
 
 async function findDateRange() {
   const res = await (await fetch('http://localhost:8000/dateRange')).json();
-  console.log('actually res: ', res);
   return formatDateRange(res);
 }
 
