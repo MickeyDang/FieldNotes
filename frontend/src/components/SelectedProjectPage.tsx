@@ -5,15 +5,17 @@ import {
 } from 'react-bootstrap';
 import _ from 'lodash';
 import searchData from '../services/SearchService';
+import findDateRange from '../services/DateRangeService';
 import ListPanel from './ListPanel';
 import MapPanel from './MapPanel';
 import './SelectedProjectPage.css';
-import { BoundingBox } from '../models/types';
+import { BoundingBox, DateRangeProperties } from '../models/types';
 
 function SelectedProjectPage() {
   const [searchParams, setSearchParams] = useState({});
   const [reports, setReports] = useState([]);
   const [relationships, setRelationships] = useState([]);
+  const [dateRange, setDateRange] = useState({} as DateRangeProperties);
 
   const executeSearch = useCallback(async () => {
     const response = await searchData(searchParams);
@@ -25,6 +27,16 @@ function SelectedProjectPage() {
     executeSearch();
   }, [executeSearch]);
 
+  // Get oldest and newest dates for time range filter
+  useEffect(() => {
+    const fetchData = async () => {
+      const response: DateRangeProperties = await findDateRange();
+      setDateRange(response);
+    };
+
+    fetchData().catch(console.error);
+  }, []);
+
   const updateSearchQuery = (updatedSearchQuery: string[]) => {
     const updatedParams = { ...searchParams, searchQuery: updatedSearchQuery };
     if (!_.isEqual(updatedParams, searchParams)) {
@@ -34,6 +46,13 @@ function SelectedProjectPage() {
 
   const updateBoundingBoxQuery = (updatedBoundingBoxQuery: BoundingBox) => {
     const updatedParams = { ...searchParams, boundingBox: updatedBoundingBoxQuery };
+    if (!_.isEqual(updatedParams, searchParams)) {
+      setSearchParams(updatedParams);
+    }
+  };
+
+  const updateTimeRange = (updatedTimeRangeQuery: number[]) => {
+    const updatedParams = { ...searchParams, timeRange: updatedTimeRangeQuery };
     if (!_.isEqual(updatedParams, searchParams)) {
       setSearchParams(updatedParams);
     }
@@ -53,6 +72,8 @@ function SelectedProjectPage() {
           reportResults={reports}
           relationshipResults={relationships}
           onSearchChange={updateSearchQuery}
+          onTimeRangeChange={updateTimeRange}
+          dateRangeResults={dateRange}
           onSortChange={updateSortQuery}
         />
       </Col>

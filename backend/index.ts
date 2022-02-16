@@ -9,6 +9,13 @@ const cors = require('cors');
 const ReportModel = require('./models/Reports');
 const RelationshipModel = require('./models/Relationships');
 const ProjectModel = require('./models/Projects');
+const {
+  getDateWithAddedMonths,
+  getRelSortOrder,
+  getReportSortOrder,
+  REPORT_RESPONSE_FIELDS,
+  RELATIOSHIP_RESPONSE_FIELDS,
+} = require('./helpers.ts');
 
 // Convert body of JSON requests to an object
 app.use(express.json());
@@ -18,31 +25,15 @@ mongoose.connect(process.env.DATABASE_CONNECTION_TOKEN);
 
 app.get('/', (req, res) => res.send('Express and TypeScript Server'));
 
-const getReportSortOrder = (reportSortOrderParams: string) => {
-  if (reportSortOrderParams === 'creationDate') {
-    return { creationDate: -1 };
-  }
-  return { name: 1 };
-};
-
-const getRelSortOrder = (relSortOrderParams: string) => {
-  if (relSortOrderParams === 'lastContacted') {
-    return { lastContacted: -1 };
-  }
-  if (relSortOrderParams === 'firstContacted') {
-    return { lastContacted: 1 };
-  }
-  return { name: 1 };
-};
-
 app.get('/alldata', async (req, res) => {
   const queryParams = req.query;
   const keywords = (<string>queryParams.query).split(',').filter((s) => s !== '');
   const coordinates = (<string>queryParams.box).split(',').filter((s) => s !== '').map((x) => Number(x));
+  const timeRange = (<string>queryParams.time).split(',').filter((s) => s !== '').map((x) => Number(x));
   const sortOrderParams = (<string>queryParams.sortOrderParams).split(',').filter((s) => s !== '');
 
   // Expected behaviour is that if no filters are applied, no data is returned.
-  if (keywords.length === 0 && coordinates.length === 0) {
+  if (keywords.length === 0 && coordinates.length === 0 && queryParams.time === 'undefined') {
     return res.status(200).json({
       reports: [],
       relationships: [],
@@ -81,18 +72,34 @@ app.get('/alldata', async (req, res) => {
     relationshipFilters.push(BOUNDING_BOX_FILTER);
   }
 
+  if (queryParams.time !== 'undefined') {
+    const startDate = timeRange.slice(2, 4);
+    const endDate = timeRange.slice(4, 6);
+    const lowerRange = getDateWithAddedMonths(
+      new Date(startDate[0], startDate[1], 1),
+      timeRange[0] - 1,
+    );
+    const upperRange = getDateWithAddedMonths(
+      new Date(endDate[0], endDate[1], 1),
+      -((timeRange[6] - timeRange[1]) + 1),
+    );
+    const TIME_RANGE_FILTER = {
+      creationDate: {
+        $gte: lowerRange,
+        $lt: upperRange,
+      },
+    };
+
+    reportFilters.push(TIME_RANGE_FILTER);
+    if (relationshipFilters.length === 0) {
+      relationshipFilters.push({});
+    }
+  }
+
   const reportSortOrderParams = sortOrderParams[0];
   const relSortOrderParams = sortOrderParams[1];
-
   const reportSortOrder = getReportSortOrder(reportSortOrderParams);
   const relSortOrder = getRelSortOrder(relSortOrderParams);
-
-  const REPORT_RESPONSE_FIELDS = {
-    name: 1, relationships: 1, tags: 1, location: 1, creationDate: 1,
-  };
-  const RELATIOSHIP_RESPONSE_FIELDS = {
-    name: 1, reports: 1, tags: 1, location: 1,
-  };
 
   const reportQuery = ReportModel.find({
     $and: reportFilters,
@@ -107,6 +114,16 @@ app.get('/alldata', async (req, res) => {
   return res.status(200).json({
     reports: await reportQuery,
     relationships: await relationshipQuery,
+  });
+});
+
+app.get('/daterange', async (req, res) => {
+  const oldest = ReportModel.find({}, { creationDate: 1 }).sort({ creationDate: 1 }).limit(1);
+  const newest = ReportModel.find({}, { creationDate: 1 }).sort({ creationDate: -1 }).limit(1);
+
+  return res.status(200).json({
+    oldestDate: await oldest,
+    newestDate: await newest,
   });
 });
 

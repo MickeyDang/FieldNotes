@@ -3,6 +3,7 @@ export type BoundingBox = [[number, number], [number, number]];
 export interface SearchParameters {
   searchQuery?: string[];
   boundingBox?: BoundingBox;
+  timeRange?: number[];
   sortQuery?: string[];
 }
 
@@ -21,4 +22,12 @@ export type RelationshipProperties = {
     lastContacted: Date,
     reports: any[],
   }
+}
+
+export type DateRangeProperties = {
+  oldestDateDisplay: string,
+  newestDateDisplay: string,
+  monthsInRange: number,
+  oldestYearMonth: number[],
+  newestYearMonth: number[],
 }
