@@ -8,10 +8,10 @@ import {
 import Autocomplete from '@mui/material/Autocomplete';
 import { Chip, TextField } from '@mui/material';
 import Slider from '@mui/material/Slider';
-import { RelationshipProperties, ReportProperties, DateRangeProperties } from '../models/types';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { RelationshipProperties, ReportProperties, DateRangeProperties } from '../models/types';
 import './ListPanel.css';
 import RelationshipList from './RelationshipList';
 import ReportList from './ReportList';
@@ -31,14 +31,19 @@ interface ListPanelProps {
 const PAGE_LENGTH = 6;
 
 function ListPanel({
-  onSearchChange, onSortChange, onTimeRangeChange, reportResults, relationshipResults, dateRangeResults,
+  onSearchChange,
+  onSortChange,
+  onTimeRangeChange,
+  reportResults,
+  relationshipResults,
+  dateRangeResults,
 }: ListPanelProps) {
   const updateSearch = (_: any, values: string[]) => onSearchChange(values);
   const updateTimeRange = (values: number[]) => onTimeRangeChange(values);
   const updateSort = (values: string[]) => onSortChange(values);
 
   const maxMonths = dateRangeResults.monthsInRange ?? 0;
-  
+
   const [timeRange, setTimeRange] = useState<number[]>([0, maxMonths]);
   const [reportCursor, setReportCursor] = useState(0);
   const [relCursor, setRelCursor] = useState(0);

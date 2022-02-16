@@ -40,11 +40,8 @@ app.get('/alldata', async (req, res) => {
   const queryParams = req.query;
   const keywords = (<string>queryParams.query).split(',').filter((s) => s !== '');
   const coordinates = (<string>queryParams.box).split(',').filter((s) => s !== '').map((x) => Number(x));
-<<<<<<< HEAD
   const timeRange = (<string>queryParams.time).split(',').filter((s) => s !== '').map((x) => Number(x));
-=======
   const sortOrderParams = (<string>queryParams.sortOrderParams).split(',').filter((s) => s !== '');
->>>>>>> main
 
   // Expected behaviour is that if no filters are applied, no data is returned.
   if (keywords.length === 0 && coordinates.length === 0 && queryParams.time === 'undefined') {
@@ -86,7 +83,6 @@ app.get('/alldata', async (req, res) => {
     relationshipFilters.push(BOUNDING_BOX_FILTER);
   }
 
-<<<<<<< HEAD
   if (timeRange.length > 0) {
     const startDate = timeRange.slice(2, 4);
     const endDate = timeRange.slice(4, 6);
@@ -105,13 +101,12 @@ app.get('/alldata', async (req, res) => {
       relationshipFilters.push({});
     }
   }
-=======
+
   const reportSortOrderParams = sortOrderParams[0];
   const relSortOrderParams = sortOrderParams[1];
 
   const reportSortOrder = getReportSortOrder(reportSortOrderParams);
   const relSortOrder = getRelSortOrder(relSortOrderParams);
->>>>>>> main
 
   const REPORT_RESPONSE_FIELDS = {
     name: 1, relationships: 1, tags: 1, location: 1, creationDate: 1,
