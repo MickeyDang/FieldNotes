@@ -22,6 +22,9 @@ app.get('/alldata', async (req, res) => {
   const queryParams = req.query;
   const keywords = (<string>queryParams.query).split(',').filter((s) => s !== '');
   const coordinates = (<string>queryParams.box).split(',').filter((s) => s !== '').map((x) => Number(x));
+  const sortOrderParams = (<string>queryParams.sortOrderParams).split(',').filter((s) => s !== '');
+  const reportSortOrderParams = sortOrderParams[0];
+  const relSortOrderParams = sortOrderParams[1];
 
   // Expected behaviour is that if no filters are applied, no data is returned.
   if (keywords.length === 0 && coordinates.length === 0) {
@@ -63,23 +66,38 @@ app.get('/alldata', async (req, res) => {
     relationshipFilters.push(BOUNDING_BOX_FILTER);
   }
 
+  let reportSortOrder = {};
+  let relSortOrder = {};
+  if (reportSortOrderParams === 'creationDate') {
+    reportSortOrder = { creationDate: -1 };
+  } else if (reportSortOrderParams === 'name') {
+    reportSortOrder = { name: 1 };
+  }
+
+  if (relSortOrderParams === 'lastContacted') {
+    relSortOrder = { lastContacted: -1 };
+  } else if (relSortOrderParams === 'firstContacted') {
+    relSortOrder = { lastContacted: 1 };
+  } else if (relSortOrderParams === 'name') {
+    relSortOrder = { name: 1 };
+  }
+
   const REPORT_RESPONSE_FIELDS = {
     name: 1, relationships: 1, tags: 1, location: 1, creationDate: 1,
   };
   const RELATIOSHIP_RESPONSE_FIELDS = {
     name: 1, reports: 1, tags: 1, location: 1,
   };
-  const MOST_RECENT_CREATED = { creationDate: -1 };
 
   const reportQuery = ReportModel.find({
     $and: reportFilters,
     REPORT_RESPONSE_FIELDS,
-  }).sort(MOST_RECENT_CREATED);
+  }).sort(reportSortOrder);
 
   const relationshipQuery = RelationshipModel.find({
     $and: relationshipFilters,
     RELATIOSHIP_RESPONSE_FIELDS,
-  });
+  }).sort(relSortOrder);
 
   return res.status(200).json({
     reports: await reportQuery,

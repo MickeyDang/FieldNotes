@@ -39,6 +39,13 @@ function SelectedProjectPage() {
     }
   };
 
+  const updateSortQuery = (updatedSortQuery: string[]) => {
+    const updatedParams = { ...searchParams, sortQuery: updatedSortQuery };
+    if (!_.isEqual(updatedParams, searchParams)) {
+      setSearchParams(updatedParams);
+    }
+  };
+
   return (
     <Container className="project-view">
       <Col xs={8} md={6} lg={5}>
@@ -46,6 +53,7 @@ function SelectedProjectPage() {
           reportResults={reports}
           relationshipResults={relationships}
           onSearchChange={updateSearchQuery}
+          onSortChange={updateSortQuery}
         />
       </Col>
       <Col xs={4} md={6} lg={7}>

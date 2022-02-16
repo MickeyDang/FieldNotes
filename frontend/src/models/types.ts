@@ -3,6 +3,7 @@ export type BoundingBox = [[number, number], [number, number]];
 export interface SearchParameters {
   searchQuery?: string[];
   boundingBox?: BoundingBox;
+  sortQuery?: string[];
 }
 
 export type ReportProperties = {

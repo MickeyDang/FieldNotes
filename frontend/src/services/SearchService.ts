@@ -23,6 +23,7 @@ function formatParameters(params: SearchParameters) {
     box: bottomLeftLatLng && topRightLatLng
       ? `${bottomLeftLatLng[0]},${bottomLeftLatLng[1]},${topRightLatLng[0]},${topRightLatLng[1]}`
       : '',
+    sortOrderParams: params.sortQuery?.join(',') ?? '',
   };
 }
 
