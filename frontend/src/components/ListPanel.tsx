@@ -112,19 +112,20 @@ function ListPanel({
           onChange={updateSearch}
         />
       </Row>
-      <Row className="time-slider-container">
-        <Slider
-          value={timeRange}
-          onChange={handleChange}
-          valueLabelDisplay="auto"
-          defaultValue={maxMonths}
-          step={1}
-          marks={marks}
-          min={0}
-          max={maxMonths}
-          color="primary"
-        />
-      </Row>
+      <Slider
+        id="time-range-slider"
+        value={timeRange}
+        onChange={handleChange}
+        valueLabelDisplay="auto"
+        defaultValue={[maxMonths, maxMonths]}
+        step={1}
+        marks={marks}
+        min={0}
+        max={maxMonths}
+        classes={{
+          markLabel: 'fieldnotes-mark-label',
+        }}
+      />
       <Row>
         <Accordion defaultActiveKey={['reports', 'relationships']} flush alwaysOpen>
           <ContextAwareToggle textBody="Reports" numItems={reportResults.length} eventKey="reports" />

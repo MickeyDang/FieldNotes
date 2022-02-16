@@ -35,6 +35,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 16px;
 }
 
 #sort-reports-form {
@@ -45,4 +46,15 @@
 #sort-relationships-form {
   display: flex;
   flex: 1;
+}
+
+#time-range-slider {
+  color: #B4A88C;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.fieldnotes-mark-label {
+  color: #B4A88C !important;
 }
