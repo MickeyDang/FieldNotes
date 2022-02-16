@@ -79,7 +79,9 @@ app.get('/alldata', async (req, res) => {
     };
 
     reportFilters.push(TIME_RANGE_FILTER);
-    relationshipFilters.push(TIME_RANGE_FILTER);
+    if (relationshipFilters.length === 0) {
+      relationshipFilters.push({});
+    }
   }
 
   const REPORT_RESPONSE_FIELDS = {

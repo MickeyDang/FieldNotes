@@ -24,7 +24,7 @@ const reportSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  createdDate: {
+  creationDate: {
     type: Date,
   },
   lastUpdated: {
