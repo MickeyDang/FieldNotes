@@ -22,9 +22,9 @@ app.get('/alldata', async (req, res) => {
   const queryParams = req.query;
   const keywords = (<string>queryParams.query).split(',').filter((s) => s !== '');
   const coordinates = (<string>queryParams.box).split(',').filter((s) => s !== '').map((x) => Number(x));
-  const sortOn = (<string>queryParams.sortOn).split(',').filter((s) => s !== '');
-  const sortReportsOn = sortOn[0];
-  const sortRelationshipsOn = sortOn[1];
+  const sortOrderParams = (<string>queryParams.sortOrderParams).split(',').filter((s) => s !== '');
+  const reportSortOrderParams = sortOrderParams[0];
+  const relSortOrderParams = sortOrderParams[1];
 
   // Expected behaviour is that if no filters are applied, no data is returned.
   if (keywords.length === 0 && coordinates.length === 0) {
@@ -66,20 +66,20 @@ app.get('/alldata', async (req, res) => {
     relationshipFilters.push(BOUNDING_BOX_FILTER);
   }
 
-  let reportSort = {};
-  let relationshipSort = {};
-  if (sortReportsOn === 'creationDate') {
-    reportSort = { creationDate: -1 };
-  } else if (sortReportsOn === 'name') {
-    reportSort = { name: 1 };
+  let reportSortOrder = {};
+  let relSortOrder = {};
+  if (reportSortOrderParams === 'creationDate') {
+    reportSortOrder = { creationDate: -1 };
+  } else if (reportSortOrderParams === 'name') {
+    reportSortOrder = { name: 1 };
   }
 
-  if (sortRelationshipsOn === 'lastContacted') {
-    relationshipSort = { lastContacted: -1 };
-  } else if (sortRelationshipsOn === 'firstContacted') {
-    relationshipSort = { lastContacted: 1 };
-  } else if (sortRelationshipsOn === 'name') {
-    relationshipSort = { name: 1 };
+  if (relSortOrderParams === 'lastContacted') {
+    relSortOrder = { lastContacted: -1 };
+  } else if (relSortOrderParams === 'firstContacted') {
+    relSortOrder = { lastContacted: 1 };
+  } else if (relSortOrderParams === 'name') {
+    relSortOrder = { name: 1 };
   }
 
   const REPORT_RESPONSE_FIELDS = {
@@ -92,12 +92,12 @@ app.get('/alldata', async (req, res) => {
   const reportQuery = ReportModel.find({
     $and: reportFilters,
     REPORT_RESPONSE_FIELDS,
-  }).sort(reportSort);
+  }).sort(reportSortOrder);
 
   const relationshipQuery = RelationshipModel.find({
     $and: relationshipFilters,
     RELATIOSHIP_RESPONSE_FIELDS,
-  }).sort(relationshipSort);
+  }).sort(relSortOrder);
 
   return res.status(200).json({
     reports: await reportQuery,
