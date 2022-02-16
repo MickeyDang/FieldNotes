@@ -72,7 +72,7 @@ app.get('/alldata', async (req, res) => {
     relationshipFilters.push(BOUNDING_BOX_FILTER);
   }
 
-  if (timeRange.length > 0) {
+  if (queryParams.time !== 'undefined') {
     const startDate = timeRange.slice(2, 4);
     const endDate = timeRange.slice(4, 6);
     const lowerRange = getDateWithAddedMonths(
