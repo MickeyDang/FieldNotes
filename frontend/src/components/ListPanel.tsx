@@ -66,7 +66,7 @@ function ListPanel({
     },
   ];
 
-  const handleChange = (event: Event, newValue: number | number[]) => {
+  const handleTimeRangeChange = (event: Event, newValue: number | number[]) => {
     setTimeRange(newValue as number[]);
     const newTimeValues = [
       newValue,
@@ -80,6 +80,7 @@ function ListPanel({
   const handleSortReportsChange = (event: SelectChangeEvent) => {
     setSortReports(event.target.value as string);
   };
+
   const handleSortRelationshipsChange = (event: SelectChangeEvent) => {
     setSortRelationships(event.target.value as string);
   };
@@ -115,9 +116,9 @@ function ListPanel({
       <Slider
         id="time-range-slider"
         value={timeRange}
-        onChange={handleChange}
+        onChange={handleTimeRangeChange}
         valueLabelDisplay="auto"
-        defaultValue={[maxMonths, maxMonths]}
+        defaultValue={[0, maxMonths]}
         step={1}
         marks={marks}
         min={0}

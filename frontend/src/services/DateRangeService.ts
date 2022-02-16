@@ -1,10 +1,10 @@
 import { DateRangeProperties } from '../models/types';
 
 function formatDateRange(data: any): DateRangeProperties {
-  let oldestYearMonth = (<string>data.oldestDate[0].creationDate).split('-').map((x) => Number(x));
-  oldestYearMonth = oldestYearMonth.slice(0, 2);
-  let newestYearMonth = (<string>data.newestDate[0].creationDate).split('-').map((x) => Number(x));
-  newestYearMonth = newestYearMonth.slice(0, 2);
+  const oldestYearMonth = (<string>data.oldestDate[0].creationDate)
+    .split('-').map((x) => Number(x)).slice(0, 2);
+  const newestYearMonth = (<string>data.newestDate[0].creationDate)
+    .split('-').map((x) => Number(x)).slice(0, 2);
   const oldestYear = oldestYearMonth[0];
   const oldestMonth = oldestYearMonth[1];
   const newestYear = newestYearMonth[0];

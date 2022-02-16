@@ -34,8 +34,7 @@ function SelectedProjectPage() {
       setDateRange(response);
     };
 
-    fetchData()
-      .catch(console.error);
+    fetchData().catch(console.error);
   }, []);
 
   const updateSearchQuery = (updatedSearchQuery: string[]) => {

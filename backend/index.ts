@@ -9,7 +9,13 @@ const cors = require('cors');
 const ReportModel = require('./models/Reports');
 const RelationshipModel = require('./models/Relationships');
 const ProjectModel = require('./models/Projects');
-const { addMonths } = require('./helpers.ts');
+const {
+  getDateWithAddedMonths,
+  getRelSortOrder,
+  getReportSortOrder,
+  REPORT_RESPONSE_FIELDS,
+  RELATIOSHIP_RESPONSE_FIELDS,
+} = require('./helpers.ts');
 
 // Convert body of JSON requests to an object
 app.use(express.json());
@@ -18,23 +24,6 @@ app.use(cors());
 mongoose.connect(process.env.DATABASE_CONNECTION_TOKEN);
 
 app.get('/', (req, res) => res.send('Express and TypeScript Server'));
-
-const getReportSortOrder = (reportSortOrderParams: string) => {
-  if (reportSortOrderParams === 'creationDate') {
-    return { creationDate: -1 };
-  }
-  return { name: 1 };
-};
-
-const getRelSortOrder = (relSortOrderParams: string) => {
-  if (relSortOrderParams === 'lastContacted') {
-    return { lastContacted: -1 };
-  }
-  if (relSortOrderParams === 'firstContacted') {
-    return { lastContacted: 1 };
-  }
-  return { name: 1 };
-};
 
 app.get('/alldata', async (req, res) => {
   const queryParams = req.query;
@@ -86,9 +75,14 @@ app.get('/alldata', async (req, res) => {
   if (timeRange.length > 0) {
     const startDate = timeRange.slice(2, 4);
     const endDate = timeRange.slice(4, 6);
-    const lowerRange = addMonths(new Date(startDate[0], startDate[1], 1), timeRange[0] - 1);
-    // eslint-disable-next-line max-len
-    const upperRange = addMonths(new Date(endDate[0], endDate[1], 1), -((timeRange[6] - timeRange[1]) + 1));
+    const lowerRange = getDateWithAddedMonths(
+      new Date(startDate[0], startDate[1], 1),
+      timeRange[0] - 1,
+    );
+    const upperRange = getDateWithAddedMonths(
+      new Date(endDate[0], endDate[1], 1),
+      -((timeRange[6] - timeRange[1]) + 1),
+    );
     const TIME_RANGE_FILTER = {
       creationDate: {
         $gte: lowerRange,
@@ -104,16 +98,8 @@ app.get('/alldata', async (req, res) => {
 
   const reportSortOrderParams = sortOrderParams[0];
   const relSortOrderParams = sortOrderParams[1];
-
   const reportSortOrder = getReportSortOrder(reportSortOrderParams);
   const relSortOrder = getRelSortOrder(relSortOrderParams);
-
-  const REPORT_RESPONSE_FIELDS = {
-    name: 1, relationships: 1, tags: 1, location: 1, creationDate: 1,
-  };
-  const RELATIOSHIP_RESPONSE_FIELDS = {
-    name: 1, reports: 1, tags: 1, location: 1,
-  };
 
   const reportQuery = ReportModel.find({
     $and: reportFilters,
