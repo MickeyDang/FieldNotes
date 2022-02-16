@@ -84,25 +84,34 @@ function ListPanel({
           <Accordion.Collapse className="section-body" eventKey="reports">
             <Card.Body>
               <ReportList reports={reportResults.slice(reportCursor, reportCursor + PAGE_LENGTH)} />
-              <FormControl fullWidth>
-                <Select
-                  labelId="sort-reports-on"
-                  id="sort-reports-select"
-                  value={sortReports}
-                  label="Sort by"
-                  onChange={handleSortReportsChange}
+              <div className="footer-container">
+                <FormControl
+                  hiddenLabel
+                  size="small"
+                  variant="filled"
+                  id="sort-reports-form"
                 >
-                  <MenuItem value="creationDate">Created Date</MenuItem>
-                  <MenuItem value="name">Alphabetical</MenuItem>
-                </Select>
-              </FormControl>
-              <PaginationSelector
-                items={reportResults}
-                pageLimit={PAGE_LENGTH}
-                cursor={reportCursor}
-                onNext={handleReportCursorNext}
-                onPrev={handleReportCursorPrev}
-              />
+                  <Select
+                    autoWidth
+                    variant="standard"
+                    labelId="sort-reports-on"
+                    id="sort-reports-select"
+                    value={sortReports}
+                    label="Sort by"
+                    onChange={handleSortReportsChange}
+                  >
+                    <MenuItem value="creationDate">Created Date</MenuItem>
+                    <MenuItem value="name">Alphabetical</MenuItem>
+                  </Select>
+                </FormControl>
+                <PaginationSelector
+                  items={reportResults}
+                  pageLimit={PAGE_LENGTH}
+                  cursor={reportCursor}
+                  onNext={handleReportCursorNext}
+                  onPrev={handleReportCursorPrev}
+                />
+              </div>
             </Card.Body>
           </Accordion.Collapse>
           <ContextAwareToggle textBody="Relationships" numItems={relationshipResults.length} eventKey="relationships" />
@@ -111,26 +120,35 @@ function ListPanel({
               <RelationshipList
                 relationships={relationshipResults.slice(relCursor, relCursor + PAGE_LENGTH)}
               />
-              <FormControl fullWidth>
-                <Select
-                  labelId="sort-relationships-on"
-                  id="sort-relationships-select"
-                  value={sortRelationships}
-                  label="Sort by"
-                  onChange={handleSortRelationshipsChange}
+              <div className="footer-container">
+                <FormControl
+                  hiddenLabel
+                  size="small"
+                  variant="filled"
+                  id="sort-relationships-form"
                 >
-                  <MenuItem value="lastContacted">Last Contacted</MenuItem>
-                  <MenuItem value="firstContacted">First Contacted</MenuItem>
-                  <MenuItem value="name">Alphabetical</MenuItem>
-                </Select>
-              </FormControl>
-              <PaginationSelector
-                items={relationshipResults}
-                pageLimit={PAGE_LENGTH}
-                cursor={relCursor}
-                onNext={handleRelCursorNext}
-                onPrev={handleRelCursorPrev}
-              />
+                  <Select
+                    autoWidth
+                    variant="standard"
+                    labelId="sort-relationships-on"
+                    id="sort-relationships-select"
+                    value={sortRelationships}
+                    label="Sort by"
+                    onChange={handleSortRelationshipsChange}
+                  >
+                    <MenuItem value="lastContacted">Last Contacted</MenuItem>
+                    <MenuItem value="firstContacted">First Contacted</MenuItem>
+                    <MenuItem value="name">Alphabetical</MenuItem>
+                  </Select>
+                </FormControl>
+                <PaginationSelector
+                  items={relationshipResults}
+                  pageLimit={PAGE_LENGTH}
+                  cursor={relCursor}
+                  onNext={handleRelCursorNext}
+                  onPrev={handleRelCursorPrev}
+                />
+              </div>
             </Card.Body>
           </Accordion.Collapse>
         </Accordion>
