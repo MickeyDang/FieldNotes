@@ -4,6 +4,7 @@ export interface SearchParameters {
   searchQuery?: string[];
   boundingBox?: BoundingBox;
   timeRange?: number[];
+  sortQuery?: string[];
 }
 
 export type ReportProperties = {

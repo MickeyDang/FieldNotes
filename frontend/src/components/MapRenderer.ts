@@ -3,8 +3,33 @@ import mapboxgl from 'mapbox-gl';
 const BLUE = '#8FB1BB';
 const DARK_BLUE = '#1A85A7';
 const ORANGE = '#F29D49';
+const navigation = new mapboxgl.NavigationControl({ showCompass: false });
 
-export function setupDataSources(reports: any, relationships: any, map: mapboxgl.Map) {
+let sourceLoaded = false;
+
+export function updateDataSources(reports: any, relationships: any, map: mapboxgl.Map) {
+  if (sourceLoaded) {
+    const reportSource: mapboxgl.GeoJSONSource = map.getSource('reports') as mapboxgl.GeoJSONSource;
+    const relationshipSource: mapboxgl.GeoJSONSource = map.getSource('relationships') as mapboxgl.GeoJSONSource;
+    reportSource.setData({
+      type: 'FeatureCollection',
+      features: reports,
+    });
+    relationshipSource.setData({
+      type: 'FeatureCollection',
+      features: relationships,
+    });
+  }
+}
+
+export function setupMapInteractions(map: mapboxgl.Map) {
+  // Add zoom controls to the map.
+  if (!map.hasControl(navigation)) {
+    map.addControl(navigation, 'bottom-right');
+  }
+}
+
+function setupDataSources(reports: any, relationships: any, map: mapboxgl.Map) {
   map.addSource('reports', {
     type: 'geojson',
     data: {
@@ -21,13 +46,8 @@ export function setupDataSources(reports: any, relationships: any, map: mapboxgl
   });
 }
 
-export function setupMapInteractions(map: mapboxgl.Map) {
-  // Add zoom controls to the map.
-  map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'bottom-right');
-}
-
-export function setupLayers(map: mapboxgl.Map) {
-  const reportFillLayer:mapboxgl.AnyLayer = {
+function setupLayers(map: mapboxgl.Map) {
+  const reportFillLayer: mapboxgl.AnyLayer = {
     id: 'report-fill',
     type: 'fill',
     source: 'reports',
@@ -38,7 +58,7 @@ export function setupLayers(map: mapboxgl.Map) {
     filter: ['==', '$type', 'Polygon'],
   };
 
-  const reportLineLayer:mapboxgl.AnyLayer = {
+  const reportLineLayer: mapboxgl.AnyLayer = {
     id: 'report-boundary',
     type: 'line',
     source: 'reports',
@@ -49,13 +69,13 @@ export function setupLayers(map: mapboxgl.Map) {
     filter: ['==', '$type', 'Polygon'],
   };
 
-  const relationshipFillLayer:mapboxgl.AnyLayer = {
+  const relationshipFillLayer: mapboxgl.AnyLayer = {
     id: 'relationship-fill',
     type: 'circle',
     source: 'relationships',
     paint: {
       // Make circles larger as the user zooms from z12 to z22.
-      'circle-radius': { base: 1, stops: [[12, 2], [22, 180]] },
+      'circle-radius': { base: 5, stops: [[12, 10], [22, 180]] },
       'circle-color': ORANGE,
       'circle-opacity': 1,
     },
@@ -64,4 +84,12 @@ export function setupLayers(map: mapboxgl.Map) {
   map.addLayer(reportFillLayer);
   map.addLayer(reportLineLayer);
   map.addLayer(relationshipFillLayer);
+}
+
+export function setupMapFeatures(reports: any, relationships: any, map: mapboxgl.Map) {
+  if (!sourceLoaded) {
+    setupDataSources(reports, relationships, map);
+    setupLayers(map);
+    sourceLoaded = true;
+  }
 }

@@ -57,6 +57,13 @@ function SelectedProjectPage() {
     if (!_.isEqual(updatedParams, searchParams)) {
       setSearchParams(updatedParams);
     }
+  }
+  
+  const updateSortQuery = (updatedSortQuery: string[]) => {
+    const updatedParams = { ...searchParams, sortQuery: updatedSortQuery };
+    if (!_.isEqual(updatedParams, searchParams)) {
+      setSearchParams(updatedParams);
+    }
   };
 
   return (
@@ -68,6 +75,7 @@ function SelectedProjectPage() {
           onSearchChange={updateSearchQuery}
           onTimeRangeChange={updateTimeRange}
           dateRangeResults={dateRange}
+          onSortChange={updateSortQuery}
         />
       </Col>
       <Col xs={4} md={6} lg={7}>

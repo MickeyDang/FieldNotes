@@ -20,3 +20,29 @@
   border-radius: 8px !important;
   background-color: #fcf9f2;
 }
+
+#sort-reports-select {
+  color: #B4A88C;
+  background-color: #2A2925;
+}
+
+#sort-relationships-select {
+  color: #B4A88C;
+  background-color: #2A2925;
+}
+
+.footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#sort-reports-form {
+  display: flex;
+  flex: 1;
+}
+
+#sort-relationships-form {
+  display: flex;
+  flex: 1;
+}

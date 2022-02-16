@@ -24,6 +24,7 @@ function formatParameters(params: SearchParameters) {
       ? `${bottomLeftLatLng[0]},${bottomLeftLatLng[1]},${topRightLatLng[0]},${topRightLatLng[1]}`
       : '',
     time: `${params.timeRange}` ?? '',
+    sortOrderParams: params.sortQuery?.join(',') ?? '',
   };
 }
 

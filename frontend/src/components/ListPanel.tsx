@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Row,
@@ -9,6 +9,9 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { Chip, TextField } from '@mui/material';
 import Slider from '@mui/material/Slider';
 import { RelationshipProperties, ReportProperties, DateRangeProperties } from '../models/types';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import './ListPanel.css';
 import RelationshipList from './RelationshipList';
 import ReportList from './ReportList';
@@ -19,21 +22,33 @@ import PaginationSelector from './PaginationSelector';
 interface ListPanelProps {
   reportResults: ReportProperties[],
   relationshipResults: RelationshipProperties[],
+  dateRangeResults: DateRangeProperties,
   onSearchChange: Function,
   onTimeRangeChange: Function,
-  dateRangeResults: DateRangeProperties,
+  onSortChange: Function,
 }
 
 const PAGE_LENGTH = 6;
 
 function ListPanel({
-  onSearchChange, onTimeRangeChange, reportResults, relationshipResults, dateRangeResults,
+  onSearchChange, onSortChange, onTimeRangeChange, reportResults, relationshipResults, dateRangeResults,
 }: ListPanelProps) {
   const updateSearch = (_: any, values: string[]) => onSearchChange(values);
   const updateTimeRange = (values: number[]) => onTimeRangeChange(values);
+  const updateSort = (values: string[]) => onSortChange(values);
 
   const maxMonths = dateRangeResults.monthsInRange ?? 0;
+  
   const [timeRange, setTimeRange] = useState<number[]>([0, maxMonths]);
+  const [reportCursor, setReportCursor] = useState(0);
+  const [relCursor, setRelCursor] = useState(0);
+  const [sortReports, setSortReports] = useState('creationDate');
+  const [sortRelationships, setSortRelationships] = useState('name');
+
+  const handleReportCursorNext = () => setReportCursor(reportCursor + PAGE_LENGTH);
+  const handleReportCursorPrev = () => setReportCursor(reportCursor - PAGE_LENGTH);
+  const handleRelCursorNext = () => setRelCursor(relCursor + PAGE_LENGTH);
+  const handleRelCursorPrev = () => setRelCursor(relCursor - PAGE_LENGTH);
 
   const marks = [
     {
@@ -57,13 +72,16 @@ function ListPanel({
     updateTimeRange(newTimeValues as number[]);
   };
 
-  const [reportCursor, setReportCursor] = useState(0);
-  const [relCursor, setRelCursor] = useState(0);
+  const handleSortReportsChange = (event: SelectChangeEvent) => {
+    setSortReports(event.target.value as string);
+  };
+  const handleSortRelationshipsChange = (event: SelectChangeEvent) => {
+    setSortRelationships(event.target.value as string);
+  };
 
-  const handleReportCursorNext = () => setReportCursor(reportCursor + PAGE_LENGTH);
-  const handleReportCursorPrev = () => setReportCursor(reportCursor - PAGE_LENGTH);
-  const handleRelCursorNext = () => setRelCursor(relCursor + PAGE_LENGTH);
-  const handleRelCursorPrev = () => setRelCursor(relCursor - PAGE_LENGTH);
+  useEffect(() => {
+    updateSort([sortReports, sortRelationships]);
+  }, [sortReports, sortRelationships]);
 
   return (
     <Container fluid className="list-container">
@@ -108,13 +126,34 @@ function ListPanel({
           <Accordion.Collapse className="section-body" eventKey="reports">
             <Card.Body>
               <ReportList reports={reportResults.slice(reportCursor, reportCursor + PAGE_LENGTH)} />
-              <PaginationSelector
-                items={reportResults}
-                pageLimit={PAGE_LENGTH}
-                cursor={reportCursor}
-                onNext={handleReportCursorNext}
-                onPrev={handleReportCursorPrev}
-              />
+              <div className="footer-container">
+                <FormControl
+                  hiddenLabel
+                  size="small"
+                  variant="filled"
+                  id="sort-reports-form"
+                >
+                  <Select
+                    autoWidth
+                    variant="standard"
+                    labelId="sort-reports-on"
+                    id="sort-reports-select"
+                    value={sortReports}
+                    label="Sort by"
+                    onChange={handleSortReportsChange}
+                  >
+                    <MenuItem value="creationDate">Created Date</MenuItem>
+                    <MenuItem value="name">Alphabetical</MenuItem>
+                  </Select>
+                </FormControl>
+                <PaginationSelector
+                  items={reportResults}
+                  pageLimit={PAGE_LENGTH}
+                  cursor={reportCursor}
+                  onNext={handleReportCursorNext}
+                  onPrev={handleReportCursorPrev}
+                />
+              </div>
             </Card.Body>
           </Accordion.Collapse>
           <ContextAwareToggle textBody="Relationships" numItems={relationshipResults.length} eventKey="relationships" />
@@ -123,13 +162,35 @@ function ListPanel({
               <RelationshipList
                 relationships={relationshipResults.slice(relCursor, relCursor + PAGE_LENGTH)}
               />
-              <PaginationSelector
-                items={relationshipResults}
-                pageLimit={PAGE_LENGTH}
-                cursor={relCursor}
-                onNext={handleRelCursorNext}
-                onPrev={handleRelCursorPrev}
-              />
+              <div className="footer-container">
+                <FormControl
+                  hiddenLabel
+                  size="small"
+                  variant="filled"
+                  id="sort-relationships-form"
+                >
+                  <Select
+                    autoWidth
+                    variant="standard"
+                    labelId="sort-relationships-on"
+                    id="sort-relationships-select"
+                    value={sortRelationships}
+                    label="Sort by"
+                    onChange={handleSortRelationshipsChange}
+                  >
+                    <MenuItem value="lastContacted">Last Contacted</MenuItem>
+                    <MenuItem value="firstContacted">First Contacted</MenuItem>
+                    <MenuItem value="name">Alphabetical</MenuItem>
+                  </Select>
+                </FormControl>
+                <PaginationSelector
+                  items={relationshipResults}
+                  pageLimit={PAGE_LENGTH}
+                  cursor={relCursor}
+                  onNext={handleRelCursorNext}
+                  onPrev={handleRelCursorPrev}
+                />
+              </div>
             </Card.Body>
           </Accordion.Collapse>
         </Accordion>
