@@ -1,4 +1,6 @@
-function formatDateRange(data: any) {
+import { DateRangeProperties } from '../models/types';
+
+function formatDateRange(data: any): DateRangeProperties {
   let oldestYearMonth = (<string>data.oldestDate[0].creationDate).split('-').map((x) => Number(x));
   oldestYearMonth = oldestYearMonth.slice(0, 2);
   let newestYearMonth = (<string>data.newestDate[0].creationDate).split('-').map((x) => Number(x));

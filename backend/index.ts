@@ -108,7 +108,7 @@ app.get('/alldata', async (req, res) => {
   });
 });
 
-app.get('/dateRange', async (req, res) => {
+app.get('/daterange', async (req, res) => {
   const oldest = ReportModel.find({}, { creationDate: 1 }).sort({ creationDate: 1 }).limit(1);
   const newest = ReportModel.find({}, { creationDate: 1 }).sort({ creationDate: -1 }).limit(1);
 

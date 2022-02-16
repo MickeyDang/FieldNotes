@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import _ from 'lodash';
 import searchData from '../services/SearchService';
-import findDateRange from '../services/FindDateRange';
+import findDateRange from '../services/DateRangeService';
 import ListPanel from './ListPanel';
 import MapPanel from './MapPanel';
 import './SelectedProjectPage.css';
@@ -30,8 +30,8 @@ function SelectedProjectPage() {
   // Get oldest and newest dates for time range filter
   useEffect(() => {
     const fetchData = async () => {
-      const response = await findDateRange();
-      setDateRange(response as DateRangeProperties);
+      const response: DateRangeProperties = await findDateRange();
+      setDateRange(response);
     };
 
     fetchData()
