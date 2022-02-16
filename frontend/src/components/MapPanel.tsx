@@ -21,8 +21,24 @@ const DEFAULT_ZOOM_LEVEL = 12.5;
 function MapPanel({ reportResults, relationshipResults, onBoundingBoxChange }: MapPanelProps) {
   const mapContainerRef = useRef(null);
   const mapRef = useRef<mapboxgl.Map>(null);
-  // TODO: make the bounding box parameter change based on map viewport.
-  const updateSearch = () => onBoundingBoxChange([[-124, 49], [-123, 50]]);
+
+  const extractBoundingBox = () => {
+    if (mapRef.current) {
+      const map = mapRef.current;
+      const sw = map.getBounds().getSouthWest();
+      const ne = map.getBounds().getNorthEast();
+
+      return [[sw.lng, sw.lat], [ne.lng, ne.lat]];
+    }
+    return [];
+  };
+
+  const updateSearch = () => {
+    const box = extractBoundingBox();
+    if (box.length > 0) {
+      onBoundingBoxChange(extractBoundingBox());
+    }
+  };
 
   useEffect(() => {
     if (!mapRef.current) {
