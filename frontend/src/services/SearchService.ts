@@ -1,5 +1,7 @@
 import { SearchParameters } from '../models/types';
 
+const ROOT_URL = process.env.ROOT_URL ? `${process.env.REACT_APP_MAPBOX_API}` : 'http://localhost:8000';
+
 type RelationshipFeature = {
   location: { coordinates: number[]; };
   name: string;
@@ -70,7 +72,7 @@ function formatRelationships(data: any) {
 }
 
 async function searchData(params: SearchParameters) {
-  const res = await (await fetch(`http://localhost:8000/alldata?${new URLSearchParams(formatParameters(params))}`)).json();
+  const res = await (await fetch(`${ROOT_URL}/alldata?${new URLSearchParams(formatParameters(params))}`)).json();
 
   const allData = {
     reports: formatReports(res.reports),
