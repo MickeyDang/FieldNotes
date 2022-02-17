@@ -1,5 +1,7 @@
 import { DateRangeProperties } from '../models/types';
 
+const ROOT_URL = process.env.ROOT_URL ? `${process.env.REACT_APP_MAPBOX_API}` : 'http://localhost:8000';
+
 function formatDateRange(data: any): DateRangeProperties {
   const oldestYearMonth = (<string>data.oldestDate[0].creationDate)
     .split('-').map((x) => Number(x)).slice(0, 2);
@@ -29,7 +31,7 @@ function formatDateRange(data: any): DateRangeProperties {
 }
 
 async function findDateRange() {
-  const res = await (await fetch('http://localhost:8000/dateRange')).json();
+  const res = await (await fetch(`${ROOT_URL}/dateRange`)).json();
   return formatDateRange(res);
 }
 
