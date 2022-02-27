@@ -5,6 +5,8 @@
     "rootDir": "./",
     "outDir": "./build",
     "esModuleInterop": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
     "strict": true
   }
 }
