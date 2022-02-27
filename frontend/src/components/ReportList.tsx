@@ -9,7 +9,7 @@ interface ReportListProps {
 function ReportList({ reports }: ReportListProps) {
   return (
     <>
-      {reports.map((report, index) => <ReportListItem key={index.toString()} report={report} />)}
+      {reports.map((report) => <ReportListItem key={report.properties.name} report={report} />)}
     </>
   );
 }

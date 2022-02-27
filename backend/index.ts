@@ -1,9 +1,8 @@
-import express from 'express';
-
 require('dotenv').config();
+const express = require('express');
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 const mongoose = require('mongoose');
 const cors = require('cors');
 const ReportModel = require('./models/Reports');
@@ -15,7 +14,9 @@ const {
   getReportSortOrder,
   REPORT_RESPONSE_FIELDS,
   RELATIOSHIP_RESPONSE_FIELDS,
-} = require('./helpers.ts');
+  /* eslint-disable import/no-unresolved, import/extensions */
+} = require('./helpers');
+/* eslint-enable import/no-unresolved, import/extensions */
 
 // Convert body of JSON requests to an object
 app.use(express.json());
@@ -23,9 +24,9 @@ app.use(cors());
 
 mongoose.connect(process.env.DATABASE_CONNECTION_TOKEN);
 
-app.get('/', (req, res) => res.send('Express and TypeScript Server'));
+app.get('/', (req: any, res: any) => res.send('Express and TypeScript Server'));
 
-app.get('/alldata', async (req, res) => {
+app.get('/alldata', async (req: any, res: any) => {
   const queryParams = req.query;
   const keywords = (<string>queryParams.query).split(',').filter((s) => s !== '');
   const coordinates = (<string>queryParams.box).split(',').filter((s) => s !== '').map((x) => Number(x));
@@ -117,7 +118,7 @@ app.get('/alldata', async (req, res) => {
   });
 });
 
-app.get('/daterange', async (req, res) => {
+app.get('/daterange', async (req: any, res: any) => {
   const oldest = ReportModel.find({}, { creationDate: 1 }).sort({ creationDate: 1 }).limit(1);
   const newest = ReportModel.find({}, { creationDate: 1 }).sort({ creationDate: -1 }).limit(1);
 
@@ -127,7 +128,7 @@ app.get('/daterange', async (req, res) => {
   });
 });
 
-app.get('/projects', (req, res) => {
+app.get('/projects', (req: any, res: any) => {
   ProjectModel.find({}, (err: any, result: any) => {
     if (err) {
       res.status(500).send();
