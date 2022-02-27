@@ -9,9 +9,9 @@ interface RelationshipListProps {
 function RelationshipList({ relationships }: RelationshipListProps) {
   return (
     <>
-      {relationships.map((rel, index) => (
+      {relationships.map((rel) => (
         <RelationshipListItem
-          key={index.toString()}
+          key={rel.properties.name}
           relationship={rel}
         />
       ))}
