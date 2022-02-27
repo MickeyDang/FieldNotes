@@ -21,3 +21,13 @@ Launches the linter configured using [ESLint](https://eslint.org/docs/user-guide
 ### `npm build`
 
 Compiles the TypeScript into JavaScript. Do this before deploying code anywhere.
+
+## Deployment
+
+* Checkout to the `heroku-deployment` branch or create it if you don't have it locally.
+* Make sure this branch does not have `backend/build` in the gitignore (or change it as needed).
+* Build the backend locally.
+* Commit any changes
+* Deploy the branch using `git push heroku heroku-development:main`.
+
+This is required because there's something weird going on related to typescript and building projects in the heroku instance, so the temporary workaround is just to build it locally and push that commit.

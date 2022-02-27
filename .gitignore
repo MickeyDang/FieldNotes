@@ -9,3 +9,7 @@ Icon
 */package-lock.json
 
 *.env
+
+# root
+node_modules
+package-lock.json

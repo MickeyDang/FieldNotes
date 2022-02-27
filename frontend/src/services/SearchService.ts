@@ -1,6 +1,6 @@
 import { SearchParameters } from '../models/types';
 
-const ROOT_URL = process.env.ROOT_URL ? `${process.env.REACT_APP_MAPBOX_API}` : 'http://localhost:8000';
+const ROOT_URL = process.env.REACT_APP_ROOT_URL ? `${process.env.REACT_APP_ROOT_URL}` : 'http://localhost:8000';
 
 type RelationshipFeature = {
   location: { coordinates: number[]; };
