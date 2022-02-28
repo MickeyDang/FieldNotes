@@ -54,13 +54,15 @@ function MapPanel({ reportResults, relationshipResults, onBoundingBoxChange }: M
       });
     } else {
       const map = mapRef.current;
+      const box = extractBoundingBox();
+      console.log(box);
 
       map.on('render', () => {
         map.resize();
       });
 
       map.on('load', async () => {
-        setupMapFeatures(reportResults, relationshipResults, map);
+        setupMapFeatures(reportResults, relationshipResults, box, map);
       });
 
       // change cursor to pointer when user hovers over a clickable feature
@@ -76,7 +78,7 @@ function MapPanel({ reportResults, relationshipResults, onBoundingBoxChange }: M
       });
 
       setupMapInteractions(map);
-      updateDataSources(reportResults, relationshipResults, map);
+      updateDataSources(reportResults, relationshipResults, box, map);
     }
   }, [reportResults, relationshipResults]);
 

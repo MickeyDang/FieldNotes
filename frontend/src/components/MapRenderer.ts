@@ -11,10 +11,11 @@ const navigation = new mapboxgl.NavigationControl({ showCompass: false });
 
 let sourceLoaded = false;
 
-export function updateDataSources(reports: any, relationships: any, map: mapboxgl.Map) {
+export function updateDataSources(reports: any, relationships: any, box: any, map: mapboxgl.Map) {
   if (sourceLoaded) {
     const reportSource: mapboxgl.GeoJSONSource = map.getSource('reports') as mapboxgl.GeoJSONSource;
     const relationshipSource: mapboxgl.GeoJSONSource = map.getSource('relationships') as mapboxgl.GeoJSONSource;
+    const boxSource: mapboxgl.GeoJSONSource = map.getSource('box') as mapboxgl.GeoJSONSource;
     reportSource.setData({
       type: 'FeatureCollection',
       features: reports,
@@ -22,6 +23,18 @@ export function updateDataSources(reports: any, relationships: any, map: mapboxg
     relationshipSource.setData({
       type: 'FeatureCollection',
       features: relationships,
+    });
+    boxSource.setData({
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        coordinates: [
+          box,
+        ],
+      },
+      properties: {
+        title: 'bounding box',
+      },
     });
   }
 }
@@ -33,7 +46,7 @@ export function setupMapInteractions(map: mapboxgl.Map) {
   }
 }
 
-function setupDataSources(reports: any, relationships: any, map: mapboxgl.Map) {
+function setupDataSources(reports: any, relationships: any, box: any, map: mapboxgl.Map) {
   map.addSource('reports', {
     type: 'geojson',
     data: {
@@ -46,6 +59,22 @@ function setupDataSources(reports: any, relationships: any, map: mapboxgl.Map) {
     data: {
       type: 'FeatureCollection',
       features: relationships,
+    },
+  });
+  map.addSource('box', {
+    type: 'geojson',
+    data: {
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        // These coordinates outline Maine.
+        coordinates: [
+          box,
+        ],
+      },
+      properties: {
+        title: 'bounding box',
+      },
     },
   });
 }
@@ -85,14 +114,26 @@ function setupLayers(map: mapboxgl.Map) {
     },
   };
 
+  const boxLineLayer: mapboxgl.AnyLayer = {
+    id: 'box-boundary',
+    type: 'line',
+    source: 'box',
+    paint: {
+      'line-color': DARK_BLUE,
+      'line-width': 3,
+    },
+    filter: ['==', '$type', 'Polygon'],
+  };
+
   map.addLayer(reportFillLayer);
   map.addLayer(reportLineLayer);
   map.addLayer(relationshipFillLayer);
+  map.addLayer(boxLineLayer);
 }
 
-export function setupMapFeatures(reports: any, relationships: any, map: mapboxgl.Map) {
+export function setupMapFeatures(reports: any, relationships: any, box: any, map: mapboxgl.Map) {
   if (!sourceLoaded) {
-    setupDataSources(reports, relationships, map);
+    setupDataSources(reports, relationships, box, map);
     setupLayers(map);
     sourceLoaded = true;
   }
