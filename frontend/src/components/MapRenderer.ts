@@ -1,5 +1,9 @@
 import mapboxgl from 'mapbox-gl';
 
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
+
 const BLUE = '#8FB1BB';
 const DARK_BLUE = '#1A85A7';
 const ORANGE = '#F29D49';
