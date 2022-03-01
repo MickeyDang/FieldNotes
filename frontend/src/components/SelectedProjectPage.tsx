@@ -9,13 +9,14 @@ import findDateRange from '../services/DateRangeService';
 import ListPanel from './ListPanel';
 import MapPanel from './MapPanel';
 import './SelectedProjectPage.css';
-import { BoundingBox, DateRangeProperties } from '../models/types';
+import { BoundingBox, DateRangeProperties, Annotations } from '../models/types';
 
 function SelectedProjectPage() {
   const [searchParams, setSearchParams] = useState({});
   const [reports, setReports] = useState([]);
   const [relationships, setRelationships] = useState([]);
   const [dateRange, setDateRange] = useState({} as DateRangeProperties);
+  const [annotations, setAnnotations] = useState({} as Annotations);
 
   const executeSearch = useCallback(async () => {
     const response = await searchData(searchParams);
@@ -75,6 +76,7 @@ function SelectedProjectPage() {
           onTimeRangeChange={updateTimeRange}
           dateRangeResults={dateRange}
           onSortChange={updateSortQuery}
+          annotations={annotations}
         />
       </Col>
       <Col xs={4} md={6} lg={7}>
@@ -82,6 +84,8 @@ function SelectedProjectPage() {
           reportResults={reports}
           relationshipResults={relationships}
           onBoundingBoxChange={updateBoundingBoxQuery}
+          annotations={annotations}
+          setAnnotations={setAnnotations}
         />
       </Col>
     </Container>

@@ -5,6 +5,7 @@ import './MapPanel.css';
 import {
   setupMapFeatures, updateDataSources, setupMapInteractions,
 } from './MapRenderer';
+import { Annotations } from '../models/types';
 
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
@@ -14,6 +15,8 @@ interface MapPanelProps {
   reportResults: any[],
   relationshipResults: any[],
   onBoundingBoxChange: Function,
+  annotations: Annotations,
+  setAnnotations: Function,
 }
 
 mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_API}`;
@@ -22,7 +25,9 @@ const VANCOUVER_LAT = -123.127;
 const VANCOUVER_LNG = 49.28;
 const DEFAULT_ZOOM_LEVEL = 12.5;
 
-function MapPanel({ reportResults, relationshipResults, onBoundingBoxChange }: MapPanelProps) {
+function MapPanel({
+  reportResults, relationshipResults, onBoundingBoxChange, annotations, setAnnotations,
+}: MapPanelProps) {
   const mapContainerRef = useRef(null);
   const mapRef = useRef<mapboxgl.Map>(null);
 
