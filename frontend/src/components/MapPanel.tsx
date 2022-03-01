@@ -37,6 +37,25 @@ function MapPanel({ reportResults, relationshipResults, onBoundingBoxChange }: M
     return [];
   };
 
+  const getSearchedAreaBox = () => {
+    if (mapRef.current) {
+      const map = mapRef.current;
+      const sw = map.getBounds().getSouthWest();
+      const se = map.getBounds().getSouthEast();
+      const ne = map.getBounds().getNorthEast();
+      const nw = map.getBounds().getNorthWest();
+
+      return [
+        [sw.lng, sw.lat],
+        [se.lng, se.lat],
+        [ne.lng, ne.lat],
+        [nw.lng, nw.lat],
+        [sw.lng, sw.lat],
+      ];
+    }
+    return [];
+  };
+
   const updateSearch = () => {
     const box = extractBoundingBox();
     if (box.length > 0) {
@@ -54,13 +73,14 @@ function MapPanel({ reportResults, relationshipResults, onBoundingBoxChange }: M
       });
     } else {
       const map = mapRef.current;
+      const box = getSearchedAreaBox();
 
       map.on('render', () => {
         map.resize();
       });
 
       map.on('load', async () => {
-        setupMapFeatures(reportResults, relationshipResults, map);
+        setupMapFeatures(reportResults, relationshipResults, box, map);
       });
 
       // change cursor to pointer when user hovers over a clickable feature
@@ -76,7 +96,7 @@ function MapPanel({ reportResults, relationshipResults, onBoundingBoxChange }: M
       });
 
       setupMapInteractions(map);
-      updateDataSources(reportResults, relationshipResults, map);
+      updateDataSources(reportResults, relationshipResults, box, map);
     }
   }, [reportResults, relationshipResults]);
 
