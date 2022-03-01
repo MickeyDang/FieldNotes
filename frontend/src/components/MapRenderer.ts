@@ -1,3 +1,4 @@
+import { Position } from 'geojson';
 import mapboxgl from 'mapbox-gl';
 
 // @ts-ignore
@@ -11,7 +12,12 @@ const navigation = new mapboxgl.NavigationControl({ showCompass: false });
 
 let sourceLoaded = false;
 
-export function updateDataSources(reports: any, relationships: any, box: any, map: mapboxgl.Map) {
+export function updateDataSources(
+  reports: any,
+  relationships: any,
+  box: Position[],
+  map: mapboxgl.Map,
+) {
   if (sourceLoaded) {
     const reportSource: mapboxgl.GeoJSONSource = map.getSource('reports') as mapboxgl.GeoJSONSource;
     const relationshipSource: mapboxgl.GeoJSONSource = map.getSource('relationships') as mapboxgl.GeoJSONSource;
@@ -28,9 +34,7 @@ export function updateDataSources(reports: any, relationships: any, box: any, ma
       type: 'Feature',
       geometry: {
         type: 'Polygon',
-        coordinates: [
-          box,
-        ],
+        coordinates: [box],
       },
       properties: {
         title: 'bounding box',
@@ -46,7 +50,7 @@ export function setupMapInteractions(map: mapboxgl.Map) {
   }
 }
 
-function setupDataSources(reports: any, relationships: any, box: any, map: mapboxgl.Map) {
+function setupDataSources(reports: any, relationships: any, box: Position[], map: mapboxgl.Map) {
   map.addSource('reports', {
     type: 'geojson',
     data: {
@@ -67,10 +71,7 @@ function setupDataSources(reports: any, relationships: any, box: any, map: mapbo
       type: 'Feature',
       geometry: {
         type: 'Polygon',
-        // These coordinates outline Maine.
-        coordinates: [
-          box,
-        ],
+        coordinates: [box],
       },
       properties: {
         title: 'bounding box',
