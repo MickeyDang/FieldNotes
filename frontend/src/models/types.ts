@@ -31,3 +31,9 @@ export type DateRangeProperties = {
   oldestYearMonth: number[],
   newestYearMonth: number[],
 }
+
+export type Annotations = {
+  point: number[],
+  polygon: number[],
+  text: string[],
+}
