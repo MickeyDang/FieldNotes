@@ -43,8 +43,9 @@ function ListPanel({
   const updateSort = (values: string[]) => onSortChange(values);
 
   const maxMonths = dateRangeResults.monthsInRange ?? 0;
+  const defaultTimeRange = [0, maxMonths];
 
-  const [timeRange, setTimeRange] = useState<number[]>([0, maxMonths]);
+  const [timeRange, setTimeRange] = useState<number[]>(defaultTimeRange);
   const [reportCursor, setReportCursor] = useState(0);
   const [relCursor, setRelCursor] = useState(0);
   const [sortReports, setSortReports] = useState('creationDate');
@@ -88,6 +89,17 @@ function ListPanel({
   useEffect(() => {
     updateSort([sortReports, sortRelationships]);
   }, [sortReports, sortRelationships]);
+
+  useEffect(() => {
+    setTimeRange(defaultTimeRange);
+    const newTimeValues = [
+      defaultTimeRange,
+      dateRangeResults.oldestYearMonth,
+      dateRangeResults.newestYearMonth,
+      maxMonths,
+    ];
+    updateTimeRange(newTimeValues as number[]);
+  }, [maxMonths]);
 
   return (
     <Container fluid className="list-container">
