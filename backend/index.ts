@@ -99,22 +99,20 @@ app.get('/alldata', async (req: any, res: any) => {
   const reportSortOrder = getReportSortOrder(reportSortOrderParams);
   const relSortOrder = getRelSortOrder(relSortOrderParams);
 
-  let reportQuery = [];
-  let relationshipQuery = [];
-
-  if (reportFilters.length > 0) {
-    reportQuery = ReportModel.find({
+  const searching = (keywords.length > 0 || coordinates.length > 0);
+  const reportQuery = (reportFilters.length > 0 && searching)
+    ? ReportModel.find({
       $and: reportFilters,
       REPORT_RESPONSE_FIELDS,
-    }).sort(reportSortOrder);
-  }
+    }).sort(reportSortOrder)
+    : [];
 
-  if (relationshipFilters.length > 0) {
-    relationshipQuery = RelationshipModel.find({
+  const relationshipQuery = (relationshipFilters.length > 0 && searching)
+    ? RelationshipModel.find({
       $and: relationshipFilters,
       RELATIOSHIP_RESPONSE_FIELDS,
-    }).sort(relSortOrder);
-  }
+    }).sort(relSortOrder)
+    : [];
 
   return res.status(200).json({
     reports: await reportQuery,
