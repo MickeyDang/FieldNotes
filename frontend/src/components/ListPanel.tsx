@@ -11,7 +11,9 @@ import Slider from '@mui/material/Slider';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { RelationshipProperties, ReportProperties, DateRangeProperties } from '../models/types';
+import {
+  RelationshipProperties, ReportProperties, DateRangeProperties, Annotations,
+} from '../models/types';
 import './ListPanel.css';
 import RelationshipList from './RelationshipList';
 import ReportList from './ReportList';
@@ -26,6 +28,7 @@ interface ListPanelProps {
   onSearchChange: Function,
   onTimeRangeChange: Function,
   onSortChange: Function,
+  annotations: Annotations,
 }
 
 const PAGE_LENGTH = 6;
@@ -37,6 +40,9 @@ function ListPanel({
   reportResults,
   relationshipResults,
   dateRangeResults,
+  // Remove this statement once annotations is implemented
+  // eslint-disable-next-line no-unused-vars
+  annotations,
 }: ListPanelProps) {
   const updateSearch = (_: any, values: string[]) => onSearchChange(values);
   const updateTimeRange = (values: number[]) => onTimeRangeChange(values);
