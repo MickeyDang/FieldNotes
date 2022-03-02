@@ -16,7 +16,11 @@ function SelectedProjectPage() {
   const [reports, setReports] = useState([]);
   const [relationships, setRelationships] = useState([]);
   const [dateRange, setDateRange] = useState({} as DateRangeProperties);
-  const [annotations, setAnnotations] = useState({} as Annotations);
+  const [annotations, setAnnotations] = useState({
+    point: [],
+    polygon: [],
+    text: [],
+  } as Annotations);
 
   const executeSearch = useCallback(async () => {
     const response = await searchData(searchParams);

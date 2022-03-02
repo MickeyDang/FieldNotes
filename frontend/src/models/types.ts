@@ -33,7 +33,7 @@ export type DateRangeProperties = {
 }
 
 export type Annotations = {
-  point?: number[],
-  polygon?: number[],
-  text?: string[],
+  point: number[],
+  polygon: number[],
+  text: string[],
 }
