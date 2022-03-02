@@ -1,19 +1,30 @@
 import React from 'react';
 import { RelationshipProperties } from '../models/types';
+import NotebookRelationshipListItem from './NotebookRelationshipListItem';
 import RelationshipListItem from './RelationshipListItem';
 
 interface RelationshipListProps {
-  relationships: RelationshipProperties[]
+  relationships: RelationshipProperties[],
+  isSearchMode: boolean,
 }
 
-function RelationshipList({ relationships }: RelationshipListProps) {
+function RelationshipList({ relationships, isSearchMode }: RelationshipListProps) {
   return (
     <>
       {relationships.map((rel) => (
-        <RelationshipListItem
-          key={rel.properties.name}
-          relationship={rel}
-        />
+        isSearchMode
+          ? (
+            <RelationshipListItem
+              key={rel.properties.name}
+              relationship={rel}
+            />
+          )
+          : (
+            <NotebookRelationshipListItem
+              key={rel.properties.name}
+              relationship={rel}
+            />
+          )
       ))}
     </>
   );

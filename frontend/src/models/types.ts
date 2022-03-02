@@ -37,3 +37,18 @@ export type Annotations = {
   polygon: number[],
   text: string[],
 }
+
+export type RelationshipFeature = {
+  location: { coordinates: number[]; };
+  name: string;
+  type: string;
+  lastContacted: Date;
+  reports: any;
+};
+
+export type ReportFeature = {
+  location: { coordinates: number[]; };
+  name: string;
+  tags: string[];
+  creationDate: Date;
+}

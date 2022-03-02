@@ -4,12 +4,15 @@ import {
   Col,
 } from 'react-bootstrap';
 import _ from 'lodash';
-import searchData from '../services/SearchService';
-import findDateRange from '../services/DateRangeService';
-import ListPanel from './ListPanel';
+import searchData from '../models/services/SearchService';
+import findDateRange from '../models/services/DateRangeService';
+import SearchPanel from './SearchPanel';
 import MapPanel from './MapPanel';
 import './SelectedProjectPage.css';
 import { BoundingBox, DateRangeProperties, Annotations } from '../models/types';
+import PanelNavigator from './PanelNavigator';
+import NotebookPanel from './NotebookPanel';
+import searchDataInProject from '../models/services/NotebookService';
 
 function SelectedProjectPage() {
   const [searchParams, setSearchParams] = useState({});
@@ -21,6 +24,7 @@ function SelectedProjectPage() {
     polygon: [],
     text: [],
   } as Annotations);
+  const [isSearchMode, setIsSearchMode] = useState(true);
 
   const executeSearch = useCallback(async () => {
     const response = await searchData(searchParams);
@@ -28,9 +32,19 @@ function SelectedProjectPage() {
     setRelationships(response.relationships);
   }, [searchParams]);
 
+  const executeNotebookSearch = useCallback(async () => {
+    const response = await searchDataInProject('1234567890');
+    setReports(response.reports);
+    setRelationships(response.relationships);
+  }, [isSearchMode]);
+
   useEffect(() => {
-    executeSearch();
-  }, [executeSearch]);
+    if (isSearchMode) {
+      executeSearch();
+    } else {
+      executeNotebookSearch();
+    }
+  }, [executeSearch, executeNotebookSearch]);
 
   // Get oldest and newest dates for time range filter
   useEffect(() => {
@@ -70,18 +84,34 @@ function SelectedProjectPage() {
     }
   };
 
+  const handleSearchToggle = () => setIsSearchMode(true);
+
+  const handleNotebookToggle = () => setIsSearchMode(false);
+
   return (
     <Container className="project-view">
       <Col xs={8} md={6} lg={5}>
-        <ListPanel
-          reportResults={reports}
-          relationshipResults={relationships}
-          onSearchChange={updateSearchQuery}
-          onTimeRangeChange={updateTimeRange}
-          dateRangeResults={dateRange}
-          onSortChange={updateSortQuery}
-          annotations={annotations}
+        <PanelNavigator
+          onSearchToggled={handleSearchToggle}
+          onNotebookToggled={handleNotebookToggle}
         />
+        {isSearchMode
+          ? (
+            <SearchPanel
+              reportResults={reports}
+              relationshipResults={relationships}
+              onSearchChange={updateSearchQuery}
+              onTimeRangeChange={updateTimeRange}
+              dateRangeResults={dateRange}
+              onSortChange={updateSortQuery}
+              annotations={annotations}
+            />
+          ) : (
+            <NotebookPanel
+              reportResults={reports}
+              relationshipResults={relationships}
+            />
+          )}
       </Col>
       <Col xs={4} md={6} lg={7}>
         <MapPanel

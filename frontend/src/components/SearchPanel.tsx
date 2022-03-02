@@ -14,14 +14,14 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import {
   RelationshipProperties, ReportProperties, DateRangeProperties, Annotations,
 } from '../models/types';
-import './ListPanel.css';
+import './SearchPanel.css';
 import RelationshipList from './RelationshipList';
 import ReportList from './ReportList';
 import hints from '../constants';
 import ContextAwareToggle from './ContextAwareToggle';
 import PaginationSelector from './PaginationSelector';
 
-interface ListPanelProps {
+interface SearchPanelProps {
   reportResults: ReportProperties[],
   relationshipResults: RelationshipProperties[],
   dateRangeResults: DateRangeProperties,
@@ -33,7 +33,7 @@ interface ListPanelProps {
 
 const PAGE_LENGTH = 6;
 
-function ListPanel({
+function SearchPanel({
   onSearchChange,
   onSortChange,
   onTimeRangeChange,
@@ -43,7 +43,7 @@ function ListPanel({
   // Remove this statement once annotations is implemented
   // eslint-disable-next-line no-unused-vars
   annotations,
-}: ListPanelProps) {
+}: SearchPanelProps) {
   const updateSearch = (_: any, values: string[]) => onSearchChange(values);
   const updateTimeRange = (values: number[]) => onTimeRangeChange(values);
   const updateSort = (values: string[]) => onSortChange(values);
@@ -150,7 +150,10 @@ function ListPanel({
                   markLabel: 'fieldnotes-mark-label',
                 }}
               />
-              <ReportList reports={reportResults.slice(reportCursor, reportCursor + PAGE_LENGTH)} />
+              <ReportList
+                isSearchMode
+                reports={reportResults.slice(reportCursor, reportCursor + PAGE_LENGTH)}
+              />
               <div className="footer-container">
                 <FormControl
                   hiddenLabel
@@ -185,6 +188,7 @@ function ListPanel({
           <Accordion.Collapse className="section-body" eventKey="relationships">
             <Card.Body>
               <RelationshipList
+                isSearchMode
                 relationships={relationshipResults.slice(relCursor, relCursor + PAGE_LENGTH)}
               />
               <div className="footer-container">
@@ -224,4 +228,4 @@ function ListPanel({
   );
 }
 
-export default ListPanel;
+export default SearchPanel;

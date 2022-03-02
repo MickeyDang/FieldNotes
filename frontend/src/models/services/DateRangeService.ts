@@ -1,4 +1,4 @@
-import { DateRangeProperties } from '../models/types';
+import { DateRangeProperties } from '../types';
 
 const ROOT_URL = process.env.REACT_APP_ROOT_URL ? `${process.env.REACT_APP_ROOT_URL}` : 'http://localhost:8000';
 

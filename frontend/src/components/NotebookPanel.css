@@ -1,0 +1,12 @@
+.notebook-title {
+  text-align: center;
+}
+
+.notebook-container {
+  background-color: white;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  height: 100%;
+  width: 100%;
+}
