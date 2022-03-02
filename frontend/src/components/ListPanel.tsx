@@ -113,25 +113,25 @@ function ListPanel({
           onChange={updateSearch}
         />
       </Row>
-      <Slider
-        id="time-range-slider"
-        value={timeRange}
-        onChange={handleTimeRangeChange}
-        valueLabelDisplay="auto"
-        defaultValue={[0, maxMonths]}
-        step={1}
-        marks={marks}
-        min={0}
-        max={maxMonths}
-        classes={{
-          markLabel: 'fieldnotes-mark-label',
-        }}
-      />
       <Row>
         <Accordion defaultActiveKey={['reports', 'relationships']} flush alwaysOpen>
           <ContextAwareToggle textBody="Reports" numItems={reportResults.length} eventKey="reports" />
           <Accordion.Collapse className="section-body" eventKey="reports">
             <Card.Body>
+              <Slider
+                id="time-range-slider"
+                value={timeRange}
+                onChange={handleTimeRangeChange}
+                valueLabelDisplay="auto"
+                defaultValue={[0, maxMonths]}
+                step={1}
+                marks={marks}
+                min={0}
+                max={maxMonths}
+                classes={{
+                  markLabel: 'fieldnotes-mark-label',
+                }}
+              />
               <ReportList reports={reportResults.slice(reportCursor, reportCursor + PAGE_LENGTH)} />
               <div className="footer-container">
                 <FormControl
