@@ -40,11 +40,10 @@ function ListPanel({
   reportResults,
   relationshipResults,
   dateRangeResults,
+  // Remove this statement once annotations is implemented
+  // eslint-disable-next-line no-unused-vars
   annotations,
 }: ListPanelProps) {
-  // Remove this line once annotations is used
-  console.log('Temporarily resolves lint error: ', annotations);
-
   const updateSearch = (_: any, values: string[]) => onSearchChange(values);
   const updateTimeRange = (values: number[]) => onTimeRangeChange(values);
   const updateSort = (values: string[]) => onSortChange(values);

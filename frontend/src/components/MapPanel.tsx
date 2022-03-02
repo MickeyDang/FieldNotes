@@ -26,13 +26,12 @@ const VANCOUVER_LNG = 49.28;
 const DEFAULT_ZOOM_LEVEL = 12.5;
 
 function MapPanel({
+  // Remove this statement once annotations and setAnnotations are implemented
+  // eslint-disable-next-line no-unused-vars
   reportResults, relationshipResults, onBoundingBoxChange, annotations, setAnnotations,
 }: MapPanelProps) {
   const mapContainerRef = useRef(null);
   const mapRef = useRef<mapboxgl.Map>(null);
-
-  // Remove this line once annotations is used
-  console.log('Temporarily resolves lint error: ', annotations, setAnnotations({}));
 
   const extractBoundingBox = () => {
     if (mapRef.current) {
