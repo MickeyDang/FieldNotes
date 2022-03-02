@@ -42,6 +42,9 @@ function ListPanel({
   dateRangeResults,
   annotations,
 }: ListPanelProps) {
+  // Remove this line once annotations is used
+  console.log('Temporarily resolves lint error: ', annotations);
+
   const updateSearch = (_: any, values: string[]) => onSearchChange(values);
   const updateTimeRange = (values: number[]) => onTimeRangeChange(values);
   const updateSort = (values: string[]) => onSortChange(values);

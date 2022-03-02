@@ -31,6 +31,9 @@ function MapPanel({
   const mapContainerRef = useRef(null);
   const mapRef = useRef<mapboxgl.Map>(null);
 
+  // Remove this line once annotations is used
+  console.log('Temporarily resolves lint error: ', annotations, setAnnotations({}));
+
   const extractBoundingBox = () => {
     if (mapRef.current) {
       const map = mapRef.current;
