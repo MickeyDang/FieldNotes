@@ -69,6 +69,7 @@ function ListPanel({
 
   const handleTimeRangeChange = (event: Event, newValue: number | number[]) => {
     setTimeRange(newValue as number[]);
+    console.log('test newValue: ', newValue);
     const newTimeValues = [
       newValue,
       dateRangeResults.oldestYearMonth,
