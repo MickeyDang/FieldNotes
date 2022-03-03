@@ -1,3 +1,29 @@
+img {
+  object-fit: contain;
+}
+
+.nb-list-item-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.nb-list-item-image {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.nb-text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex: 9;
+}
+
 .nb-list-item-header {
   font-size: small;
   margin-bottom: -6px;

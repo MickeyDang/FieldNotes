@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Container,
   Row,
 } from 'react-bootstrap';
 import './App.css';
@@ -9,16 +8,14 @@ import SelectedProjectPage from './components/SelectedProjectPage';
 
 function App() {
   return (
-    <Container fluid className="App">
+    <div className="App">
       <Row>
         <Header />
       </Row>
-
       <Row>
         <SelectedProjectPage />
       </Row>
-
-    </Container>
+    </div>
   );
 }
 

@@ -1,6 +1,6 @@
 .header {
-  margin-bottom: 16px;
-  padding-top: 16px;
+  margin-bottom: 8px;
+  padding-top: 2px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -11,18 +11,20 @@
   text-align: start;
   margin-left: 16px;
   color: #ffffff;
-  font-size: x-large;
+  font-size: large;
   font-weight: bold;
 }
 
 .header-text {
   margin-left: 24px;
   text-align: start;
+  font-size: small;
   color: #ffffff50
 }
 
 .description-text {
   margin-left: 24px;
   text-align: start;
+  font-size: small;
   color: #ffffff80;
 }

@@ -1,8 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import {
-  Container,
-  Col,
-} from 'react-bootstrap';
 import _ from 'lodash';
 import searchData from '../models/services/SearchService';
 import findDateRange from '../models/services/DateRangeService';
@@ -89,8 +85,8 @@ function SelectedProjectPage() {
   const handleNotebookToggle = () => setIsSearchMode(false);
 
   return (
-    <Container className="project-view">
-      <Col xs={8} md={6} lg={5}>
+    <div className="project-view">
+      <div className="list-panel-container">
         <PanelNavigator
           onSearchToggled={handleSearchToggle}
           onNotebookToggled={handleNotebookToggle}
@@ -112,8 +108,8 @@ function SelectedProjectPage() {
               relationshipResults={relationships}
             />
           )}
-      </Col>
-      <Col xs={4} md={6} lg={7}>
+      </div>
+      <div className="map-panel-container">
         <MapPanel
           reportResults={reports}
           relationshipResults={relationships}
@@ -121,8 +117,8 @@ function SelectedProjectPage() {
           annotations={annotations}
           setAnnotations={setAnnotations}
         />
-      </Col>
-    </Container>
+      </div>
+    </div>
   );
 }
 

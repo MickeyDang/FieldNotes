@@ -1,0 +1,16 @@
+.nb-title-badge-container {
+  margin-left: 16px;
+  padding-top: 16px;
+  text-align: start;
+}
+
+.nb-badge {
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 4px;
+}
+
+.nb-section-title {
+  font-weight: bold;
+  text-align: start;
+}

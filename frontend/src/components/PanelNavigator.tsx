@@ -1,4 +1,5 @@
 import React from 'react';
+import './PanelNavigator.css';
 
 interface PanelNavigatorProps {
   onSearchToggled: Function;
@@ -10,9 +11,9 @@ function PanelNavigator({ onSearchToggled, onNotebookToggled }: PanelNavigatorPr
   const toggleNotebook = () => onNotebookToggled();
 
   return (
-    <div>
-      <button type="button" onClick={toggleSearch}>Search</button>
-      <button type="button" onClick={toggleNotebook}>Notebook</button>
+    <div className="nav-container">
+      <button className="nav-tab" type="button" onClick={toggleSearch}>Search</button>
+      <button className="nav-tab" type="button" onClick={toggleNotebook}>Notebook</button>
     </div>
   );
 }

@@ -17,16 +17,21 @@ function NotebookReportListItem({ report }: ReportListItemProps) {
   );
 
   return (
-    <>
-      <div className="nb-list-item-header">{report.properties.name}</div>
-      <div className="nb-description">
-        <span className="nb-tag-color">{formatTags(report.properties.tags)}</span>
-        {' '}
-        <span className="nb-dot">&#8226;</span>
-        {' '}
-        <span className="nb-date-color">{new Date(report.properties.creationDate).toLocaleDateString()}</span>
+    <div className="nb-list-item-container">
+      <div className="nb-list-item-image">
+        <img src="/report.png" alt="" height="16" />
       </div>
-    </>
+      <div className="nb-text-container">
+        <div className="nb-list-item-header">{report.properties.name}</div>
+        <div className="nb-description">
+          <span className="nb-tag-color">{formatTags(report.properties.tags)}</span>
+          {' '}
+          <span className="nb-dot">&#8226;</span>
+          {' '}
+          <span className="nb-date-color">{new Date(report.properties.creationDate).toLocaleDateString()}</span>
+        </div>
+      </div>
+    </div>
   );
 }
 

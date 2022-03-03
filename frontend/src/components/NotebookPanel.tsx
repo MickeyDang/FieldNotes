@@ -3,6 +3,7 @@ import { RelationshipProperties, ReportProperties } from '../models/types';
 import RelationshipList from './RelationshipList';
 import ReportList from './ReportList';
 import './NotebookPanel.css';
+import NotebookHeader from './NotebookHeader';
 
 interface NotebookPanelProps {
   reportResults: ReportProperties[],
@@ -12,9 +13,11 @@ interface NotebookPanelProps {
 function NotebookPanel({ reportResults, relationshipResults }: NotebookPanelProps) {
   return (
     <div className="notebook-container">
-      <h1 className="notebook-title"> Notebook Panel</h1>
+      <NotebookHeader textValue="Data" numItems={reportResults.length + relationshipResults.length} />
       <ReportList reports={reportResults} isSearchMode={false} />
       <RelationshipList relationships={relationshipResults} isSearchMode={false} />
+      <hr className="nb-divider" />
+      <NotebookHeader textValue="Annotations" numItems={0} />
     </div>
   );
 }
