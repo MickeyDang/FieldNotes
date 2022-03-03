@@ -9,6 +9,7 @@
 .list-panel-container {
   height: 100%;
   flex: 45;
+  overflow-y: scroll;
 }
 
 .map-panel-container {

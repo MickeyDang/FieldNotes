@@ -12,6 +12,7 @@
   border-right-width: 4px;
   border-right-color: #D7CFBE;
   border-style: solid;
+  overflow-y: scroll;
 }
 
 .nb-divider {
