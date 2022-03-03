@@ -1,20 +1,23 @@
 .nav-container {
   z-index: 9;
   position: absolute;
-  top: 10%;
+  top: 5%;
   left: 45%;
-  width: 5%;
-  min-width: 100px;
+  width: 20%;
+  height: 5%;
+  max-height: 100px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  transform-origin: bottom left;
+  transform: rotate(90deg);
+  margin-bottom: -2px;
 }
 
 .nav-tab {
   flex: 1;
-  min-height: 40px;
   border-width: 0px;
   border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border-top-left-radius: 6px;
 }
 
 .nav-search {
