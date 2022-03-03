@@ -1,0 +1,20 @@
+.notebook-title {
+  text-align: center;
+}
+
+.notebook-container {
+  background-color: white;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  height: 100%;
+  width: 100%;
+  padding-bottom: 16px;
+}
+
+.nb-divider {
+  border-width: 2px;
+  border-color: #D7CFBE;
+  border-style: solid;
+  width: 100%;
+}

@@ -1,0 +1,8 @@
+.nav-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-tab {
+  flex: 1;
+}

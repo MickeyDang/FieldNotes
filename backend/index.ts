@@ -140,6 +140,26 @@ app.get('/projects', (req: any, res: any) => {
   });
 });
 
+app.get('/projectdata/:id', async (req: any, res: any) => {
+  // In theory, we would extract the project id, but for prototype, we only have one project.
+  const project = (await ProjectModel.find({}))[0];
+  const repIds = project.reports;
+  const relIds = project.relationships;
+
+  const reports = await ReportModel.find({
+    _id: { $in: repIds },
+  });
+
+  const relationships = await RelationshipModel.find({
+    _id: { $in: relIds },
+  });
+
+  return res.status(200).json({
+    reports,
+    relationships,
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running at https://localhost:${PORT}`);
 });
