@@ -11,12 +11,13 @@
 .search-button {
   z-index: 9;
   position: absolute;
-  top: 15%;
-  left: 65%;
+  top: 10%;
+  left: 70%;
   width: 10%;
   height: 36px;
   border-radius: 8px;
   background-color: #FCF9F2;
+  font-size: small;
 }
 
 /* code below hides logos to match our Figma, but should be removed for non-prototyping purposes */

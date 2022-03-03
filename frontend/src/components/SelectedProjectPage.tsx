@@ -111,6 +111,7 @@ function SelectedProjectPage() {
       </div>
       <div className="map-panel-container">
         <MapPanel
+          isSearchMode={isSearchMode}
           reportResults={reports}
           relationshipResults={relationships}
           onBoundingBoxChange={updateBoundingBoxQuery}

@@ -6,6 +6,7 @@ import {
   setupMapFeatures, updateDataSources, setupMapInteractions,
 } from './MapRenderer';
 import { Annotations } from '../models/types';
+import AnnotationBar from './AnnotationBar';
 
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
@@ -17,6 +18,7 @@ interface MapPanelProps {
   onBoundingBoxChange: Function,
   annotations: Annotations,
   setAnnotations: Function,
+  isSearchMode: boolean,
 }
 
 mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_API}`;
@@ -26,9 +28,15 @@ const VANCOUVER_LNG = 49.28;
 const DEFAULT_ZOOM_LEVEL = 12.5;
 
 function MapPanel({
-  // Remove this statement once annotations and setAnnotations are implemented
+  // Remove linter statements once annotations and setAnnotations are implemented
+  reportResults,
+  relationshipResults,
+  onBoundingBoxChange,
   // eslint-disable-next-line no-unused-vars
-  reportResults, relationshipResults, onBoundingBoxChange, annotations, setAnnotations,
+  annotations,
+  // eslint-disable-next-line no-unused-vars
+  setAnnotations,
+  isSearchMode,
 }: MapPanelProps) {
   const mapContainerRef = useRef(null);
   const mapRef = useRef<mapboxgl.Map>(null);
@@ -110,7 +118,13 @@ function MapPanel({
   return (
     <div className="map-panel-container">
       <div className="map" ref={mapContainerRef} />
-      <button className="search-button" type="button" onClick={updateSearch}>Search Area</button>
+      {isSearchMode
+        ? (
+          <button className="search-button" type="button" onClick={updateSearch}>Search Area</button>
+        )
+        : (
+          <AnnotationBar />
+        )}
     </div>
   );
 }
