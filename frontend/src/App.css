@@ -1,4 +1,16 @@
 .App {
   background-color: #2A2925;
-  min-height: 100vh;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+.app-header-bar {
+  flex: 7;
+  max-height: 100px;
+}
+
+.app-page {
+  flex: 93;
 }

@@ -9,10 +9,10 @@ import SelectedProjectPage from './components/SelectedProjectPage';
 function App() {
   return (
     <div className="App">
-      <Row>
+      <Row className="app-header-bar">
         <Header />
       </Row>
-      <Row>
+      <Row className="app-page">
         <SelectedProjectPage />
       </Row>
     </div>

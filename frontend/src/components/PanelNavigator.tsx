@@ -12,8 +12,8 @@ function PanelNavigator({ onSearchToggled, onNotebookToggled }: PanelNavigatorPr
 
   return (
     <div className="nav-container">
-      <button className="nav-tab" type="button" onClick={toggleSearch}>Search</button>
-      <button className="nav-tab" type="button" onClick={toggleNotebook}>Notebook</button>
+      <button className="nav-tab nav-search" type="button" onClick={toggleSearch}>Search</button>
+      <button className="nav-tab nav-notebook" type="button" onClick={toggleNotebook}>Notebook</button>
     </div>
   );
 }

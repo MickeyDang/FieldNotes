@@ -9,7 +9,9 @@
   align-items: stretch;
   height: 100%;
   width: 100%;
-  padding-bottom: 16px;
+  border-right-width: 4px;
+  border-right-color: #D7CFBE;
+  border-style: solid;
 }
 
 .nb-divider {

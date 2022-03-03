@@ -1,8 +1,28 @@
 .nav-container {
+  z-index: 9;
+  position: absolute;
+  top: 10%;
+  left: 45%;
+  width: 5%;
+  min-width: 100px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .nav-tab {
   flex: 1;
+  min-height: 40px;
+  border-width: 0px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.nav-search {
+  background-color: #2A2925;
+  color: #D7CFBE;
+}
+
+.nav-notebook {
+  color: #2A2925;
+  background-color: #D7CFBE;
 }
