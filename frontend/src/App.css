@@ -1,16 +1,12 @@
 .App {
   background-color: #2A2925;
-  display: flex;
   height: 100vh;
-  flex-direction: column;
-  justify-content: stretch;
 }
 
 .app-header-bar {
-  flex: 7;
-  max-height: 100px;
+  height: 7vh;
 }
 
 .app-page {
-  flex: 93;
+  height: 93vh;
 }
