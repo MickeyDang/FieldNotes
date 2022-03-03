@@ -49,8 +49,9 @@ function ListPanel({
   const updateSort = (values: string[]) => onSortChange(values);
 
   const maxMonths = dateRangeResults.monthsInRange ?? 0;
+  const defaultTimeRange = [0, maxMonths];
 
-  const [timeRange, setTimeRange] = useState<number[]>([0, maxMonths]);
+  const [timeRange, setTimeRange] = useState<number[]>(defaultTimeRange);
   const [reportCursor, setReportCursor] = useState(0);
   const [relCursor, setRelCursor] = useState(0);
   const [sortReports, setSortReports] = useState('creationDate');
@@ -95,6 +96,17 @@ function ListPanel({
     updateSort([sortReports, sortRelationships]);
   }, [sortReports, sortRelationships]);
 
+  useEffect(() => {
+    setTimeRange(defaultTimeRange);
+    const newTimeValues = [
+      defaultTimeRange,
+      dateRangeResults.oldestYearMonth,
+      dateRangeResults.newestYearMonth,
+      maxMonths,
+    ];
+    updateTimeRange(newTimeValues as number[]);
+  }, [maxMonths]);
+
   return (
     <Container fluid className="list-container">
       <Row className="searchbar-container">
@@ -119,25 +131,25 @@ function ListPanel({
           onChange={updateSearch}
         />
       </Row>
-      <Slider
-        id="time-range-slider"
-        value={timeRange}
-        onChange={handleTimeRangeChange}
-        valueLabelDisplay="auto"
-        defaultValue={[0, maxMonths]}
-        step={1}
-        marks={marks}
-        min={0}
-        max={maxMonths}
-        classes={{
-          markLabel: 'fieldnotes-mark-label',
-        }}
-      />
       <Row>
         <Accordion defaultActiveKey={['reports', 'relationships']} flush alwaysOpen>
           <ContextAwareToggle textBody="Reports" numItems={reportResults.length} eventKey="reports" />
           <Accordion.Collapse className="section-body" eventKey="reports">
             <Card.Body>
+              <Slider
+                id="time-range-slider"
+                value={timeRange}
+                onChange={handleTimeRangeChange}
+                valueLabelDisplay="auto"
+                defaultValue={[0, maxMonths]}
+                step={1}
+                marks={marks}
+                min={0}
+                max={maxMonths}
+                classes={{
+                  markLabel: 'fieldnotes-mark-label',
+                }}
+              />
               <ReportList reports={reportResults.slice(reportCursor, reportCursor + PAGE_LENGTH)} />
               <div className="footer-container">
                 <FormControl

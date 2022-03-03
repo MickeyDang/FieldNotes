@@ -73,7 +73,7 @@ app.get('/alldata', async (req: any, res: any) => {
     relationshipFilters.push(BOUNDING_BOX_FILTER);
   }
 
-  if (queryParams.time !== 'undefined') {
+  if (queryParams.time !== 'undefined' && timeRange.length > 6) {
     const startDate = timeRange.slice(2, 4);
     const endDate = timeRange.slice(4, 6);
     const lowerRange = getDateWithAddedMonths(
@@ -92,9 +92,6 @@ app.get('/alldata', async (req: any, res: any) => {
     };
 
     reportFilters.push(TIME_RANGE_FILTER);
-    if (relationshipFilters.length === 0) {
-      relationshipFilters.push({});
-    }
   }
 
   const reportSortOrderParams = sortOrderParams[0];
@@ -102,15 +99,20 @@ app.get('/alldata', async (req: any, res: any) => {
   const reportSortOrder = getReportSortOrder(reportSortOrderParams);
   const relSortOrder = getRelSortOrder(relSortOrderParams);
 
-  const reportQuery = ReportModel.find({
-    $and: reportFilters,
-    REPORT_RESPONSE_FIELDS,
-  }).sort(reportSortOrder);
+  const searching = (keywords.length > 0 || coordinates.length > 0);
+  const reportQuery = (reportFilters.length > 0 && searching)
+    ? ReportModel.find({
+      $and: reportFilters,
+      REPORT_RESPONSE_FIELDS,
+    }).sort(reportSortOrder)
+    : [];
 
-  const relationshipQuery = RelationshipModel.find({
-    $and: relationshipFilters,
-    RELATIOSHIP_RESPONSE_FIELDS,
-  }).sort(relSortOrder);
+  const relationshipQuery = (relationshipFilters.length > 0 && searching)
+    ? RelationshipModel.find({
+      $and: relationshipFilters,
+      RELATIOSHIP_RESPONSE_FIELDS,
+    }).sort(relSortOrder)
+    : [];
 
   return res.status(200).json({
     reports: await reportQuery,
