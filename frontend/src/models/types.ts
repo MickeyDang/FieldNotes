@@ -1,4 +1,4 @@
-import { LngLat } from "mapbox-gl";
+import { LngLat } from 'mapbox-gl';
 
 export type BoundingBox = [[number, number], [number, number]];
 
