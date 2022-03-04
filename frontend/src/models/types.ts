@@ -44,6 +44,7 @@ export type RelationshipFeature = {
   type: string;
   lastContacted: Date;
   reports: any;
+  tags: string[];
 };
 
 export type ReportFeature = {
@@ -52,3 +53,5 @@ export type ReportFeature = {
   tags: string[];
   creationDate: Date;
 }
+
+export type TagCount = [string, number];

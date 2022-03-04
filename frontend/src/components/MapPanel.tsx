@@ -1,12 +1,13 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './MapPanel.css';
 import {
   setupMapFeatures, updateDataSources, setupMapInteractions,
 } from './MapRenderer';
-import { Annotations } from '../models/types';
+import { Annotations, TagCount } from '../models/types';
 import AnnotationBar from './AnnotationBar';
+import KeywordOverview from './KeywordOverview';
 
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
@@ -19,6 +20,7 @@ interface MapPanelProps {
   annotations: Annotations,
   setAnnotations: Function,
   isSearchMode: boolean,
+  tagsSummary: TagCount[],
 }
 
 mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_API}`;
@@ -37,9 +39,11 @@ function MapPanel({
   // eslint-disable-next-line no-unused-vars
   setAnnotations,
   isSearchMode,
+  tagsSummary,
 }: MapPanelProps) {
   const mapContainerRef = useRef(null);
   const mapRef = useRef<mapboxgl.Map>(null);
+  const [totalDataPoints, setTotalDataPoints] = useState(0);
 
   const extractBoundingBox = () => {
     if (mapRef.current) {
@@ -113,6 +117,8 @@ function MapPanel({
       setupMapInteractions(map);
       updateDataSources(reportResults, relationshipResults, box, map);
     }
+
+    setTotalDataPoints(reportResults.length + relationshipResults.length);
   }, [reportResults, relationshipResults]);
 
   return (
@@ -120,7 +126,16 @@ function MapPanel({
       <div className="map" ref={mapContainerRef} />
       {isSearchMode
         ? (
-          <button className="search-button" type="button" onClick={updateSearch}>Search Area</button>
+          <>
+            <button className="search-button" type="button" onClick={updateSearch}>Search Area</button>
+            { (reportResults.length > 0 || relationshipResults.length > 0)
+              ? (
+                <KeywordOverview
+                  tagsSummary={tagsSummary}
+                  totalDataPoints={totalDataPoints}
+                />
+              ) : null}
+          </>
         )
         : (
           <AnnotationBar />

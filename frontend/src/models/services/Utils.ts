@@ -34,9 +34,24 @@ export function formatRelationships(data: any) {
         type: rel.type,
         lastContacted: rel.lastContacted,
         reports: rel.reports,
+        tags: rel.tags,
       },
     }
   ));
 
   return relationships;
+}
+
+export function formatTagSummary(data: any) {
+  const reportsTags = formatReports(data).properties.tags;
+  const relationshipsTags = formatRelationships(data).properties.tags;
+  const tags = [...reportsTags, ...relationshipsTags];
+  const tagSummary = tags.reduce((total, value) => {
+    // eslint-disable-next-line no-param-reassign
+    total[value] = (total[value] || 0) + 1;
+    return total;
+  }, {});
+  console.log('group by: ', tagSummary);
+
+  return tagSummary;
 }

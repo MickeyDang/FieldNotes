@@ -5,15 +5,17 @@ import findDateRange from '../models/services/DateRangeService';
 import SearchPanel from './SearchPanel';
 import MapPanel from './MapPanel';
 import './SelectedProjectPage.css';
-import { BoundingBox, DateRangeProperties, Annotations } from '../models/types';
+import {
+  BoundingBox, DateRangeProperties, Annotations, TagCount,
+} from '../models/types';
 import PanelNavigator from './PanelNavigator';
 import NotebookPanel from './NotebookPanel';
 import searchDataInProject from '../models/services/NotebookService';
 
 function SelectedProjectPage() {
   const [searchParams, setSearchParams] = useState({});
-  const [reports, setReports] = useState([]);
-  const [relationships, setRelationships] = useState([]);
+  const [reports, setReports] = useState<any[]>([]);
+  const [relationships, setRelationships] = useState<any[]>([]);
   const [dateRange, setDateRange] = useState({} as DateRangeProperties);
   const [annotations, setAnnotations] = useState({
     point: [],
@@ -21,6 +23,7 @@ function SelectedProjectPage() {
     text: [],
   } as Annotations);
   const [isSearchMode, setIsSearchMode] = useState(true);
+  const [tagsSummary, setTagsSummary] = useState<TagCount[]>([]);
 
   const executeSearch = useCallback(async () => {
     const response = await searchData(searchParams);
@@ -84,6 +87,20 @@ function SelectedProjectPage() {
 
   const handleNotebookToggle = () => setIsSearchMode(false);
 
+  useEffect(() => {
+    const allTags = reports.map((report) => report.properties.tags).flat();
+    const tagsSummaryObj = allTags.reduce((total, value) => {
+      // eslint-disable-next-line no-param-reassign
+      total[value] = (total[value] || 0) + 1;
+      return total;
+    }, {});
+    const uniqueTags = Object.keys(tagsSummaryObj);
+
+    const tagsSummaryArr:TagCount[] = uniqueTags.map((tag) => [tag, tagsSummaryObj[tag]]);
+    const tagsSummaryArrSorted: TagCount[] = tagsSummaryArr.sort((a, b) => b[1] - a[1]);
+    setTagsSummary(tagsSummaryArrSorted);
+  }, [reports, relationships]);
+
   return (
     <div className="project-view">
       <div className="list-panel-container">
@@ -117,6 +134,7 @@ function SelectedProjectPage() {
           onBoundingBoxChange={updateBoundingBoxQuery}
           annotations={annotations}
           setAnnotations={setAnnotations}
+          tagsSummary={tagsSummary}
         />
       </div>
     </div>
