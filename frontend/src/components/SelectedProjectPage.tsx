@@ -101,8 +101,9 @@ function SelectedProjectPage() {
     }
   };
 
-  const handleProjectUpdate = (updatedProject: Project) => {
-    updateProject(updatedProject);
+  const handleProjectUpdate = async (updatedProject: Project) => {
+    const response = await updateProject(updatedProject);
+    setSelectedProject(response);
   };
 
   const handleSearchToggle = () => setIsSearchMode(true);

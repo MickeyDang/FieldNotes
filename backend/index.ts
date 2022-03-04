@@ -142,7 +142,7 @@ app.put('/projects/:id', async (req: any, res: any) => {
   const { repIds, relIds } = req.body;
   const { id } = req.params;
 
-  const response = await ProjectModel.findByIdAndUpdate(
+  const updatedProject = await ProjectModel.findByIdAndUpdate(
     id,
     {
       reports: repIds,
@@ -151,7 +151,9 @@ app.put('/projects/:id', async (req: any, res: any) => {
     { new: true },
   );
 
-  return res.status(200).json(response);
+  return res.status(200).json({
+    updatedProject,
+  });
 });
 
 app.get('/projectdata/:id', async (req: any, res: any) => {

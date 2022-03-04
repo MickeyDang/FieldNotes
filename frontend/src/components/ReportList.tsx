@@ -13,7 +13,6 @@ interface ReportListProps {
 function ReportList({
   reports, isSearchMode, projectRepIds, onRepIdsUpdate,
 }: ReportListProps) {
-  // eslint-disable-next-line no-unused-vars
   const handleReportToggled = (relId: string, addingToProject: boolean) => {
     if (addingToProject) {
       projectRepIds.push(relId);
@@ -32,6 +31,7 @@ function ReportList({
               key={report.properties.id}
               report={report}
               isInProject={projectRepIds.includes(report.properties.id)}
+              onToggle={handleReportToggled}
             />
           )
           : <NotebookReportListItem key={report.properties.id} report={report} />

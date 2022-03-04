@@ -13,7 +13,6 @@ interface RelationshipListProps {
 function RelationshipList({
   relationships, isSearchMode, projectRelIds, onRelIdsUpdate,
 }: RelationshipListProps) {
-  // eslint-disable-next-line no-unused-vars
   const handleRelationshipToggled = (relId: string, addingToProject: boolean) => {
     if (addingToProject) {
       projectRelIds.push(relId);
@@ -32,6 +31,7 @@ function RelationshipList({
               key={rel.properties.id}
               relationship={rel}
               isInProject={projectRelIds.includes(rel.properties.id)}
+              onToggle={handleRelationshipToggled}
             />
           )
           : (

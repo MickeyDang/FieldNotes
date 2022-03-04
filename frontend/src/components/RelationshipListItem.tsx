@@ -5,10 +5,15 @@ import './RelationshipListItem.css';
 interface RelationshipListItemProps {
   relationship: RelationshipProperties,
   isInProject: boolean,
+  onToggle: Function,
 }
 
-function RelationshipListItem({ relationship, isInProject }: RelationshipListItemProps) {
+function RelationshipListItem({ relationship, isInProject, onToggle }: RelationshipListItemProps) {
   const buttonPrompt = isInProject ? '-' : '+';
+
+  const handleToggle = () => {
+    onToggle(relationship.properties.id, !isInProject);
+  };
 
   return (
     <>
@@ -22,7 +27,7 @@ function RelationshipListItem({ relationship, isInProject }: RelationshipListIte
           {new Date(relationship.properties.lastContacted).toLocaleDateString()}
         </span>
       </div>
-      <button type="button">{buttonPrompt}</button>
+      <button type="button" onClick={handleToggle}>{buttonPrompt}</button>
     </>
   );
 }
