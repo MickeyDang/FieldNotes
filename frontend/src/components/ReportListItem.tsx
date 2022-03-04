@@ -3,10 +3,12 @@ import { ReportProperties } from '../models/types';
 import './ReportListItem.css';
 
 interface ReportListItemProps {
-  report: ReportProperties
+  report: ReportProperties,
+  isInProject: boolean,
+  onToggle: Function,
 }
 
-function ReportListItem({ report }: ReportListItemProps) {
+function ReportListItem({ report, isInProject, onToggle }: ReportListItemProps) {
   const formatTags = (tags: string[]) => (
     // eslint-disable-next-line no-nested-ternary
     tags.length > 1
@@ -15,6 +17,12 @@ function ReportListItem({ report }: ReportListItemProps) {
         ? tags[0]
         : ''
   );
+
+  const buttonPrompt = isInProject ? '-' : '+';
+
+  const handleToggle = () => {
+    onToggle(report.properties.id, !isInProject);
+  };
 
   return (
     <>
@@ -26,6 +34,7 @@ function ReportListItem({ report }: ReportListItemProps) {
         {' '}
         <span className="date-color">{new Date(report.properties.creationDate).toLocaleDateString()}</span>
       </div>
+      <button type="button" onClick={handleToggle}>{buttonPrompt}</button>
     </>
   );
 }

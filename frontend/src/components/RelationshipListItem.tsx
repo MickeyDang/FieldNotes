@@ -3,10 +3,18 @@ import { RelationshipProperties } from '../models/types';
 import './RelationshipListItem.css';
 
 interface RelationshipListItemProps {
-  relationship: RelationshipProperties
+  relationship: RelationshipProperties,
+  isInProject: boolean,
+  onToggle: Function,
 }
 
-function RelationshipListItem({ relationship }: RelationshipListItemProps) {
+function RelationshipListItem({ relationship, isInProject, onToggle }: RelationshipListItemProps) {
+  const buttonPrompt = isInProject ? '-' : '+';
+
+  const handleToggle = () => {
+    onToggle(relationship.properties.id, !isInProject);
+  };
+
   return (
     <>
       <div className="list-item-header">{relationship.properties.name}</div>
@@ -19,6 +27,7 @@ function RelationshipListItem({ relationship }: RelationshipListItemProps) {
           {new Date(relationship.properties.lastContacted).toLocaleDateString()}
         </span>
       </div>
+      <button type="button" onClick={handleToggle}>{buttonPrompt}</button>
     </>
   );
 }
