@@ -121,11 +121,13 @@ function SelectedProjectPage() {
               dateRangeResults={dateRange}
               onSortChange={updateSortQuery}
               annotations={annotations}
+              project={selectedProject}
             />
           ) : (
             <NotebookPanel
               reportResults={reports}
               relationshipResults={relationships}
+              project={selectedProject}
             />
           )}
       </div>

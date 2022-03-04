@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import {
-  RelationshipProperties, ReportProperties, DateRangeProperties, Annotations,
+  RelationshipProperties, ReportProperties, DateRangeProperties, Annotations, Project,
 } from '../models/types';
 import './SearchPanel.css';
 import RelationshipList from './RelationshipList';
@@ -29,6 +29,7 @@ interface SearchPanelProps {
   onTimeRangeChange: Function,
   onSortChange: Function,
   annotations: Annotations,
+  project: Project,
 }
 
 const PAGE_LENGTH = 6;
@@ -40,6 +41,7 @@ function SearchPanel({
   reportResults,
   relationshipResults,
   dateRangeResults,
+  project,
   // Remove this statement once annotations is implemented
   // eslint-disable-next-line no-unused-vars
   annotations,
@@ -153,6 +155,7 @@ function SearchPanel({
               <ReportList
                 isSearchMode
                 reports={reportResults.slice(reportCursor, reportCursor + PAGE_LENGTH)}
+                projectRepIds={project.repIds}
               />
               <div className="footer-container">
                 <FormControl
@@ -190,6 +193,7 @@ function SearchPanel({
               <RelationshipList
                 isSearchMode
                 relationships={relationshipResults.slice(relCursor, relCursor + PAGE_LENGTH)}
+                projectRelIds={project.relIds}
               />
               <div className="footer-container">
                 <FormControl

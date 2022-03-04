@@ -6,14 +6,21 @@ import ReportListItem from './ReportListItem';
 interface ReportListProps {
   reports: ReportProperties[],
   isSearchMode: boolean,
+  projectRepIds: string[],
 }
 
-function ReportList({ reports, isSearchMode }: ReportListProps) {
+function ReportList({ reports, isSearchMode, projectRepIds }: ReportListProps) {
   return (
     <>
       {reports.map((report) => (
         isSearchMode
-          ? <ReportListItem key={report.properties.id} report={report} />
+          ? (
+            <ReportListItem
+              key={report.properties.id}
+              report={report}
+              isInProject={projectRepIds.includes(report.properties.id)}
+            />
+          )
           : <NotebookReportListItem key={report.properties.id} report={report} />
       ))}
     </>

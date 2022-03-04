@@ -3,10 +3,13 @@ import { RelationshipProperties } from '../models/types';
 import './RelationshipListItem.css';
 
 interface RelationshipListItemProps {
-  relationship: RelationshipProperties
+  relationship: RelationshipProperties,
+  isInProject: boolean,
 }
 
-function RelationshipListItem({ relationship }: RelationshipListItemProps) {
+function RelationshipListItem({ relationship, isInProject }: RelationshipListItemProps) {
+  const buttonPrompt = isInProject ? '-' : '+';
+
   return (
     <>
       <div className="list-item-header">{relationship.properties.name}</div>
@@ -19,6 +22,7 @@ function RelationshipListItem({ relationship }: RelationshipListItemProps) {
           {new Date(relationship.properties.lastContacted).toLocaleDateString()}
         </span>
       </div>
+      <button type="button">{buttonPrompt}</button>
     </>
   );
 }

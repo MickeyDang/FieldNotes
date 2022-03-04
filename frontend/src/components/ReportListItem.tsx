@@ -3,10 +3,11 @@ import { ReportProperties } from '../models/types';
 import './ReportListItem.css';
 
 interface ReportListItemProps {
-  report: ReportProperties
+  report: ReportProperties,
+  isInProject: boolean,
 }
 
-function ReportListItem({ report }: ReportListItemProps) {
+function ReportListItem({ report, isInProject }: ReportListItemProps) {
   const formatTags = (tags: string[]) => (
     // eslint-disable-next-line no-nested-ternary
     tags.length > 1
@@ -15,6 +16,8 @@ function ReportListItem({ report }: ReportListItemProps) {
         ? tags[0]
         : ''
   );
+
+  const buttonPrompt = isInProject ? '-' : '+';
 
   return (
     <>
@@ -26,6 +29,7 @@ function ReportListItem({ report }: ReportListItemProps) {
         {' '}
         <span className="date-color">{new Date(report.properties.creationDate).toLocaleDateString()}</span>
       </div>
+      <button type="button">{buttonPrompt}</button>
     </>
   );
 }
