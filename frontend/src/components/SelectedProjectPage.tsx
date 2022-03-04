@@ -56,7 +56,6 @@ function SelectedProjectPage() {
   useEffect(() => {
     const getProject = async () => {
       const response: Project = await fetchProject();
-      console.log(JSON.stringify(response));
       setSelectedProject(response);
     };
 

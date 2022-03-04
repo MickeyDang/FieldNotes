@@ -22,7 +22,6 @@ export async function updateProject(project: Project) {
     }),
   };
   const { updatedProject } = await (await fetch(`${ROOT_URL}/projects/${project.projectId}`, requestOptions)).json();
-  console.log(JSON.stringify(updatedProject));
   return {
     // eslint-disable-next-line no-underscore-dangle
     projectId: updatedProject._id,
