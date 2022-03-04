@@ -7,6 +7,7 @@ interface ReportListProps {
   reports: ReportProperties[],
   isSearchMode: boolean,
   projectRepIds: string[],
+<<<<<<< HEAD
   onRepIdsUpdate: Function,
 }
 
@@ -22,6 +23,11 @@ function ReportList({
     }
   };
 
+=======
+}
+
+function ReportList({ reports, isSearchMode, projectRepIds }: ReportListProps) {
+>>>>>>> 82a94f8 (displayed togglable button for each list item)
   return (
     <>
       {reports.map((report) => (
@@ -31,7 +37,10 @@ function ReportList({
               key={report.properties.id}
               report={report}
               isInProject={projectRepIds.includes(report.properties.id)}
+<<<<<<< HEAD
               onToggle={handleReportToggled}
+=======
+>>>>>>> 82a94f8 (displayed togglable button for each list item)
             />
           )
           : <NotebookReportListItem key={report.properties.id} report={report} />
