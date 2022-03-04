@@ -36,5 +36,9 @@
 }
 
 .toggle-button {
+  background-color: #2a2925;
+  color: #B4A88C;
+  border-width: 0px;
   flex: 1;
+  font-size: x-large;
 }
