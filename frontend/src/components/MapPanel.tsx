@@ -81,6 +81,10 @@ function MapPanel({
     }
   };
 
+  const updateAnnotationMode = (updatedMode: string) => {
+    console.log(updatedMode);
+  };
+
   useEffect(() => {
     if (!mapRef.current) {
       (mapRef as any).current = new mapboxgl.Map({
@@ -126,7 +130,9 @@ function MapPanel({
           <button className="search-button" type="button" onClick={updateSearch}>Search Area</button>
         )
         : (
-          <AnnotationBar />
+          <AnnotationBar
+            onAnnotationModeChange={updateAnnotationMode}
+          />
         )}
     </div>
   );
