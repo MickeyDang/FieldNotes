@@ -13,8 +13,8 @@ function ReportList({ reports, isSearchMode }: ReportListProps) {
     <>
       {reports.map((report) => (
         isSearchMode
-          ? <ReportListItem key={report.properties.name} report={report} />
-          : <NotebookReportListItem key={report.properties.name} report={report} />
+          ? <ReportListItem key={report.properties.id} report={report} />
+          : <NotebookReportListItem key={report.properties.id} report={report} />
       ))}
     </>
   );

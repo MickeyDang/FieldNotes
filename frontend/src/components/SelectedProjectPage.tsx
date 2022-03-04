@@ -5,13 +5,24 @@ import findDateRange from '../models/services/DateRangeService';
 import SearchPanel from './SearchPanel';
 import MapPanel from './MapPanel';
 import './SelectedProjectPage.css';
-import { BoundingBox, DateRangeProperties, Annotations } from '../models/types';
+import {
+  BoundingBox,
+  DateRangeProperties,
+  Annotations,
+  Project,
+} from '../models/types';
 import PanelNavigator from './PanelNavigator';
 import NotebookPanel from './NotebookPanel';
 import searchDataInProject from '../models/services/NotebookService';
+import fetchProject from '../models/services/ProjectService';
 
 function SelectedProjectPage() {
   const [searchParams, setSearchParams] = useState({});
+  // eslint-disable-next-line no-unused-vars
+  const [selectedProject, setSelectedProject] = useState({
+    repIds: [],
+    relIds: [],
+  } as Project);
   const [reports, setReports] = useState([]);
   const [relationships, setRelationships] = useState([]);
   const [dateRange, setDateRange] = useState({} as DateRangeProperties);
@@ -41,6 +52,15 @@ function SelectedProjectPage() {
       executeNotebookSearch();
     }
   }, [executeSearch, executeNotebookSearch]);
+
+  useEffect(() => {
+    const getProject = async () => {
+      const response: Project = await fetchProject();
+      setSelectedProject(response);
+    };
+
+    getProject().catch(console.error);
+  }, []);
 
   // Get oldest and newest dates for time range filter
   useEffect(() => {

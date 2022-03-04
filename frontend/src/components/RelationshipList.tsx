@@ -15,13 +15,13 @@ function RelationshipList({ relationships, isSearchMode }: RelationshipListProps
         isSearchMode
           ? (
             <RelationshipListItem
-              key={rel.properties.name}
+              key={rel.properties.id}
               relationship={rel}
             />
           )
           : (
             <NotebookRelationshipListItem
-              key={rel.properties.name}
+              key={rel.properties.id}
               relationship={rel}
             />
           )

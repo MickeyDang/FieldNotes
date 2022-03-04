@@ -130,13 +130,11 @@ app.get('/daterange', async (req: any, res: any) => {
   });
 });
 
-app.get('/projects', (req: any, res: any) => {
-  ProjectModel.find({}, (err: any, result: any) => {
-    if (err) {
-      res.status(500).send();
-    } else {
-      res.status(200).json(result);
-    }
+app.get('/projects/:id', async (req: any, res: any) => {
+  // In theory, we would extract the project id, but for prototype, we only have one project.
+  const project = (await ProjectModel.find({}))[0];
+  return res.status(200).json({
+    project,
   });
 });
 
