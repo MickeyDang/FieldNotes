@@ -30,10 +30,7 @@ interface SearchPanelProps {
   onSortChange: Function,
   annotations: Annotations,
   project: Project,
-<<<<<<< HEAD
   onProjectUpdate: Function,
-=======
->>>>>>> 82a94f8 (displayed togglable button for each list item)
 }
 
 const PAGE_LENGTH = 6;
@@ -46,10 +43,7 @@ function SearchPanel({
   relationshipResults,
   dateRangeResults,
   project,
-<<<<<<< HEAD
   onProjectUpdate,
-=======
->>>>>>> 82a94f8 (displayed togglable button for each list item)
   // Remove this statement once annotations is implemented
   // eslint-disable-next-line no-unused-vars
   annotations,
@@ -180,10 +174,7 @@ function SearchPanel({
                 isSearchMode
                 reports={reportResults.slice(reportCursor, reportCursor + PAGE_LENGTH)}
                 projectRepIds={project.repIds}
-<<<<<<< HEAD
                 onRepIdsUpdate={handleRepIdsUpdate}
-=======
->>>>>>> 82a94f8 (displayed togglable button for each list item)
               />
               <div className="footer-container">
                 <FormControl
@@ -222,10 +213,7 @@ function SearchPanel({
                 isSearchMode
                 relationships={relationshipResults.slice(relCursor, relCursor + PAGE_LENGTH)}
                 projectRelIds={project.relIds}
-<<<<<<< HEAD
                 onRelIdsUpdate={handleRelIdsUpdate}
-=======
->>>>>>> 82a94f8 (displayed togglable button for each list item)
               />
               <div className="footer-container">
                 <FormControl

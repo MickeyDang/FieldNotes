@@ -7,7 +7,6 @@ interface RelationshipListProps {
   relationships: RelationshipProperties[],
   isSearchMode: boolean,
   projectRelIds: string[],
-<<<<<<< HEAD
   onRelIdsUpdate: Function,
 }
 
@@ -23,11 +22,6 @@ function RelationshipList({
     }
   };
 
-=======
-}
-
-function RelationshipList({ relationships, isSearchMode, projectRelIds }: RelationshipListProps) {
->>>>>>> 82a94f8 (displayed togglable button for each list item)
   return (
     <>
       {relationships.map((rel) => (
@@ -37,10 +31,7 @@ function RelationshipList({ relationships, isSearchMode, projectRelIds }: Relati
               key={rel.properties.id}
               relationship={rel}
               isInProject={projectRelIds.includes(rel.properties.id)}
-<<<<<<< HEAD
               onToggle={handleRelationshipToggled}
-=======
->>>>>>> 82a94f8 (displayed togglable button for each list item)
             />
           )
           : (

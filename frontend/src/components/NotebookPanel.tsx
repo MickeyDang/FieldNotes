@@ -19,19 +19,13 @@ function NotebookPanel({ reportResults, relationshipResults, project }: Notebook
         reports={reportResults}
         isSearchMode={false}
         projectRepIds={project.repIds}
-<<<<<<< HEAD
         onRepIdsUpdate={() => { console.log('TODO'); }}
-=======
->>>>>>> 82a94f8 (displayed togglable button for each list item)
       />
       <RelationshipList
         relationships={relationshipResults}
         isSearchMode={false}
         projectRelIds={project.relIds}
-<<<<<<< HEAD
         onRelIdsUpdate={() => { console.log('TODO'); }}
-=======
->>>>>>> 82a94f8 (displayed togglable button for each list item)
       />
       <hr className="nb-divider" />
       <NotebookHeader textValue="Annotations" numItems={0} />
