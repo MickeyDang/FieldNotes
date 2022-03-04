@@ -58,6 +58,7 @@ export type ReportFeature = {
 }
 
 export type Project = {
+  projectId: string;
   repIds: string[];
   relIds: string[];
 }

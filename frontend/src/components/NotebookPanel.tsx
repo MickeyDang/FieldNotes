@@ -19,11 +19,13 @@ function NotebookPanel({ reportResults, relationshipResults, project }: Notebook
         reports={reportResults}
         isSearchMode={false}
         projectRepIds={project.repIds}
+        onRepIdsUpdate={() => { console.log('TODO'); }}
       />
       <RelationshipList
         relationships={relationshipResults}
         isSearchMode={false}
         projectRelIds={project.relIds}
+        onRelIdsUpdate={() => { console.log('TODO'); }}
       />
       <hr className="nb-divider" />
       <NotebookHeader textValue="Annotations" numItems={0} />

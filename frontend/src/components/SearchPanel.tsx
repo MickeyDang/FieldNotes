@@ -30,6 +30,7 @@ interface SearchPanelProps {
   onSortChange: Function,
   annotations: Annotations,
   project: Project,
+  onProjectUpdate: Function,
 }
 
 const PAGE_LENGTH = 6;
@@ -42,6 +43,7 @@ function SearchPanel({
   relationshipResults,
   dateRangeResults,
   project,
+  onProjectUpdate,
   // Remove this statement once annotations is implemented
   // eslint-disable-next-line no-unused-vars
   annotations,
@@ -63,6 +65,22 @@ function SearchPanel({
   const handleReportCursorPrev = () => setReportCursor(reportCursor - PAGE_LENGTH);
   const handleRelCursorNext = () => setRelCursor(relCursor + PAGE_LENGTH);
   const handleRelCursorPrev = () => setRelCursor(relCursor - PAGE_LENGTH);
+
+  const handleRepIdsUpdate = (repIds: string[]) => {
+    onProjectUpdate({
+      projectId: project.projectId,
+      repIds,
+      relIds: project.relIds,
+    });
+  };
+
+  const handleRelIdsUpdate = (relIds: string[]) => {
+    onProjectUpdate({
+      projectId: project.projectId,
+      repIds: project.repIds,
+      relIds,
+    });
+  };
 
   const marks = [
     {
@@ -156,6 +174,7 @@ function SearchPanel({
                 isSearchMode
                 reports={reportResults.slice(reportCursor, reportCursor + PAGE_LENGTH)}
                 projectRepIds={project.repIds}
+                onRepIdsUpdate={handleRepIdsUpdate}
               />
               <div className="footer-container">
                 <FormControl
@@ -194,6 +213,7 @@ function SearchPanel({
                 isSearchMode
                 relationships={relationshipResults.slice(relCursor, relCursor + PAGE_LENGTH)}
                 projectRelIds={project.relIds}
+                onRelIdsUpdate={handleRelIdsUpdate}
               />
               <div className="footer-container">
                 <FormControl

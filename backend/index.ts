@@ -138,6 +138,22 @@ app.get('/projects/:id', async (req: any, res: any) => {
   });
 });
 
+app.put('/projects/:id', async (req: any, res: any) => {
+  const { repIds, relIds } = req.body;
+  const { id } = req.params;
+
+  const response = await ProjectModel.findByIdAndUpdate(
+    id,
+    {
+      reports: repIds,
+      relationships: relIds,
+    },
+    { new: true },
+  );
+
+  return res.status(200).json(response);
+});
+
 app.get('/projectdata/:id', async (req: any, res: any) => {
   // In theory, we would extract the project id, but for prototype, we only have one project.
   const project = (await ProjectModel.find({}))[0];

@@ -7,9 +7,22 @@ interface RelationshipListProps {
   relationships: RelationshipProperties[],
   isSearchMode: boolean,
   projectRelIds: string[],
+  onRelIdsUpdate: Function,
 }
 
-function RelationshipList({ relationships, isSearchMode, projectRelIds }: RelationshipListProps) {
+function RelationshipList({
+  relationships, isSearchMode, projectRelIds, onRelIdsUpdate,
+}: RelationshipListProps) {
+  // eslint-disable-next-line no-unused-vars
+  const handleRelationshipToggled = (relId: string, addingToProject: boolean) => {
+    if (addingToProject) {
+      projectRelIds.push(relId);
+      onRelIdsUpdate(projectRelIds);
+    } else {
+      onRelIdsUpdate(projectRelIds.filter((id) => id !== relId));
+    }
+  };
+
   return (
     <>
       {relationships.map((rel) => (

@@ -14,12 +14,12 @@ import {
 import PanelNavigator from './PanelNavigator';
 import NotebookPanel from './NotebookPanel';
 import searchDataInProject from '../models/services/NotebookService';
-import fetchProject from '../models/services/ProjectService';
+import { fetchProject, updateProject } from '../models/services/ProjectService';
 
 function SelectedProjectPage() {
   const [searchParams, setSearchParams] = useState({});
-  // eslint-disable-next-line no-unused-vars
   const [selectedProject, setSelectedProject] = useState({
+    projectId: '',
     repIds: [],
     relIds: [],
   } as Project);
@@ -56,6 +56,7 @@ function SelectedProjectPage() {
   useEffect(() => {
     const getProject = async () => {
       const response: Project = await fetchProject();
+      console.log(JSON.stringify(response));
       setSelectedProject(response);
     };
 
@@ -100,6 +101,10 @@ function SelectedProjectPage() {
     }
   };
 
+  const handleProjectUpdate = (updatedProject: Project) => {
+    updateProject(updatedProject);
+  };
+
   const handleSearchToggle = () => setIsSearchMode(true);
 
   const handleNotebookToggle = () => setIsSearchMode(false);
@@ -122,6 +127,7 @@ function SelectedProjectPage() {
               onSortChange={updateSortQuery}
               annotations={annotations}
               project={selectedProject}
+              onProjectUpdate={handleProjectUpdate}
             />
           ) : (
             <NotebookPanel
