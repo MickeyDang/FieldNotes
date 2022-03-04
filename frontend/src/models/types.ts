@@ -1,3 +1,5 @@
+import { LngLat } from "mapbox-gl";
+
 export type BoundingBox = [[number, number], [number, number]];
 
 export interface SearchParameters {
@@ -34,10 +36,23 @@ export type DateRangeProperties = {
   newestYearMonth: number[],
 }
 
+export type PointAnnotation = {
+  lnglat: LngLat;
+}
+
+export type PolygonAnnotation = {
+  coordinates: LngLat[];
+}
+
+export type TextAnnotation = {
+  lnglat: LngLat;
+  text: string;
+}
+
 export type Annotations = {
-  point: number[],
-  polygon: number[],
-  text: string[],
+  points: PointAnnotation[],
+  polygons: PolygonAnnotation[],
+  texts: TextAnnotation[],
 }
 
 export type RelationshipFeature = {

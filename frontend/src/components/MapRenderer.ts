@@ -1,5 +1,6 @@
 import { Position } from 'geojson';
 import mapboxgl from 'mapbox-gl';
+import { Annotations } from '../models/types';
 
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
@@ -18,21 +19,25 @@ export function updateDataSources(
   relationships: any,
   box: Position[],
   isSearchMode: boolean,
+  annotations: Annotations,
   map: mapboxgl.Map,
 ) {
   if (sourceLoaded) {
     const reportSource: mapboxgl.GeoJSONSource = map.getSource('reports') as mapboxgl.GeoJSONSource;
     const relationshipSource: mapboxgl.GeoJSONSource = map.getSource('relationships') as mapboxgl.GeoJSONSource;
+    const boxSource: mapboxgl.GeoJSONSource = map.getSource('box') as mapboxgl.GeoJSONSource;
+    const pointAnnotationSource: mapboxgl.GeoJSONSource = map.getSource('points') as mapboxgl.GeoJSONSource;
+
     reportSource.setData({
       type: 'FeatureCollection',
       features: reports,
     });
+
     relationshipSource.setData({
       type: 'FeatureCollection',
       features: relationships,
     });
 
-    const boxSource: mapboxgl.GeoJSONSource = map.getSource('box') as mapboxgl.GeoJSONSource;
     boxSource.setData({
       type: 'Feature',
       geometry: {
@@ -42,6 +47,22 @@ export function updateDataSources(
       properties: {
         title: 'bounding box',
       },
+    });
+
+    pointAnnotationSource.setData({
+      type: 'FeatureCollection',
+      features: annotations.points.map((point) => (
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [point.lnglat.lng, point.lnglat.lat],
+          },
+          properties: {
+            name: 'Annotation Point',
+          },
+        }
+      )),
     });
   }
 }
@@ -58,6 +79,7 @@ function setupDataSources(
   relationships: any,
   box: Position[],
   isSearchMode: boolean,
+  annotations: Annotations,
   map: mapboxgl.Map,
 ) {
   map.addSource('reports', {
@@ -89,6 +111,24 @@ function setupDataSources(
       },
     });
   }
+  map.addSource('points', {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: annotations.points.map((point) => (
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [point.lnglat.lng, point.lnglat.lat],
+          },
+          properties: {
+            name: 'Annotation Point',
+          },
+        }
+      )),
+    },
+  });
 }
 
 function setupLayers(map: mapboxgl.Map) {
@@ -137,10 +177,24 @@ function setupLayers(map: mapboxgl.Map) {
     filter: ['==', '$type', 'Polygon'],
   };
 
+  const pointAnnotationFillLayer: mapboxgl.AnyLayer = {
+    id: 'point-fill',
+    type: 'circle',
+    source: 'points',
+    paint: {
+      // Make circles larger as the user zooms from z12 to z22.
+      'circle-radius': { base: 7, stops: [[12, 10], [22, 180]] },
+      'circle-color': '#4264fb',
+      'circle-stroke-width': 2,
+      'circle-stroke-color': '#ffffff',
+    },
+  };
+
   map.addLayer(reportFillLayer);
   map.addLayer(reportLineLayer);
   map.addLayer(relationshipFillLayer);
   map.addLayer(boxLineLayer);
+  map.addLayer(pointAnnotationFillLayer);
 }
 
 export function setupMapFeatures(
@@ -148,10 +202,11 @@ export function setupMapFeatures(
   relationships: any,
   box: any,
   isSearchMode: boolean,
+  annotations: Annotations,
   map: mapboxgl.Map,
 ) {
   if (!sourceLoaded) {
-    setupDataSources(reports, relationships, box, isSearchMode, map);
+    setupDataSources(reports, relationships, box, isSearchMode, annotations, map);
     setupLayers(map);
     sourceLoaded = true;
   }

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Position } from 'geojson';
@@ -6,7 +6,9 @@ import './MapPanel.css';
 import {
   setupMapFeatures, updateDataSources, setupMapInteractions,
 } from './MapRenderer';
-import { Annotations } from '../models/types';
+import {
+  Annotations, PointAnnotation,
+} from '../models/types';
 import AnnotationBar from './AnnotationBar';
 
 // @ts-ignore
@@ -42,6 +44,7 @@ function MapPanel({
   const mapContainerRef = useRef(null);
   const mapRef = useRef<mapboxgl.Map>(null);
   const searchBox = useRef<Position[]>([]);
+  const [annotationMode, setAnnotationMode] = useState('none');
 
   const extractBoundingBox = () => {
     if (mapRef.current) {
@@ -83,6 +86,7 @@ function MapPanel({
 
   const updateAnnotationMode = (updatedMode: string) => {
     console.log(updatedMode);
+    setAnnotationMode(updatedMode);
   };
 
   useEffect(() => {
@@ -102,7 +106,7 @@ function MapPanel({
       });
 
       map.on('load', async () => {
-        setupMapFeatures(reportResults, relationshipResults, box, isSearchMode, map);
+        setupMapFeatures(reportResults, relationshipResults, box, isSearchMode, annotations, map);
       });
 
       // change cursor to pointer when user hovers over a clickable feature
@@ -117,10 +121,45 @@ function MapPanel({
         map.getCanvas().style.cursor = '';
       });
 
+      const updatedAnnotations = { ...annotations };
+      switch (annotationMode) {
+        case 'none':
+          console.log('none!');
+          break;
+
+        case 'point':
+          console.log('point!');
+          map.on('click', (e) => {
+            const newPoint: PointAnnotation = { lnglat: e.lngLat };
+            updatedAnnotations.points.push(newPoint);
+            setAnnotations(updatedAnnotations);
+          });
+
+          break;
+
+        case 'polygon':
+          console.log('polygon!');
+          break;
+
+        case 'text':
+          console.log('text!');
+          break;
+
+        default:
+          break;
+      }
+
       setupMapInteractions(map);
-      updateDataSources(reportResults, relationshipResults, box, isSearchMode, map);
+      updateDataSources(
+        reportResults,
+        relationshipResults,
+        box,
+        isSearchMode,
+        updatedAnnotations,
+        map,
+      );
     }
-  }, [reportResults, relationshipResults]);
+  }, [reportResults, relationshipResults, annotationMode, annotations]);
 
   return (
     <div className="map-panel-container">
@@ -131,7 +170,7 @@ function MapPanel({
         )
         : (
           <AnnotationBar
-            onAnnotationModeChange={updateAnnotationMode}
+            onAnnotationModeSelect={updateAnnotationMode}
           />
         )}
     </div>
