@@ -9,9 +9,10 @@ export interface SearchParameters {
 
 export type ReportProperties = {
   properties: {
-    name: string
-    tags: string[]
-    creationDate: string
+    name: string,
+    tags: string[],
+    creationDate: string,
+    id: string,
   }
 }
 
@@ -21,6 +22,7 @@ export type RelationshipProperties = {
     type: string,
     lastContacted: Date,
     reports: any[],
+    id: string,
   }
 }
 
@@ -45,6 +47,7 @@ export type RelationshipFeature = {
   lastContacted: Date;
   reports: any;
   tags: string[];
+  _id: string;
 };
 
 export type ReportFeature = {
@@ -52,6 +55,13 @@ export type ReportFeature = {
   name: string;
   tags: string[];
   creationDate: Date;
+  _id: string;
+}
+
+export type Project = {
+  projectId: string;
+  repIds: string[];
+  relIds: string[];
 }
 
 export type TagCount = [string, number];

@@ -12,6 +12,8 @@ export function formatReports(data: any) {
         name: report.name,
         tags: report.tags,
         creationDate: report.creationDate,
+        // eslint-disable-next-line no-underscore-dangle
+        id: report._id,
       },
     }
   ));
@@ -35,6 +37,8 @@ export function formatRelationships(data: any) {
         lastContacted: rel.lastContacted,
         reports: rel.reports,
         tags: rel.tags,
+        // eslint-disable-next-line no-underscore-dangle
+        id: rel._id,
       },
     }
   ));

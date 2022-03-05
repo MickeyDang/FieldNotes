@@ -1,6 +1,25 @@
+.search-item-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.item-details-container {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .list-item-header {
   font-size: small;
   color: #ffffff;
+}
+
+.project-list-item-header {
+  font-size: small;
+  color: #FFC285;
 }
 
 .description {
@@ -19,4 +38,17 @@
 
 .date-color {
   color: #B4A88C;
+}
+
+.toggle-button {
+  background-color: #2a2925;
+  color: #D7CFBE40;
+  border-width: 0px;
+  flex: 1;
+  font-size: x-large;
+}
+
+.toggle-button:hover {
+  color: #D7CFBE;
+  font-weight: bold;
 }

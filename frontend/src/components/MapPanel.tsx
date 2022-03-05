@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { Position } from 'geojson';
 import './MapPanel.css';
 import {
   setupMapFeatures, updateDataSources, setupMapInteractions,
@@ -44,6 +45,7 @@ function MapPanel({
   const mapContainerRef = useRef(null);
   const mapRef = useRef<mapboxgl.Map>(null);
   const [totalDataPoints, setTotalDataPoints] = useState(0);
+  const searchBox = useRef<Position[]>([]);
 
   const extractBoundingBox = () => {
     if (mapRef.current) {
@@ -57,7 +59,7 @@ function MapPanel({
   };
 
   const getSearchedAreaBox = () => {
-    if (mapRef.current) {
+    if (mapRef.current && isSearchMode) {
       const map = mapRef.current;
       const sw = map.getBounds().getSouthWest();
       const se = map.getBounds().getSouthEast();
@@ -79,6 +81,7 @@ function MapPanel({
     const box = extractBoundingBox();
     if (box.length > 0) {
       onBoundingBoxChange(extractBoundingBox());
+      (searchBox as any).current = getSearchedAreaBox();
     }
   };
 
@@ -92,14 +95,14 @@ function MapPanel({
       });
     } else {
       const map = mapRef.current;
-      const box = getSearchedAreaBox();
+      const box = searchBox.current;
 
       map.on('render', () => {
         map.resize();
       });
 
       map.on('load', async () => {
-        setupMapFeatures(reportResults, relationshipResults, box, map);
+        setupMapFeatures(reportResults, relationshipResults, box, isSearchMode, map);
       });
 
       // change cursor to pointer when user hovers over a clickable feature
@@ -115,7 +118,7 @@ function MapPanel({
       });
 
       setupMapInteractions(map);
-      updateDataSources(reportResults, relationshipResults, box, map);
+      updateDataSources(reportResults, relationshipResults, box, isSearchMode, map);
     }
 
     setTotalDataPoints(reportResults.length + relationshipResults.length);

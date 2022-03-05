@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ReportProperties } from '../models/types';
 import './NotebookListItem.css';
 
 interface ReportListItemProps {
-  report: ReportProperties
+  report: ReportProperties,
+  onToggle: Function,
 }
 
-function NotebookReportListItem({ report }: ReportListItemProps) {
+function NotebookReportListItem({ report, onToggle }: ReportListItemProps) {
+  const [inProject, setInProject] = useState(true);
+
   const formatTags = (tags: string[]) => (
     // eslint-disable-next-line no-nested-ternary
     tags.length > 1
@@ -15,6 +18,13 @@ function NotebookReportListItem({ report }: ReportListItemProps) {
         ? tags[0]
         : ''
   );
+
+  const handleToggle = () => {
+    onToggle(report.properties.id, !inProject);
+    setInProject(!inProject);
+  };
+
+  const buttonPrompt = inProject ? 'x' : '+';
 
   return (
     <div className="nb-list-item-container">
@@ -31,6 +41,9 @@ function NotebookReportListItem({ report }: ReportListItemProps) {
           <span className="nb-date-color">{new Date(report.properties.creationDate).toLocaleDateString()}</span>
         </div>
       </div>
+      <button type="button" className="nb-toggle-button" onClick={handleToggle}>
+        {buttonPrompt}
+      </button>
     </div>
   );
 }

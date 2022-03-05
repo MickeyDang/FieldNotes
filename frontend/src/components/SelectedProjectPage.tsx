@@ -6,14 +6,24 @@ import SearchPanel from './SearchPanel';
 import MapPanel from './MapPanel';
 import './SelectedProjectPage.css';
 import {
-  BoundingBox, DateRangeProperties, Annotations, TagCount,
+  BoundingBox,
+  DateRangeProperties,
+  Annotations,
+  Project,
+  TagCount,
 } from '../models/types';
 import PanelNavigator from './PanelNavigator';
 import NotebookPanel from './NotebookPanel';
 import searchDataInProject from '../models/services/NotebookService';
+import { fetchProject, updateProject } from '../models/services/ProjectService';
 
 function SelectedProjectPage() {
   const [searchParams, setSearchParams] = useState({});
+  const [selectedProject, setSelectedProject] = useState({
+    projectId: '',
+    repIds: [],
+    relIds: [],
+  } as Project);
   const [reports, setReports] = useState<any[]>([]);
   const [relationships, setRelationships] = useState<any[]>([]);
   const [dateRange, setDateRange] = useState({} as DateRangeProperties);
@@ -44,6 +54,15 @@ function SelectedProjectPage() {
       executeNotebookSearch();
     }
   }, [executeSearch, executeNotebookSearch]);
+
+  useEffect(() => {
+    const getProject = async () => {
+      const response: Project = await fetchProject();
+      setSelectedProject(response);
+    };
+
+    getProject().catch(console.error);
+  }, []);
 
   // Get oldest and newest dates for time range filter
   useEffect(() => {
@@ -83,6 +102,11 @@ function SelectedProjectPage() {
     }
   };
 
+  const handleProjectUpdate = async (updatedProject: Project) => {
+    const response = await updateProject(updatedProject);
+    setSelectedProject(response);
+  };
+
   const handleSearchToggle = () => setIsSearchMode(true);
 
   const handleNotebookToggle = () => setIsSearchMode(false);
@@ -118,11 +142,15 @@ function SelectedProjectPage() {
               dateRangeResults={dateRange}
               onSortChange={updateSortQuery}
               annotations={annotations}
+              project={selectedProject}
+              onProjectUpdate={handleProjectUpdate}
             />
           ) : (
             <NotebookPanel
               reportResults={reports}
               relationshipResults={relationships}
+              project={selectedProject}
+              onProjectUpdate={handleProjectUpdate}
             />
           )}
       </div>
