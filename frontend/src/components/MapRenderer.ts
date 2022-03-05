@@ -8,6 +8,7 @@ mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worke
 const BLUE = '#8FB1BB';
 const DARK_BLUE = '#1A85A7';
 const ORANGE = '#F29D49';
+const BEIGE = '#B4A88C';
 const navigation = new mapboxgl.NavigationControl({ showCompass: false });
 
 let sourceLoaded = false;
@@ -130,7 +131,7 @@ function setupLayers(map: mapboxgl.Map) {
     type: 'line',
     source: 'box',
     paint: {
-      'line-color': DARK_BLUE,
+      'line-color': BEIGE,
       'line-width': 3,
     },
     filter: ['==', '$type', 'Polygon'],
