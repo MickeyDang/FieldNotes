@@ -18,24 +18,27 @@ function ReportListItem({ report, isInProject, onToggle }: ReportListItemProps) 
         : ''
   );
 
-  const buttonPrompt = isInProject ? '-' : '+';
+  const buttonPrompt = isInProject ? 'x' : '+';
+  const headerStyle = isInProject ? 'project-list-item-header' : 'list-item-header';
 
   const handleToggle = () => {
     onToggle(report.properties.id, !isInProject);
   };
 
   return (
-    <>
-      <div className="list-item-header">{report.properties.name}</div>
-      <div className="description">
-        <span className="tag-color">{formatTags(report.properties.tags)}</span>
-        {' '}
-        <span className="dot">&#8226;</span>
-        {' '}
-        <span className="date-color">{new Date(report.properties.creationDate).toLocaleDateString()}</span>
+    <div className="search-item-container">
+      <div className="item-details-container">
+        <div className={headerStyle}>{report.properties.name}</div>
+        <div className="description">
+          <span className="tag-color">{formatTags(report.properties.tags)}</span>
+          {' '}
+          <span className="dot">&#8226;</span>
+          {' '}
+          <span className="date-color">{new Date(report.properties.creationDate).toLocaleDateString()}</span>
+        </div>
       </div>
-      <button type="button" onClick={handleToggle}>{buttonPrompt}</button>
-    </>
+      <button type="button" className="toggle-button" onClick={handleToggle}>{buttonPrompt}</button>
+    </div>
   );
 }
 

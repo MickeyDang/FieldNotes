@@ -38,6 +38,7 @@ function RelationshipList({
             <NotebookRelationshipListItem
               key={rel.properties.id}
               relationship={rel}
+              onToggle={handleRelationshipToggled}
             />
           )
       ))}

@@ -9,9 +9,28 @@ interface NotebookPanelProps {
   reportResults: ReportProperties[],
   relationshipResults: RelationshipProperties[],
   project: Project,
+  onProjectUpdate: Function,
 }
 
-function NotebookPanel({ reportResults, relationshipResults, project }: NotebookPanelProps) {
+function NotebookPanel({
+  reportResults, relationshipResults, project, onProjectUpdate,
+}: NotebookPanelProps) {
+  const handleRepIdsUpdate = (repIds: string[]) => {
+    onProjectUpdate({
+      projectId: project.projectId,
+      repIds,
+      relIds: project.relIds,
+    });
+  };
+
+  const handleRelIdsUpdate = (relIds: string[]) => {
+    onProjectUpdate({
+      projectId: project.projectId,
+      repIds: project.repIds,
+      relIds,
+    });
+  };
+
   return (
     <div className="notebook-container">
       <NotebookHeader textValue="Data" numItems={reportResults.length + relationshipResults.length} />
@@ -19,13 +38,13 @@ function NotebookPanel({ reportResults, relationshipResults, project }: Notebook
         reports={reportResults}
         isSearchMode={false}
         projectRepIds={project.repIds}
-        onRepIdsUpdate={() => { console.log('TODO'); }}
+        onRepIdsUpdate={handleRepIdsUpdate}
       />
       <RelationshipList
         relationships={relationshipResults}
         isSearchMode={false}
         projectRelIds={project.relIds}
-        onRelIdsUpdate={() => { console.log('TODO'); }}
+        onRelIdsUpdate={handleRelIdsUpdate}
       />
       <hr className="nb-divider" />
       <NotebookHeader textValue="Annotations" numItems={0} />

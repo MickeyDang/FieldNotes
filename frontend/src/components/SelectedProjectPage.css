@@ -8,11 +8,11 @@
 
 .list-panel-container {
   height: 100%;
-  flex: 45;
+  flex: 40;
   overflow-y: scroll;
 }
 
 .map-panel-container {
   height: 100%;
-  flex: 55;
+  flex: 60;
 }

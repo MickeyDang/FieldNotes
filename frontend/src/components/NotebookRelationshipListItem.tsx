@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RelationshipProperties } from '../models/types';
 import './NotebookListItem.css';
 
 interface RelationshipListItemProps {
-  relationship: RelationshipProperties
+  relationship: RelationshipProperties,
+  onToggle: Function,
 }
 
-function NotebookRelationshipListItem({ relationship }: RelationshipListItemProps) {
+function NotebookRelationshipListItem({ relationship, onToggle }: RelationshipListItemProps) {
+  const [inProject, setInProject] = useState(true);
+
+  const handleToggle = () => {
+    onToggle(relationship.properties.id, !inProject);
+    setInProject(!inProject);
+  };
+
+  const buttonPrompt = inProject ? 'x' : '+';
+
   return (
     <div className="nb-list-item-container">
       <div className="nb-list-item-image">
@@ -24,6 +34,9 @@ function NotebookRelationshipListItem({ relationship }: RelationshipListItemProp
           </span>
         </div>
       </div>
+      <button type="button" className="nb-toggle-button" onClick={handleToggle}>
+        {buttonPrompt}
+      </button>
     </div>
   );
 }

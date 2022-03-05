@@ -9,26 +9,29 @@ interface RelationshipListItemProps {
 }
 
 function RelationshipListItem({ relationship, isInProject, onToggle }: RelationshipListItemProps) {
-  const buttonPrompt = isInProject ? '-' : '+';
-
   const handleToggle = () => {
     onToggle(relationship.properties.id, !isInProject);
   };
 
+  const buttonPrompt = isInProject ? 'x' : '+';
+  const headerStyle = isInProject ? 'project-list-item-header' : 'list-item-header';
+
   return (
-    <>
-      <div className="list-item-header">{relationship.properties.name}</div>
-      <div className="description">
-        <span className="tag-color">{relationship.properties.type}</span>
-        {' '}
-        <span className="dot">&#8226;</span>
-        {' '}
-        <span className="date-color">
-          {new Date(relationship.properties.lastContacted).toLocaleDateString()}
-        </span>
+    <div className="search-item-container">
+      <div className="item-details-container">
+        <div className={headerStyle}>{relationship.properties.name}</div>
+        <div className="description">
+          <span className="tag-color">{relationship.properties.type}</span>
+          {' '}
+          <span className="dot">&#8226;</span>
+          {' '}
+          <span className="date-color">
+            {new Date(relationship.properties.lastContacted).toLocaleDateString()}
+          </span>
+        </div>
       </div>
-      <button type="button" onClick={handleToggle}>{buttonPrompt}</button>
-    </>
+      <button type="button" className="toggle-button" onClick={handleToggle}>{buttonPrompt}</button>
+    </div>
   );
 }
 
