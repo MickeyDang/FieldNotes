@@ -18,7 +18,7 @@ function ReportListItem({ report, isInProject, onToggle }: ReportListItemProps) 
         : ''
   );
 
-  const buttonPrompt = isInProject ? '-' : '+';
+  const buttonPrompt = isInProject ? 'x' : '+';
   const headerStyle = isInProject ? 'project-list-item-header' : 'list-item-header';
 
   const handleToggle = () => {

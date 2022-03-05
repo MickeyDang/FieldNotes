@@ -9,12 +9,11 @@ interface RelationshipListItemProps {
 }
 
 function RelationshipListItem({ relationship, isInProject, onToggle }: RelationshipListItemProps) {
-  const buttonPrompt = isInProject ? '-' : '+';
-
   const handleToggle = () => {
     onToggle(relationship.properties.id, !isInProject);
   };
 
+  const buttonPrompt = isInProject ? 'x' : '+';
   const headerStyle = isInProject ? 'project-list-item-header' : 'list-item-header';
 
   return (
