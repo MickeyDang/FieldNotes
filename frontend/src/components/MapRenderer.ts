@@ -1,5 +1,6 @@
 import { Position } from 'geojson';
 import mapboxgl from 'mapbox-gl';
+import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { Annotations } from '../models/types';
 
 // @ts-ignore
@@ -204,11 +205,13 @@ export function setupMapFeatures(
   box: any,
   isSearchMode: boolean,
   annotations: Annotations,
+  draw: MapboxDraw,
   map: mapboxgl.Map,
 ) {
   if (!sourceLoaded) {
     setupDataSources(reports, relationships, box, isSearchMode, annotations, map);
     setupLayers(map);
+    map.addControl((draw as any));
     sourceLoaded = true;
   }
 }

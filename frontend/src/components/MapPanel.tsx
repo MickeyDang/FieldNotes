@@ -1,13 +1,16 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import MapboxDraw from '@mapbox/mapbox-gl-draw';
+import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import { Position } from 'geojson';
 import './MapPanel.css';
 import {
   setupMapFeatures, updateDataSources, setupMapInteractions,
 } from './MapRenderer';
 import {
-  Annotations, PointAnnotation,
+  Annotations,
+  PointAnnotation,
 } from '../models/types';
 import AnnotationBar from './AnnotationBar';
 
@@ -45,6 +48,7 @@ function MapPanel({
   const mapRef = useRef<mapboxgl.Map>(null);
   const searchBox = useRef<Position[]>([]);
   const [annotationMode, setAnnotationMode] = useState('none');
+  const drawRef = useRef<MapboxDraw>(null);
 
   const extractBoundingBox = () => {
     if (mapRef.current) {
@@ -87,6 +91,17 @@ function MapPanel({
   const updateAnnotationMode = (updatedMode: string) => {
     console.log(updatedMode);
     setAnnotationMode(updatedMode);
+
+    switch (annotationMode) {
+      case 'polygon':
+        console.log('polygon!');
+        drawRef.current?.changeMode('draw_polygon');
+        break;
+
+      default:
+        drawRef.current?.changeMode('simple_select');
+        break;
+    }
   };
 
   useEffect(() => {
@@ -97,16 +112,30 @@ function MapPanel({
         center: [VANCOUVER_LAT, VANCOUVER_LNG],
         zoom: DEFAULT_ZOOM_LEVEL,
       });
+
+      (drawRef as any).current = new MapboxDraw({
+        displayControlsDefault: false,
+        defaultMode: 'simple_select',
+      });
     } else {
       const map = mapRef.current;
       const box = searchBox.current;
+      const draw = drawRef.current;
 
       map.on('render', () => {
         map.resize();
       });
 
       map.on('load', async () => {
-        setupMapFeatures(reportResults, relationshipResults, box, isSearchMode, annotations, map);
+        setupMapFeatures(
+          reportResults,
+          relationshipResults,
+          box,
+          isSearchMode,
+          annotations,
+          draw!,
+          map,
+        );
       });
 
       // change cursor to pointer when user hovers over a clickable feature
@@ -134,7 +163,6 @@ function MapPanel({
             updatedAnnotations.points.push(newPoint);
             setAnnotations(updatedAnnotations);
           });
-
           break;
 
         case 'polygon':
@@ -148,6 +176,13 @@ function MapPanel({
         default:
           break;
       }
+
+      map.on('draw.create', () => {
+        console.log('creating');
+      });
+      map.on('draw.update', () => {
+        console.log('update');
+      });
 
       setupMapInteractions(map);
       updateDataSources(
