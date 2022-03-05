@@ -21,6 +21,9 @@ interface MapPanelProps {
   setAnnotations: Function,
   isSearchMode: boolean,
   tagsSummary: TagCount[],
+  appendSearchQuery: Function,
+  // onKeywordSearchChange: Function,
+  // searchParams: object,
 }
 
 mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_API}`;
@@ -40,10 +43,15 @@ function MapPanel({
   setAnnotations,
   isSearchMode,
   tagsSummary,
+  appendSearchQuery,
+  // onKeywordSearchChange,
+  // searchParams,
 }: MapPanelProps) {
   const mapContainerRef = useRef(null);
   const mapRef = useRef<mapboxgl.Map>(null);
   const [totalDataPoints, setTotalDataPoints] = useState(0);
+  // const [keywordSearch, setKeywordSearch] = useState([]);
+  // const updateKeywordSearch = (values: string[]) => onKeywordSearchChange(values);
 
   const extractBoundingBox = () => {
     if (mapRef.current) {
@@ -133,6 +141,7 @@ function MapPanel({
                 <KeywordOverview
                   tagsSummary={tagsSummary}
                   totalDataPoints={totalDataPoints}
+                  appendSearchQuery={appendSearchQuery}
                 />
               ) : null}
           </>

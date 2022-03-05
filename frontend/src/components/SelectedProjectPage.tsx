@@ -24,6 +24,7 @@ function SelectedProjectPage() {
   } as Annotations);
   const [isSearchMode, setIsSearchMode] = useState(true);
   const [tagsSummary, setTagsSummary] = useState<TagCount[]>([]);
+  const [keywordOverviewSearch, setKeywordOverviewSearch] = useState<string[]>([]);
 
   const executeSearch = useCallback(async () => {
     const response = await searchData(searchParams);
@@ -101,6 +102,20 @@ function SelectedProjectPage() {
     setTagsSummary(tagsSummaryArrSorted);
   }, [reports, relationships]);
 
+  const appendSearchQuery = (appendingKeywords: string[]) => {
+    setKeywordOverviewSearch(appendingKeywords);
+    console.log('in appendSearchQuery, searchParams: ', searchParams);
+    console.log('appendToSearchQuery: ', appendingKeywords);
+    // this needs to append to the existing searchParams somehow!!!!!!!!!!!!!!
+    updateSearchQuery(appendingKeywords);
+    // if ('searchQuery' in searchParams) {
+    // const currentSearchQuery = ('searchQuery' in searchParams) ? searchParams.searchQuery : [];
+    // const updatedSearchQuery = [searchParams.searchQuery, appendToSearchQuery].flat();
+    // console.log('in appendSearchQuery if: ', updatedSearchQuery);
+    // updateKeywordSearch(updatedSearchQuery);
+    // }
+  };
+
   return (
     <div className="project-view">
       <div className="list-panel-container">
@@ -118,6 +133,8 @@ function SelectedProjectPage() {
               dateRangeResults={dateRange}
               onSortChange={updateSortQuery}
               annotations={annotations}
+              keywordOverviewSearch={keywordOverviewSearch}
+              setKeywordOverviewSearch={setKeywordOverviewSearch}
             />
           ) : (
             <NotebookPanel
@@ -135,6 +152,7 @@ function SelectedProjectPage() {
           annotations={annotations}
           setAnnotations={setAnnotations}
           tagsSummary={tagsSummary}
+          appendSearchQuery={appendSearchQuery}
         />
       </div>
     </div>
