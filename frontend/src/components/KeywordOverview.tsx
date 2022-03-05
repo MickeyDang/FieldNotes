@@ -1,6 +1,7 @@
 import React from 'react';
 import './KeywordOverview.css';
 import { TagCount } from '../models/types';
+import KeywordOverviewItem from './KeywordOverviewItem';
 
 interface KeywordOverviewProps {
     tagsSummary: TagCount[],
@@ -8,20 +9,9 @@ interface KeywordOverviewProps {
   }
 
 function KeywordOverview({ tagsSummary, totalDataPoints }: KeywordOverviewProps) {
-  const listItems = tagsSummary.map((tagCount) => (
-    <div className="row">
-      <div className="col-sm">
-        {tagCount[0]}
-      </div>
-      <div className="col-sm text-end">
-        {tagCount[1]}
-      </div>
-    </div>
-  ));
-
   return (
     <div className="keyword-overview-container">
-      <h5 className="keyword-overview-title">KEYWORD OVERVIEW</h5>
+      <h3 className="keyword-overview-title">KEYWORD OVERVIEW</h3>
       <p className="keyword-overview-label">
         from
         {' '}
@@ -29,7 +19,11 @@ function KeywordOverview({ tagsSummary, totalDataPoints }: KeywordOverviewProps)
         {' '}
         data points in this search
       </p>
-      {listItems}
+      <div className="keyword-overview-list">
+        {tagsSummary.map((tagCount) => (
+          <KeywordOverviewItem tagCount={tagCount} />
+        ))}
+      </div>
     </div>
   );
 }

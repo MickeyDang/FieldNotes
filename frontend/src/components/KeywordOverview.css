@@ -1,20 +1,31 @@
 .keyword-overview-container {
-  /* z-index: 10; */
   position: relative;
-  bottom: 50%;
-  /* top: 10%; */
-  left: 1%;
-  padding: 6px;
+  bottom: 40%;
+  left: 4%;
+  padding: 20px;
   margin-right: 16px;
-  width: 25%;
-  min-width: 250px;
-  /* height: 36px; */
+  width: 20%;
+  min-width: 210px;
+  height: 192px;
   border-radius: 4px;
   border-color: #00000020;
   border-width: 2px;
   background-color: #ffffff;
   box-shadow: 2px 4px #00000005;
-  /* display: flex; */
-  /* flex-direction: row; */
   align-items: left;
+}
+
+.keyword-overview-title {
+  font-size: small;
+}
+
+.keyword-overview-label {
+  font-size: x-small;
+}
+
+.keyword-overview-list {
+  height: 97px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  font-size: small;
 }
