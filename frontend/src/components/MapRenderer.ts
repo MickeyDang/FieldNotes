@@ -8,6 +8,7 @@ mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worke
 const BLUE = '#8FB1BB';
 const DARK_BLUE = '#1A85A7';
 const ORANGE = '#F29D49';
+const BEIGE = '#B4A88C';
 const navigation = new mapboxgl.NavigationControl({ showCompass: false });
 
 let sourceLoaded = false;
@@ -16,12 +17,12 @@ export function updateDataSources(
   reports: any,
   relationships: any,
   box: Position[],
+  isSearchMode: boolean,
   map: mapboxgl.Map,
 ) {
   if (sourceLoaded) {
     const reportSource: mapboxgl.GeoJSONSource = map.getSource('reports') as mapboxgl.GeoJSONSource;
     const relationshipSource: mapboxgl.GeoJSONSource = map.getSource('relationships') as mapboxgl.GeoJSONSource;
-    const boxSource: mapboxgl.GeoJSONSource = map.getSource('box') as mapboxgl.GeoJSONSource;
     reportSource.setData({
       type: 'FeatureCollection',
       features: reports,
@@ -30,11 +31,13 @@ export function updateDataSources(
       type: 'FeatureCollection',
       features: relationships,
     });
+
+    const boxSource: mapboxgl.GeoJSONSource = map.getSource('box') as mapboxgl.GeoJSONSource;
     boxSource.setData({
       type: 'Feature',
       geometry: {
         type: 'Polygon',
-        coordinates: [box],
+        coordinates: [isSearchMode ? box : []],
       },
       properties: {
         title: 'bounding box',
@@ -50,7 +53,13 @@ export function setupMapInteractions(map: mapboxgl.Map) {
   }
 }
 
-function setupDataSources(reports: any, relationships: any, box: Position[], map: mapboxgl.Map) {
+function setupDataSources(
+  reports: any,
+  relationships: any,
+  box: Position[],
+  isSearchMode: boolean,
+  map: mapboxgl.Map,
+) {
   map.addSource('reports', {
     type: 'geojson',
     data: {
@@ -65,19 +74,21 @@ function setupDataSources(reports: any, relationships: any, box: Position[], map
       features: relationships,
     },
   });
-  map.addSource('box', {
-    type: 'geojson',
-    data: {
-      type: 'Feature',
-      geometry: {
-        type: 'Polygon',
-        coordinates: [box],
+  if (isSearchMode) {
+    map.addSource('box', {
+      type: 'geojson',
+      data: {
+        type: 'Feature',
+        geometry: {
+          type: 'Polygon',
+          coordinates: [box],
+        },
+        properties: {
+          title: 'bounding box',
+        },
       },
-      properties: {
-        title: 'bounding box',
-      },
-    },
-  });
+    });
+  }
 }
 
 function setupLayers(map: mapboxgl.Map) {
@@ -120,7 +131,7 @@ function setupLayers(map: mapboxgl.Map) {
     type: 'line',
     source: 'box',
     paint: {
-      'line-color': DARK_BLUE,
+      'line-color': BEIGE,
       'line-width': 3,
     },
     filter: ['==', '$type', 'Polygon'],
@@ -132,9 +143,15 @@ function setupLayers(map: mapboxgl.Map) {
   map.addLayer(boxLineLayer);
 }
 
-export function setupMapFeatures(reports: any, relationships: any, box: any, map: mapboxgl.Map) {
+export function setupMapFeatures(
+  reports: any,
+  relationships: any,
+  box: any,
+  isSearchMode: boolean,
+  map: mapboxgl.Map,
+) {
   if (!sourceLoaded) {
-    setupDataSources(reports, relationships, box, map);
+    setupDataSources(reports, relationships, box, isSearchMode, map);
     setupLayers(map);
     sourceLoaded = true;
   }
