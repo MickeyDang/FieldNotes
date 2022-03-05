@@ -57,7 +57,7 @@ export function updateDataSources(
           type: 'Feature',
           geometry: {
             type: 'Point',
-            coordinates: [point.lnglat.lng, point.lnglat.lat],
+            coordinates: isSearchMode ? [] : [point.lnglat.lng, point.lnglat.lat],
           },
           properties: {
             name: 'Annotation Point',
@@ -111,25 +111,25 @@ function setupDataSources(
         },
       },
     });
+    map.addSource('points', {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: annotations.points.map((point) => (
+          {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [point.lnglat.lng, point.lnglat.lat],
+            },
+            properties: {
+              name: 'Annotation Point',
+            },
+          }
+        )),
+      },
+    });
   }
-  map.addSource('points', {
-    type: 'geojson',
-    data: {
-      type: 'FeatureCollection',
-      features: annotations.points.map((point) => (
-        {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [point.lnglat.lng, point.lnglat.lat],
-          },
-          properties: {
-            name: 'Annotation Point',
-          },
-        }
-      )),
-    },
-  });
 }
 
 function setupLayers(map: mapboxgl.Map) {
