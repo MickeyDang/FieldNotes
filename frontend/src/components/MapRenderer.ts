@@ -10,6 +10,7 @@ const BLUE = '#8FB1BB';
 const DARK_BLUE = '#1A85A7';
 const ORANGE = '#F29D49';
 const BEIGE = '#B4A88C';
+const LIGHT_BEIGE = '#D7CFBE';
 const navigation = new mapboxgl.NavigationControl({ showCompass: false });
 
 let sourceLoaded = false;
@@ -184,9 +185,9 @@ function setupLayers(map: mapboxgl.Map) {
     paint: {
       // Make circles larger as the user zooms from z12 to z22.
       'circle-radius': { base: 7, stops: [[12, 10], [22, 180]] },
-      'circle-color': '#4264fb',
-      'circle-stroke-width': 2,
-      'circle-stroke-color': '#ffffff',
+      'circle-color': LIGHT_BEIGE,
+      'circle-stroke-width': 1,
+      'circle-stroke-color': '#000000',
     },
   };
 
