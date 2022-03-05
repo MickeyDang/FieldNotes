@@ -129,7 +129,7 @@ function MapPanel({
 
         case 'point':
           console.log('point!');
-          map.on('click', (e) => {
+          map.once('click', (e) => {
             const newPoint: PointAnnotation = { lnglat: e.lngLat };
             updatedAnnotations.points.push(newPoint);
             setAnnotations(updatedAnnotations);
