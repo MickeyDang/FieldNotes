@@ -15,10 +15,12 @@ function RelationshipListItem({ relationship, isInProject, onToggle }: Relations
     onToggle(relationship.properties.id, !isInProject);
   };
 
+  const headerStyle = isInProject ? 'project-list-item-header' : 'list-item-header';
+
   return (
     <div className="search-item-container">
       <div className="item-details-container">
-        <div className="list-item-header">{relationship.properties.name}</div>
+        <div className={headerStyle}>{relationship.properties.name}</div>
         <div className="description">
           <span className="tag-color">{relationship.properties.type}</span>
           {' '}

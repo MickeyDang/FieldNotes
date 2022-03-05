@@ -134,6 +134,7 @@ function SelectedProjectPage() {
               reportResults={reports}
               relationshipResults={relationships}
               project={selectedProject}
+              onProjectUpdate={handleProjectUpdate}
             />
           )}
       </div>

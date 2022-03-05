@@ -34,7 +34,13 @@ function ReportList({
               onToggle={handleReportToggled}
             />
           )
-          : <NotebookReportListItem key={report.properties.id} report={report} />
+          : (
+            <NotebookReportListItem
+              key={report.properties.id}
+              report={report}
+              onToggle={handleReportToggled}
+            />
+          )
       ))}
     </>
   );

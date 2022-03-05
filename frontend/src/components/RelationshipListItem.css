@@ -17,6 +17,11 @@
   color: #ffffff;
 }
 
+.project-list-item-header {
+  font-size: small;
+  color: #FFC285;
+}
+
 .description {
   font-size: x-small;
   margin-bottom: 8px;
@@ -37,8 +42,13 @@
 
 .toggle-button {
   background-color: #2a2925;
-  color: #B4A88C;
+  color: #D7CFBE40;
   border-width: 0px;
   flex: 1;
   font-size: x-large;
+}
+
+.toggle-button:hover {
+  color: #D7CFBE;
+  font-weight: bold;
 }

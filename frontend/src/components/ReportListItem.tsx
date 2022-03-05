@@ -19,6 +19,7 @@ function ReportListItem({ report, isInProject, onToggle }: ReportListItemProps) 
   );
 
   const buttonPrompt = isInProject ? '-' : '+';
+  const headerStyle = isInProject ? 'project-list-item-header' : 'list-item-header';
 
   const handleToggle = () => {
     onToggle(report.properties.id, !isInProject);
@@ -27,7 +28,7 @@ function ReportListItem({ report, isInProject, onToggle }: ReportListItemProps) 
   return (
     <div className="search-item-container">
       <div className="item-details-container">
-        <div className="list-item-header">{report.properties.name}</div>
+        <div className={headerStyle}>{report.properties.name}</div>
         <div className="description">
           <span className="tag-color">{formatTags(report.properties.tags)}</span>
           {' '}

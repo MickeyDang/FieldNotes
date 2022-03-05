@@ -2,6 +2,20 @@ img {
   object-fit: contain;
 }
 
+.nb-toggle-button {
+  flex: 1;
+  background-color: #ffffff;
+  color: #2A292560;
+  border-width: 0px;
+  font-size: large;
+  margin-right: 16px;
+}
+
+.nb-toggle-button:hover {
+  color: #2A2925;
+  font-weight: bold;
+}
+
 .nb-list-item-container {
   display: flex;
   flex-direction: row;
