@@ -29,8 +29,6 @@ interface SearchPanelProps {
   onTimeRangeChange: Function,
   onSortChange: Function,
   annotations: Annotations,
-  keywordOverviewSearch: string[],
-  setKeywordOverviewSearch: Function,
 }
 
 const PAGE_LENGTH = 6;
@@ -45,25 +43,19 @@ function SearchPanel({
   // Remove this statement once annotations is implemented
   // eslint-disable-next-line no-unused-vars
   annotations,
-  keywordOverviewSearch,
-  // eslint-disable-next-line no-unused-vars
-  setKeywordOverviewSearch,
 }: SearchPanelProps) {
-  // const updateSearch = (_: any, values: string[]) => onSearchChange(values);
+  const updateSearch = (_: any, values: string[]) => onSearchChange(values);
   const updateTimeRange = (values: number[]) => onTimeRangeChange(values);
   const updateSort = (values: string[]) => onSortChange(values);
 
   const maxMonths = dateRangeResults.monthsInRange ?? 0;
   const defaultTimeRange = [0, maxMonths];
-  // turn this into props
-  // const keywords = ['Homes'];
 
   const [timeRange, setTimeRange] = useState<number[]>(defaultTimeRange);
   const [reportCursor, setReportCursor] = useState(0);
   const [relCursor, setRelCursor] = useState(0);
   const [sortReports, setSortReports] = useState('creationDate');
   const [sortRelationships, setSortRelationships] = useState('name');
-  const [keywordValues, setKeywordValues] = useState([...keywordOverviewSearch]);
 
   const handleReportCursorNext = () => setReportCursor(reportCursor + PAGE_LENGTH);
   const handleReportCursorPrev = () => setReportCursor(reportCursor - PAGE_LENGTH);
@@ -115,64 +107,6 @@ function SearchPanel({
     updateTimeRange(newTimeValues as number[]);
   }, [maxMonths]);
 
-  // eslint-disable-next-line max-len
-  const renderAllTags = (value: string[], getTagProps: Function) => value.map((option: string, index: number) => (
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    <Chip variant="outlined" label={option} {...getTagProps({ index })} />
-  ));
-  // =>{
-    // console.log('renderAllTags val: ', value);
-    // const combined = value.concat(keywords);
-    // console.log('combined: ', combined);
-    // return (
-  // value.map((option: string, index: number) => (
-  //   // eslint-disable-next-line react/jsx-props-no-spreading
-  //   <Chip variant="outlined" label={option} {...getTagProps({ index })} />
-  // ));
-  // );
-  // };
-
-  const updateSearch = (_: any, values: string[]) => {
-    console.log('updateSearch val: ', values);
-    console.log('updateSearch keywordOverviewSearch: ', keywordOverviewSearch);
-    // change keywordValues to props list from keyword overview, add and delete
-    //   from keyword overview page
-
-    const allKeywords = [...keywordOverviewSearch, ...values];
-    // const allKeywords = [...keywordValues, ...values];
-    const uniqueKeywords = [
-      ...allKeywords.filter((item, index) => allKeywords.indexOf(item) === index),
-    ];
-    console.log('onchange search uniqueKeywords: ', uniqueKeywords);
-    // console.log('test:: ', values.filter((item, index) => values.indexOf(item) === index));
-    onSearchChange(uniqueKeywords);
-    setKeywordValues(uniqueKeywords);
-    // onSearchChange(values);
-    // setKeywordValues(values);
-
-    // if values!=keywordOverviewSearch,
-    // get the outlier from keywordOverviewSearch, remove it (set)
-    // setKeywordOverviewSearch
-    const intersection = values.filter((item) => keywordOverviewSearch.includes(item));
-    console.log('intersection: ', intersection);
-    setKeywordOverviewSearch(intersection);
-  };
-
-  // useEffect(() => {
-  //   // if values!=keywordOverviewSearch,
-  //   // get the outlier from keywordOverviewSearch, remove it (set)
-  //   // setKeywordOverviewSearch
-  //   const intersection = keywordValues.filter((item) => keywordOverviewSearch.includes(item));
-  //   console.log('intersection: ', intersection);
-  //   setKeywordOverviewSearch(intersection);
-  //   // const removeKeyword = keywordOverviewSearch.filter(item=>intersection.indexOf(item)===-1);
-  // }, [keywordValues]);
-
-  useEffect(() => {
-    console.log('keywordOverviewSearch: ', keywordOverviewSearch);
-    // setKeywordValues();
-  }, [keywordOverviewSearch]);
-
   return (
     <Container fluid className="list-container">
       <Row className="searchbar-container">
@@ -190,15 +124,11 @@ function SearchPanel({
               placeholder="keywords"
             />
           )}
-          renderTags={renderAllTags}
-          // renderTags={(value, getTagProps) => value.map((option, index) => (
-          //   // eslint-disable-next-line react/jsx-props-no-spreading
-          //   <Chip variant="outlined" label={option} {...getTagProps({ index })} />
-          // ))}
+          renderTags={(value, getTagProps) => value.map((option, index) => (
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            <Chip variant="outlined" label={option} {...getTagProps({ index })} />
+          ))}
           onChange={updateSearch}
-          // ***** change this to the props val??
-          value={keywordValues}
-          // value={[...keywordValues, ...keywordOverviewSearch]}
         />
       </Row>
       <Row>

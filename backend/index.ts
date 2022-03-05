@@ -32,7 +32,6 @@ app.get('/alldata', async (req: any, res: any) => {
   const coordinates = (<string>queryParams.box).split(',').filter((s) => s !== '').map((x) => Number(x));
   const timeRange = (<string>queryParams.time).split(',').filter((s) => s !== '').map((x) => Number(x));
   const sortOrderParams = (<string>queryParams.sortOrderParams).split(',').filter((s) => s !== '');
-  console.log('Index.ts search query: ', keywords);
 
   // Expected behaviour is that if no filters are applied, no data is returned.
   if (keywords.length === 0 && coordinates.length === 0 && queryParams.time === 'undefined') {

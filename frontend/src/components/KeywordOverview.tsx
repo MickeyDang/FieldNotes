@@ -1,51 +1,27 @@
-/* eslint-disable max-len */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './KeywordOverview.css';
 import { TagCount } from '../models/types';
-import KeywordOverviewItem from './KeywordOverviewItem';
 
 interface KeywordOverviewProps {
     tagsSummary: TagCount[],
     totalDataPoints: number,
-    appendSearchQuery: Function,
   }
 
-function KeywordOverview({
-  tagsSummary,
-  totalDataPoints,
-  appendSearchQuery,
-}: KeywordOverviewProps) {
-  // eslint-disable-next-line no-unused-vars
-//   const [colour, setColour] = useState('');
-  // eslint-disable-next-line no-unused-vars
-  const [appendKeywords, setAppendKeywords] = useState<string[]>([]);
-
-  const handleClick = (searchKeyword: string, colour: string, setColour: Function) => {
-    // user has selected this keyword, append
-    if (colour === '') {
-      setColour('#D7CFBE');
-      setAppendKeywords([...appendKeywords, searchKeyword]);
-    } else {
-      setColour('');
-      //   console.log('try removing word: ', appendKeywords.filter((item) => item !== searchKeyword));
-      setAppendKeywords(appendKeywords.filter((item) => item !== searchKeyword));
-    }
-  };
-
-  useEffect(() => {
-    appendSearchQuery(appendKeywords);
-  }, [appendKeywords]);
-
-  const handleKeyPress = (event: any, searchKeyword: string, colour: string, setColour: Function) => {
-    if (event.key === 'Enter') {
-      setColour(colour === '' ? '#D7CFBE' : '');
-      setAppendKeywords(colour === '' ? ([...appendKeywords, searchKeyword]) : appendKeywords.filter((item) => item !== searchKeyword));
-    }
-  };
+function KeywordOverview({ tagsSummary, totalDataPoints }: KeywordOverviewProps) {
+  const listItems = tagsSummary.map((tagCount) => (
+    <div className="row">
+      <div className="col-sm">
+        {tagCount[0]}
+      </div>
+      <div className="col-sm text-end">
+        {tagCount[1]}
+      </div>
+    </div>
+  ));
 
   return (
     <div className="keyword-overview-container">
-      <h3 className="keyword-overview-title">KEYWORD OVERVIEW</h3>
+      <h5 className="keyword-overview-title">KEYWORD OVERVIEW</h5>
       <p className="keyword-overview-label">
         from
         {' '}
@@ -53,11 +29,7 @@ function KeywordOverview({
         {' '}
         data points in this search
       </p>
-      <div className="keyword-overview-list">
-        {tagsSummary.map((tagCount) => (
-          <KeywordOverviewItem tagCount={tagCount} handleClick={handleClick} handleKeyPress={handleKeyPress} />
-        ))}
-      </div>
+      {listItems}
     </div>
   );
 }
