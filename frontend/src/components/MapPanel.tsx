@@ -184,7 +184,14 @@ function MapPanel({
         map,
       );
     }
-  }, [reportResults, relationshipResults, isSearchMode, annotationMode, annotations]);
+  }, [
+    reportResults,
+    relationshipResults,
+    isSearchMode,
+    annotationMode,
+    annotations,
+    selectedProject,
+  ]);
 
   return (
     <div className="map-panel-container">
