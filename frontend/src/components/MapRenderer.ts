@@ -29,6 +29,7 @@ export function updateDataSources(
     const relationshipSource: mapboxgl.GeoJSONSource = map.getSource('relationships') as mapboxgl.GeoJSONSource;
     const boxSource: mapboxgl.GeoJSONSource = map.getSource('box') as mapboxgl.GeoJSONSource;
     const pointAnnotationSource: mapboxgl.GeoJSONSource = map.getSource('points') as mapboxgl.GeoJSONSource;
+    const textAnnotationSource: mapboxgl.GeoJSONSource = map.getSource('texts') as mapboxgl.GeoJSONSource;
 
     reportSource.setData({
       type: 'FeatureCollection',
@@ -73,6 +74,22 @@ export function updateDataSources(
           },
           properties: {
             name: 'Annotation Point',
+          },
+        }
+      )),
+    });
+
+    textAnnotationSource.setData({
+      type: 'FeatureCollection',
+      features: annotations.texts.map((text) => (
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: isSearchMode ? [] : [text.lnglat.lng, text.lnglat.lat],
+          },
+          properties: {
+            title: text.text,
           },
         }
       )),
@@ -141,6 +158,24 @@ function setupDataSources(
         )),
       },
     });
+    map.addSource('texts', {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: annotations.texts.map((text) => (
+          {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: isSearchMode ? [] : [text.lnglat.lng, text.lnglat.lat],
+            },
+            properties: {
+              title: text.text,
+            },
+          }
+        )),
+      },
+    });
   }
 }
 
@@ -203,11 +238,25 @@ function setupLayers(map: mapboxgl.Map) {
     },
   };
 
+  const textAnnotationFillLayer: mapboxgl.AnyLayer = {
+    id: 'text-fill',
+    type: 'symbol',
+    source: 'texts',
+    layout: {
+      'text-field': ['get', 'title'],
+    },
+    paint: {
+      'text-halo-color': '#D7CFBE',
+      'text-halo-width': 2,
+    },
+  };
+
   map.addLayer(reportFillLayer);
   map.addLayer(reportLineLayer);
   map.addLayer(relationshipFillLayer);
   map.addLayer(boxLineLayer);
   map.addLayer(pointAnnotationFillLayer);
+  map.addLayer(textAnnotationFillLayer);
 }
 
 export function setupMapFeatures(

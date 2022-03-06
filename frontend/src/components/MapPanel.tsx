@@ -1,16 +1,20 @@
 import React, { useRef, useEffect, useState } from 'react';
-import mapboxgl from 'mapbox-gl';
+import mapboxgl, { LngLat } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import { Position } from 'geojson';
 import './MapPanel.css';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import {
   setupMapFeatures, updateDataSources, setupMapInteractions,
 } from './MapRenderer';
 import {
   Annotations,
   PointAnnotation,
+  TextAnnotation,
 } from '../models/types';
 import AnnotationBar from './AnnotationBar';
 
@@ -38,9 +42,7 @@ function MapPanel({
   reportResults,
   relationshipResults,
   onBoundingBoxChange,
-  // eslint-disable-next-line no-unused-vars
   annotations,
-  // eslint-disable-next-line no-unused-vars
   setAnnotations,
   isSearchMode,
 }: MapPanelProps) {
@@ -49,6 +51,9 @@ function MapPanel({
   const searchBox = useRef<Position[]>([]);
   const [annotationMode, setAnnotationMode] = useState('none');
   const drawRef = useRef<MapboxDraw>(null);
+  const [textAnnotation, setTextAnnotation] = useState('');
+  const [textAnnotationLngLat, setTextAnnotationLngLat] = useState<LngLat>();
+  const [textAnnotationMarker, setTextAnnotationMarker] = useState<mapboxgl.Marker>();
 
   const onClickPoint = (e: { lngLat: any; }) => {
     if (annotationMode === 'point') {
@@ -60,6 +65,37 @@ function MapPanel({
   };
   const onClickPointRef = useRef(onClickPoint);
   onClickPointRef.current = onClickPoint;
+
+  const onClickText = (e: { lngLat: any; }) => {
+    setTextAnnotationLngLat(e.lngLat);
+  };
+  const onClickTextRef = useRef(onClickText);
+  onClickTextRef.current = onClickText;
+
+  const addText = () => {
+    if (annotationMode === 'text' && textAnnotation.length > 0 && textAnnotationLngLat) {
+      const newText: TextAnnotation = { lnglat: textAnnotationLngLat, text: textAnnotation };
+      const updatedAnnotations = { ...annotations };
+      updatedAnnotations.texts.push(newText);
+      setAnnotations(updatedAnnotations);
+      setTextAnnotation('');
+    }
+  };
+
+  useEffect(() => {
+    if (annotationMode === 'text' && textAnnotationLngLat && mapRef.current && !isSearchMode) {
+      const map = mapRef.current;
+      setTextAnnotationMarker(new mapboxgl.Marker({ color: '#D7CFBE' })
+        .setLngLat(textAnnotationLngLat)
+        .addTo(map));
+    }
+  }, [textAnnotationLngLat]);
+
+  useEffect(() => {
+    if (isSearchMode && textAnnotationMarker) {
+      textAnnotationMarker.remove();
+    }
+  }, [isSearchMode]);
 
   const extractBoundingBox = () => {
     if (mapRef.current) {
@@ -154,28 +190,33 @@ function MapPanel({
         case 'none':
           console.log('none!');
           map.off('click', onClickPointRef.current);
+          map.off('click', onClickTextRef.current);
           break;
 
         case 'point':
           console.log('point!');
           drawRef.current?.changeMode('simple_select');
           map.once('click', onClickPointRef.current);
+          map.off('click', onClickTextRef.current);
           break;
 
         case 'polygon':
           console.log('polygon!');
           drawRef.current?.changeMode('draw_polygon');
           map.off('click', onClickPointRef.current);
+          map.off('click', onClickTextRef.current);
           break;
 
         case 'text':
           console.log('text!');
+          map.once('click', onClickTextRef.current);
           map.off('click', onClickPointRef.current);
           break;
 
         default:
           drawRef.current?.changeMode('simple_select');
           map.off('click', onClickPointRef.current);
+          map.off('click', onClickTextRef.current);
           break;
       }
 
@@ -204,6 +245,18 @@ function MapPanel({
     }
   }, [reportResults, relationshipResults, isSearchMode, annotationMode, annotations]);
 
+  const handleTextOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setTextAnnotation(event.target.value);
+  };
+
+  const handleTextSubmit = () => {
+    if (textAnnotationMarker) {
+      textAnnotationMarker.remove();
+    }
+    addText();
+  };
+
   return (
     <div className="map-panel-container">
       <div className="map" ref={mapContainerRef} />
@@ -212,9 +265,22 @@ function MapPanel({
           <button className="search-button" type="button" onClick={updateSearch}>Search Area</button>
         )
         : (
-          <AnnotationBar
-            onAnnotationModeSelect={updateAnnotationMode}
-          />
+          <>
+            <AnnotationBar
+              onAnnotationModeSelect={updateAnnotationMode}
+            />
+            {annotationMode === 'text' ? (
+              <Box
+                component="form"
+                className="text-annotation-input-box"
+                noValidate
+                autoComplete="off"
+              >
+                <TextField id="outlined-basic" className="text-annotation-input-field" label="Notes" variant="outlined" size="small" value={textAnnotation} onChange={handleTextOnChange} />
+                <Button variant="contained" className="text-annotation-input-button" onClick={handleTextSubmit}>ADD</Button>
+              </Box>
+            ) : null}
+          </>
         )}
     </div>
   );
