@@ -3,6 +3,8 @@ img {
 }
 
 .nb-toggle-button {
+  display: flex;
+  justify-content: flex-start;
   flex: 2;
   background-color: #ffffff;
   color: #2A292560;
@@ -35,7 +37,7 @@ img {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  flex: 9;
+  flex: 7;
 }
 
 .nb-list-item-header {
@@ -59,4 +61,29 @@ img {
 
 .nb-date-color {
   color: #89867F;
+}
+
+.nb-toggle-button-text {
+  flex: 1;
+}
+
+.nb-tooltiptext {
+  flex: 1;
+  visibility: hidden;
+  width: 120px;
+  font-size: xx-small;
+  font-weight: normal;
+  font-style: italic;
+  background-color: #2a2925;
+  color: #ffffff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: relative;
+  bottom: 32px;
+  left: 50%;
+}
+
+.nb-toggle-button:hover .nb-tooltiptext {
+  visibility: visible;
 }

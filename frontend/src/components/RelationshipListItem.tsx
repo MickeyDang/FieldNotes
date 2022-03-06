@@ -14,6 +14,7 @@ function RelationshipListItem({ relationship, isInProject, onToggle }: Relations
   };
 
   const buttonPrompt = isInProject ? 'x' : '+';
+  const tooltipPrompt = isInProject ? 'Remove from Notebook' : 'Add to Notebook';
   const headerStyle = isInProject ? 'project-list-item-header' : 'list-item-header';
 
   return (
@@ -30,7 +31,10 @@ function RelationshipListItem({ relationship, isInProject, onToggle }: Relations
           </span>
         </div>
       </div>
-      <button type="button" className="toggle-button" onClick={handleToggle}>{buttonPrompt}</button>
+      <button type="button" className="toggle-button" onClick={handleToggle}>
+        <span className="tooltiptext">{tooltipPrompt}</span>
+        <span className="toggle-button-text">{buttonPrompt}</span>
+      </button>
     </div>
   );
 }

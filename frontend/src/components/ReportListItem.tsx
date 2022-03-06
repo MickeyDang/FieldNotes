@@ -19,6 +19,7 @@ function ReportListItem({ report, isInProject, onToggle }: ReportListItemProps) 
   );
 
   const buttonPrompt = isInProject ? 'x' : '+';
+  const tooltipPrompt = isInProject ? 'Remove from Notebook' : 'Add to Notebook';
   const headerStyle = isInProject ? 'project-list-item-header' : 'list-item-header';
 
   const handleToggle = () => {
@@ -37,7 +38,10 @@ function ReportListItem({ report, isInProject, onToggle }: ReportListItemProps) 
           <span className="date-color">{new Date(report.properties.creationDate).toLocaleDateString()}</span>
         </div>
       </div>
-      <button type="button" className="toggle-button" onClick={handleToggle}>{buttonPrompt}</button>
+      <button type="button" className="toggle-button" onClick={handleToggle}>
+        <span className="tooltiptext">{tooltipPrompt}</span>
+        <span className="toggle-button-text">{buttonPrompt}</span>
+      </button>
     </div>
   );
 }
