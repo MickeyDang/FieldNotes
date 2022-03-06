@@ -51,6 +51,17 @@ export function updateDataSources(
       },
     });
 
+    const layerIds = map.getStyle().layers?.map((item) => item.id).filter((s) => s.includes('gl-draw'));
+    if (isSearchMode) {
+      layerIds?.forEach((id) => {
+        map.setLayoutProperty(id, 'visibility', 'none');
+      });
+    } else {
+      layerIds?.forEach((id) => {
+        map.setLayoutProperty(id, 'visibility', 'visible');
+      });
+    }
+
     pointAnnotationSource.setData({
       type: 'FeatureCollection',
       features: annotations.points.map((point) => (

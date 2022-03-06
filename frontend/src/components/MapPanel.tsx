@@ -50,6 +50,17 @@ function MapPanel({
   const [annotationMode, setAnnotationMode] = useState('none');
   const drawRef = useRef<MapboxDraw>(null);
 
+  const onClickPoint = (e: { lngLat: any; }) => {
+    if (annotationMode === 'point') {
+      const newPoint: PointAnnotation = { lnglat: e.lngLat };
+      const updatedAnnotations = { ...annotations };
+      updatedAnnotations.points.push(newPoint);
+      setAnnotations(updatedAnnotations);
+    }
+  };
+  const onClickPointRef = useRef(onClickPoint);
+  onClickPointRef.current = onClickPoint;
+
   const extractBoundingBox = () => {
     if (mapRef.current) {
       const map = mapRef.current;
@@ -142,52 +153,44 @@ function MapPanel({
       switch (annotationMode) {
         case 'none':
           console.log('none!');
+          map.off('click', onClickPointRef.current);
           break;
 
         case 'point':
           console.log('point!');
-          map.once('click', (e) => {
-            const newPoint: PointAnnotation = { lnglat: e.lngLat };
-            updatedAnnotations.points.push(newPoint);
-            setAnnotations(updatedAnnotations);
-          });
+          drawRef.current?.changeMode('simple_select');
+          map.once('click', onClickPointRef.current);
           break;
 
         case 'polygon':
           console.log('polygon!');
           drawRef.current?.changeMode('draw_polygon');
+          map.off('click', onClickPointRef.current);
           break;
 
         case 'text':
           console.log('text!');
+          map.off('click', onClickPointRef.current);
           break;
 
         default:
           drawRef.current?.changeMode('simple_select');
+          map.off('click', onClickPointRef.current);
           break;
       }
 
       map.on('draw.create', () => {
-        console.log('creating');
         const features = draw?.getAll();
-        if (features) updatedAnnotations.polygons = features;
+        if (features) {
+          updatedAnnotations.polygons = features;
+        }
       });
       map.on('draw.update', () => {
-        console.log('update');
         const features = draw?.getAll();
-        if (features) updatedAnnotations.polygons = features;
+        if (features) {
+          updatedAnnotations.polygons = features;
+        }
       });
-
-      const layerIds = map.getStyle().layers?.map((item) => item.id).filter((s) => s.includes('gl-draw'));
-      if (isSearchMode) {
-        layerIds?.forEach((id) => {
-          map.setLayoutProperty(id, 'visibility', 'none');
-        });
-      } else {
-        layerIds?.forEach((id) => {
-          map.setLayoutProperty(id, 'visibility', 'visible');
-        });
-      }
 
       setupMapInteractions(map);
       updateDataSources(
