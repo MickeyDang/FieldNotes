@@ -12,8 +12,7 @@ import {
   setupMapFeatures, updateDataSources, setupMapInteractions,
 } from './MapRenderer';
 import {
-  Annotations,
-  TextAnnotation,
+  Annotations, Project, TextAnnotation,
 } from '../models/types';
 import AnnotationBar from './AnnotationBar';
 
@@ -28,6 +27,7 @@ interface MapPanelProps {
   annotations: Annotations,
   setAnnotations: Function,
   isSearchMode: boolean,
+  selectedProject: Project,
 }
 
 mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_API}`;
@@ -44,6 +44,7 @@ function MapPanel({
   annotations,
   setAnnotations,
   isSearchMode,
+  selectedProject,
 }: MapPanelProps) {
   const mapContainerRef = useRef(null);
   const mapRef = useRef<mapboxgl.Map>(null);
@@ -157,6 +158,7 @@ function MapPanel({
           isSearchMode,
           annotations,
           draw!,
+          selectedProject,
           map,
         );
       });
@@ -216,10 +218,18 @@ function MapPanel({
         box,
         isSearchMode,
         updatedAnnotations,
+        selectedProject,
         map,
       );
     }
-  }, [reportResults, relationshipResults, isSearchMode, annotationMode, annotations]);
+  }, [
+    reportResults,
+    relationshipResults,
+    isSearchMode,
+    annotationMode,
+    annotations,
+    selectedProject,
+  ]);
 
   const handleTextOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
