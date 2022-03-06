@@ -1,20 +1,49 @@
 import { Position } from 'geojson';
 import mapboxgl from 'mapbox-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
-import { Annotations } from '../models/types';
+import { Annotations, Project } from '../models/types';
 
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
-const BLUE = '#8FB1BB';
-const DARK_BLUE = '#1A85A7';
-const ORANGE = '#F29D49';
-const BEIGE = '#B4A88C';
-const LIGHT_BEIGE = '#D7CFBE';
+const SEARCH_ITEM_COLOUR = '#1A85A7'; // teal
+const SELECTED_ITEM_COLOUR = '#E28D38'; // orange
+
+// const LIGHT_BEIGE = '#D7CFBE';
 const navigation = new mapboxgl.NavigationControl({ showCompass: false });
 
 let sourceLoaded = false;
+
+function seperateProjectSources(
+  reports: any[],
+  relationships: any[],
+  selectedProject: { repIds: string | any[]; relIds: string | any[]; },
+) {
+  const selectedReports = reports.filter(
+    (report: { properties: { id: any; };
+    }) => selectedProject.repIds.includes(report.properties.id),
+  );
+  const selectedRelationships = relationships.filter(
+    (relationship: { properties: { id: any; };
+    }) => selectedProject.relIds.includes(relationship.properties.id),
+  );
+  const searchReports = reports.filter(
+    (report: { properties: { id: any; };
+    }) => !selectedProject.repIds.includes(report.properties.id),
+  );
+  const searchRelationships = relationships.filter(
+    (relationship: { properties: { id: any; };
+    }) => !selectedProject.relIds.includes(relationship.properties.id),
+  );
+
+  return {
+    selRep: selectedReports,
+    selRel: selectedRelationships,
+    searchRep: searchReports,
+    searchRel: searchRelationships,
+  };
+}
 
 export function updateDataSources(
   reports: any,
@@ -22,21 +51,35 @@ export function updateDataSources(
   box: Position[],
   isSearchMode: boolean,
   annotations: Annotations,
+  selectedProject: Project,
   map: mapboxgl.Map,
 ) {
   if (sourceLoaded) {
-    const reportSource: mapboxgl.GeoJSONSource = map.getSource('reports') as mapboxgl.GeoJSONSource;
-    const relationshipSource: mapboxgl.GeoJSONSource = map.getSource('relationships') as mapboxgl.GeoJSONSource;
+    const data = seperateProjectSources(reports, relationships, selectedProject);
+    const selReportSource: mapboxgl.GeoJSONSource = map.getSource('selected-reports') as mapboxgl.GeoJSONSource;
+    const selRelationshipSource: mapboxgl.GeoJSONSource = map.getSource('selected-relationships') as mapboxgl.GeoJSONSource;
+    const searchReportSource: mapboxgl.GeoJSONSource = map.getSource('search-reports') as mapboxgl.GeoJSONSource;
+    const searchRelationshipSource: mapboxgl.GeoJSONSource = map.getSource('search-relationships') as mapboxgl.GeoJSONSource;
     const boxSource: mapboxgl.GeoJSONSource = map.getSource('box') as mapboxgl.GeoJSONSource;
 
-    reportSource.setData({
+    selReportSource.setData({
       type: 'FeatureCollection',
-      features: reports,
+      features: data.selRep,
     });
 
-    relationshipSource.setData({
+    selRelationshipSource.setData({
       type: 'FeatureCollection',
-      features: relationships,
+      features: data.selRel,
+    });
+
+    searchReportSource.setData({
+      type: 'FeatureCollection',
+      features: data.searchRep,
+    });
+
+    searchRelationshipSource.setData({
+      type: 'FeatureCollection',
+      features: data.searchRel,
     });
 
     boxSource.setData({
@@ -70,22 +113,40 @@ function setupDataSources(
   box: Position[],
   isSearchMode: boolean,
   annotations: Annotations,
+  selectedProject: Project,
   map: mapboxgl.Map,
 ) {
-  map.addSource('reports', {
+  const data = seperateProjectSources(reports, relationships, selectedProject);
+
+  map.addSource('selected-reports', {
     type: 'geojson',
     data: {
       type: 'FeatureCollection',
-      features: reports,
+      features: data.selRep,
     },
   });
-  map.addSource('relationships', {
+  map.addSource('selected-relationships', {
     type: 'geojson',
     data: {
       type: 'FeatureCollection',
-      features: relationships,
+      features: data.selRel,
     },
   });
+  map.addSource('search-reports', {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: data.searchRep,
+    },
+  });
+  map.addSource('search-relationships', {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: data.searchRel,
+    },
+  });
+
   if (isSearchMode) {
     map.addSource('box', {
       type: 'geojson',
@@ -104,36 +165,70 @@ function setupDataSources(
 }
 
 function setupLayers(map: mapboxgl.Map) {
-  const reportFillLayer: mapboxgl.AnyLayer = {
-    id: 'report-fill',
+  const selReportFillLayer: mapboxgl.AnyLayer = {
+    id: 'sel-report-fill',
     type: 'fill',
-    source: 'reports',
+    source: 'selected-reports',
     paint: {
-      'fill-color': BLUE,
-      'fill-opacity': 0.6,
+      'fill-color': SELECTED_ITEM_COLOUR,
+      'fill-opacity': 0.1,
     },
     filter: ['==', '$type', 'Polygon'],
   };
 
-  const reportLineLayer: mapboxgl.AnyLayer = {
-    id: 'report-boundary',
+  const selReportLineLayer: mapboxgl.AnyLayer = {
+    id: 'sel-report-boundary',
     type: 'line',
-    source: 'reports',
+    source: 'selected-reports',
     paint: {
-      'line-color': DARK_BLUE,
+      'line-color': SELECTED_ITEM_COLOUR,
       'line-width': 1,
     },
     filter: ['==', '$type', 'Polygon'],
   };
 
-  const relationshipFillLayer: mapboxgl.AnyLayer = {
-    id: 'relationship-fill',
+  const selRelationshipFillLayer: mapboxgl.AnyLayer = {
+    id: 'sel-relationship-fill',
     type: 'circle',
-    source: 'relationships',
+    source: 'selected-relationships',
     paint: {
       // Make circles larger as the user zooms from z12 to z22.
       'circle-radius': { base: 5, stops: [[12, 10], [22, 180]] },
-      'circle-color': ORANGE,
+      'circle-color': SELECTED_ITEM_COLOUR,
+      'circle-opacity': 1,
+    },
+  };
+
+  const searchReportFillLayer: mapboxgl.AnyLayer = {
+    id: 'search-report-fill',
+    type: 'fill',
+    source: 'search-reports',
+    paint: {
+      'fill-color': SEARCH_ITEM_COLOUR,
+      'fill-opacity': 0.1,
+    },
+    filter: ['==', '$type', 'Polygon'],
+  };
+
+  const searchReportLineLayer: mapboxgl.AnyLayer = {
+    id: 'search-report-boundary',
+    type: 'line',
+    source: 'search-reports',
+    paint: {
+      'line-color': SEARCH_ITEM_COLOUR,
+      'line-width': 1,
+    },
+    filter: ['==', '$type', 'Polygon'],
+  };
+
+  const searchRelationshipFillLayer: mapboxgl.AnyLayer = {
+    id: 'search-relationship-fill',
+    type: 'circle',
+    source: 'search-relationships',
+    paint: {
+      // Make circles larger as the user zooms from z12 to z22.
+      'circle-radius': { base: 5, stops: [[12, 10], [22, 180]] },
+      'circle-color': SEARCH_ITEM_COLOUR,
       'circle-opacity': 1,
     },
   };
@@ -143,30 +238,19 @@ function setupLayers(map: mapboxgl.Map) {
     type: 'line',
     source: 'box',
     paint: {
-      'line-color': BEIGE,
+      'line-color': SEARCH_ITEM_COLOUR,
       'line-width': 3,
     },
     filter: ['==', '$type', 'Polygon'],
   };
 
-  const pointAnnotationFillLayer: mapboxgl.AnyLayer = {
-    id: 'point-fill',
-    type: 'circle',
-    source: 'points',
-    paint: {
-      // Make circles larger as the user zooms from z12 to z22.
-      'circle-radius': { base: 7, stops: [[12, 10], [22, 180]] },
-      'circle-color': LIGHT_BEIGE,
-      'circle-stroke-width': 1,
-      'circle-stroke-color': '#000000',
-    },
-  };
-
-  map.addLayer(reportFillLayer);
-  map.addLayer(reportLineLayer);
-  map.addLayer(relationshipFillLayer);
+  map.addLayer(selReportFillLayer);
+  map.addLayer(selReportLineLayer);
+  map.addLayer(selRelationshipFillLayer);
+  map.addLayer(searchReportFillLayer);
+  map.addLayer(searchReportLineLayer);
+  map.addLayer(searchRelationshipFillLayer);
   map.addLayer(boxLineLayer);
-  map.addLayer(pointAnnotationFillLayer);
 }
 
 export function setupMapFeatures(
@@ -176,10 +260,11 @@ export function setupMapFeatures(
   isSearchMode: boolean,
   annotations: Annotations,
   draw: MapboxDraw,
+  selectedProject: Project,
   map: mapboxgl.Map,
 ) {
   if (!sourceLoaded) {
-    setupDataSources(reports, relationships, box, isSearchMode, annotations, map);
+    setupDataSources(reports, relationships, box, isSearchMode, annotations, selectedProject, map);
     setupLayers(map);
     map.addControl((draw as any));
     sourceLoaded = true;
