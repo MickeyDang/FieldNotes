@@ -6,7 +6,7 @@
 }
 
 .item-details-container {
-  flex: 4;
+  flex: 3;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -44,6 +44,7 @@
   background-color: #2a2925;
   color: #D7CFBE40;
   border-width: 0px;
+  display: flex;
   flex: 1;
   font-size: x-large;
 }
@@ -51,4 +52,29 @@
 .toggle-button:hover {
   color: #D7CFBE;
   font-weight: bold;
+}
+
+.toggle-button-text {
+  flex: 1;
+}
+
+.tooltiptext {
+  flex: 1;
+  visibility: hidden;
+  width: 120px;
+  font-size: xx-small;
+  font-weight: normal;
+  font-style: italic;
+  background-color: #D7CFBE;
+  color: #000000;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: relative;
+  bottom: 32px;
+  left: 50%;
+}
+
+.toggle-button:hover .tooltiptext {
+  visibility: visible;
 }

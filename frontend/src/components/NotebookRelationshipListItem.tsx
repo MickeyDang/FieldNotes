@@ -15,6 +15,7 @@ function NotebookRelationshipListItem({ relationship, onToggle }: RelationshipLi
     setInProject(!inProject);
   };
 
+  const tooltipPrompt = inProject ? 'Remove from Notebook' : 'Add to Notebook';
   const buttonPrompt = inProject ? 'x' : '+';
 
   return (
@@ -35,7 +36,8 @@ function NotebookRelationshipListItem({ relationship, onToggle }: RelationshipLi
         </div>
       </div>
       <button type="button" className="nb-toggle-button" onClick={handleToggle}>
-        {buttonPrompt}
+        <span className="nb-tooltiptext">{tooltipPrompt}</span>
+        <span className="nb-toggle-button-text">{buttonPrompt}</span>
       </button>
     </div>
   );
