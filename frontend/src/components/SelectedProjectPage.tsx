@@ -1,15 +1,18 @@
+/* eslint-disable no-nested-ternary */
 import React, { useCallback, useEffect, useState } from 'react';
 import _ from 'lodash';
 import searchData from '../models/services/SearchService';
 import findDateRange from '../models/services/DateRangeService';
 import SearchPanel from './SearchPanel';
 import MapPanel from './MapPanel';
+import DetailsPage from './DetailsPage';
 import './SelectedProjectPage.css';
 import {
   BoundingBox,
   DateRangeProperties,
   Annotations,
   Project,
+  ReportProperties,
 } from '../models/types';
 import PanelNavigator from './PanelNavigator';
 import NotebookPanel from './NotebookPanel';
@@ -32,6 +35,8 @@ function SelectedProjectPage() {
     text: [],
   } as Annotations);
   const [isSearchMode, setIsSearchMode] = useState(true);
+  const [isDetailsMode, setIsDetailsMode] = useState(false);
+  const [selectedReport, setSelectedReport] = useState<ReportProperties | null>(null);
 
   const executeSearch = useCallback(async () => {
     const response = await searchData(searchParams);
@@ -106,8 +111,12 @@ function SelectedProjectPage() {
   };
 
   const handleSearchToggle = () => setIsSearchMode(true);
-
   const handleNotebookToggle = () => setIsSearchMode(false);
+  const handleBackToSearch = () => setIsDetailsMode(false);
+  const handleToDetails = (report: ReportProperties) => {
+    setIsDetailsMode(true);
+    setSelectedReport(report);
+  };
 
   return (
     <div className="project-view">
@@ -116,27 +125,38 @@ function SelectedProjectPage() {
           onSearchToggled={handleSearchToggle}
           onNotebookToggled={handleNotebookToggle}
         />
-        {isSearchMode
-          ? (
-            <SearchPanel
-              reportResults={reports}
-              relationshipResults={relationships}
-              onSearchChange={updateSearchQuery}
-              onTimeRangeChange={updateTimeRange}
-              dateRangeResults={dateRange}
-              onSortChange={updateSortQuery}
-              annotations={annotations}
-              project={selectedProject}
-              onProjectUpdate={handleProjectUpdate}
-            />
-          ) : (
-            <NotebookPanel
-              reportResults={reports}
-              relationshipResults={relationships}
-              project={selectedProject}
-              onProjectUpdate={handleProjectUpdate}
-            />
-          )}
+        {
+          isSearchMode
+            ? (isDetailsMode
+              ? (
+                <DetailsPage
+                  backToSearch={handleBackToSearch}
+                  selectedReport={selectedReport}
+                />
+              ) : (
+                <SearchPanel
+                  reportResults={reports}
+                  relationshipResults={relationships}
+                  onSearchChange={updateSearchQuery}
+                  onTimeRangeChange={updateTimeRange}
+                  dateRangeResults={dateRange}
+                  onSortChange={updateSortQuery}
+                  annotations={annotations}
+                  project={selectedProject}
+                  onProjectUpdate={handleProjectUpdate}
+                  toDetails={handleToDetails}
+                />
+              )
+
+            ) : (
+              <NotebookPanel
+                reportResults={reports}
+                relationshipResults={relationships}
+                project={selectedProject}
+                onProjectUpdate={handleProjectUpdate}
+              />
+            )
+        }
       </div>
       <div className="map-panel-container">
         <MapPanel
