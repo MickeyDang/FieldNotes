@@ -56,7 +56,6 @@ export function updateDataSources(
 ) {
   if (sourceLoaded) {
     const data = seperateProjectSources(reports, relationships, selectedProject);
-    console.log(data);
     const selReportSource: mapboxgl.GeoJSONSource = map.getSource('selected-reports') as mapboxgl.GeoJSONSource;
     const selRelationshipSource: mapboxgl.GeoJSONSource = map.getSource('selected-relationships') as mapboxgl.GeoJSONSource;
     const searchReportSource: mapboxgl.GeoJSONSource = map.getSource('search-reports') as mapboxgl.GeoJSONSource;
