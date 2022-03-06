@@ -4,6 +4,17 @@
   margin-bottom: -6px;
 }
 
+.fn-hoverable-select {
+  border-width: 0px;
+  background-color: #2a2925;
+  padding: 0px;
+}
+
+.fn-hoverable-select:hover {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
 .description {
   font-size: x-small;
   margin-bottom: 8px;

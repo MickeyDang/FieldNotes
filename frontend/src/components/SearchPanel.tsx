@@ -31,6 +31,7 @@ interface SearchPanelProps {
   annotations: Annotations,
   project: Project,
   onProjectUpdate: Function,
+  toDetails: Function,
 }
 
 const PAGE_LENGTH = 6;
@@ -44,6 +45,7 @@ function SearchPanel({
   dateRangeResults,
   project,
   onProjectUpdate,
+  toDetails,
   // Remove this statement once annotations is implemented
   // eslint-disable-next-line no-unused-vars
   annotations,
@@ -175,6 +177,7 @@ function SearchPanel({
                 reports={reportResults.slice(reportCursor, reportCursor + PAGE_LENGTH)}
                 projectRepIds={project.repIds}
                 onRepIdsUpdate={handleRepIdsUpdate}
+                toDetails={toDetails}
               />
               <div className="footer-container">
                 <FormControl

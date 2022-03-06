@@ -6,9 +6,12 @@ interface ReportListItemProps {
   report: ReportProperties,
   isInProject: boolean,
   onToggle: Function,
+  toDetails: Function,
 }
 
-function ReportListItem({ report, isInProject, onToggle }: ReportListItemProps) {
+function ReportListItem({
+  report, isInProject, onToggle, toDetails,
+}: ReportListItemProps) {
   const formatTags = (tags: string[]) => (
     // eslint-disable-next-line no-nested-ternary
     tags.length > 1
@@ -20,16 +23,28 @@ function ReportListItem({ report, isInProject, onToggle }: ReportListItemProps) 
 
   const buttonPrompt = isInProject ? 'x' : '+';
   const tooltipPrompt = isInProject ? 'Remove from Notebook' : 'Add to Notebook';
-  const headerStyle = isInProject ? 'project-list-item-header' : 'list-item-header';
+  const headerStyle = isInProject
+    ? 'fn-hoverable-select project-list-item-header'
+    : 'fn-hoverable-select list-item-header';
 
   const handleToggle = () => {
     onToggle(report.properties.id, !isInProject);
   };
 
+  const goToDetails = () => toDetails(report);
+
   return (
     <div className="search-item-container">
-      <div className="item-details-container">
-        <div className={headerStyle}>{report.properties.name}</div>
+      <div
+        className="item-details-container"
+      >
+        <button
+          className={headerStyle}
+          type="button"
+          onClick={goToDetails}
+        >
+          {report.properties.name}
+        </button>
         <div className="description">
           <span className="tag-color">{formatTags(report.properties.tags)}</span>
           {' '}
