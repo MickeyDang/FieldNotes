@@ -9,7 +9,7 @@ import {
   setupMapFeatures, updateDataSources, setupMapInteractions,
 } from './MapRenderer';
 import {
-  Annotations,
+  Annotations, Project,
 } from '../models/types';
 import AnnotationBar from './AnnotationBar';
 
@@ -24,6 +24,7 @@ interface MapPanelProps {
   annotations: Annotations,
   setAnnotations: Function,
   isSearchMode: boolean,
+  selectedProject: Project,
 }
 
 mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_API}`;
@@ -42,6 +43,7 @@ function MapPanel({
   // eslint-disable-next-line no-unused-vars
   setAnnotations,
   isSearchMode,
+  selectedProject,
 }: MapPanelProps) {
   const mapContainerRef = useRef(null);
   const mapRef = useRef<mapboxgl.Map>(null);
@@ -121,6 +123,7 @@ function MapPanel({
           isSearchMode,
           annotations,
           draw!,
+          selectedProject,
           map,
         );
       });
@@ -177,6 +180,7 @@ function MapPanel({
         box,
         isSearchMode,
         updatedAnnotations,
+        selectedProject,
         map,
       );
     }

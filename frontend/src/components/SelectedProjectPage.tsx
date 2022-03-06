@@ -169,6 +169,7 @@ function SelectedProjectPage() {
           onBoundingBoxChange={updateBoundingBoxQuery}
           annotations={annotations}
           setAnnotations={setAnnotations}
+          selectedProject={selectedProject}
         />
       </div>
     </div>

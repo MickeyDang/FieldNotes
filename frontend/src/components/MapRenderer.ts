@@ -1,7 +1,7 @@
 import { Position } from 'geojson';
 import mapboxgl from 'mapbox-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
-import { Annotations } from '../models/types';
+import { Annotations, Project } from '../models/types';
 
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
@@ -22,6 +22,7 @@ export function updateDataSources(
   box: Position[],
   isSearchMode: boolean,
   annotations: Annotations,
+  selectedProject: Project,
   map: mapboxgl.Map,
 ) {
   if (sourceLoaded) {
@@ -70,6 +71,7 @@ function setupDataSources(
   box: Position[],
   isSearchMode: boolean,
   annotations: Annotations,
+  selectedProject: Project,
   map: mapboxgl.Map,
 ) {
   map.addSource('reports', {
@@ -177,9 +179,10 @@ export function setupMapFeatures(
   annotations: Annotations,
   draw: MapboxDraw,
   map: mapboxgl.Map,
+  selectedProject: Project,
 ) {
   if (!sourceLoaded) {
-    setupDataSources(reports, relationships, box, isSearchMode, annotations, map);
+    setupDataSources(reports, relationships, box, isSearchMode, annotations, selectedProject, map);
     setupLayers(map);
     map.addControl((draw as any));
     sourceLoaded = true;
