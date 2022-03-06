@@ -35,6 +35,7 @@ function NotebookPanel({
     <div className="notebook-container">
       <NotebookHeader textValue="Data" numItems={reportResults.length + relationshipResults.length} />
       <ReportList
+        toDetails={() => console.log('No Operation on toDetails()')}
         reports={reportResults}
         isSearchMode={false}
         projectRepIds={project.repIds}

@@ -8,10 +8,11 @@ interface ReportListProps {
   isSearchMode: boolean,
   projectRepIds: string[],
   onRepIdsUpdate: Function,
+  toDetails: Function,
 }
 
 function ReportList({
-  reports, isSearchMode, projectRepIds, onRepIdsUpdate,
+  reports, isSearchMode, projectRepIds, onRepIdsUpdate, toDetails,
 }: ReportListProps) {
   const handleReportToggled = (relId: string, addingToProject: boolean) => {
     if (addingToProject) {
@@ -32,6 +33,7 @@ function ReportList({
               report={report}
               isInProject={projectRepIds.includes(report.properties.id)}
               onToggle={handleReportToggled}
+              toDetails={toDetails}
             />
           )
           : (

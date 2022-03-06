@@ -13,7 +13,6 @@ import {
 } from './MapRenderer';
 import {
   Annotations,
-  PointAnnotation,
   TextAnnotation,
 } from '../models/types';
 import AnnotationBar from './AnnotationBar';
@@ -54,17 +53,6 @@ function MapPanel({
   const [textAnnotation, setTextAnnotation] = useState('');
   const [textAnnotationLngLat, setTextAnnotationLngLat] = useState<LngLat>();
   const [textAnnotationMarker, setTextAnnotationMarker] = useState<mapboxgl.Marker>();
-
-  const onClickPoint = (e: { lngLat: any; }) => {
-    if (annotationMode === 'point') {
-      const newPoint: PointAnnotation = { lnglat: e.lngLat };
-      const updatedAnnotations = { ...annotations };
-      updatedAnnotations.points.push(newPoint);
-      setAnnotations(updatedAnnotations);
-    }
-  };
-  const onClickPointRef = useRef(onClickPoint);
-  onClickPointRef.current = onClickPoint;
 
   const onClickText = (e: { lngLat: any; }) => {
     setTextAnnotationLngLat(e.lngLat);
@@ -187,35 +175,23 @@ function MapPanel({
 
       const updatedAnnotations = { ...annotations };
       switch (annotationMode) {
-        case 'none':
-          console.log('none!');
-          map.off('click', onClickPointRef.current);
-          map.off('click', onClickTextRef.current);
-          break;
-
-        case 'point':
-          console.log('point!');
-          drawRef.current?.changeMode('simple_select');
-          map.once('click', onClickPointRef.current);
-          map.off('click', onClickTextRef.current);
+        case 'off':
+          console.log('off!');
           break;
 
         case 'polygon':
           console.log('polygon!');
           drawRef.current?.changeMode('draw_polygon');
-          map.off('click', onClickPointRef.current);
           map.off('click', onClickTextRef.current);
           break;
 
         case 'text':
           console.log('text!');
+          drawRef.current?.changeMode('simple_select');
           map.once('click', onClickTextRef.current);
-          map.off('click', onClickPointRef.current);
           break;
 
         default:
-          drawRef.current?.changeMode('simple_select');
-          map.off('click', onClickPointRef.current);
           map.off('click', onClickTextRef.current);
           break;
       }

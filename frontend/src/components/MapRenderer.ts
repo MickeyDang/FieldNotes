@@ -28,7 +28,6 @@ export function updateDataSources(
     const reportSource: mapboxgl.GeoJSONSource = map.getSource('reports') as mapboxgl.GeoJSONSource;
     const relationshipSource: mapboxgl.GeoJSONSource = map.getSource('relationships') as mapboxgl.GeoJSONSource;
     const boxSource: mapboxgl.GeoJSONSource = map.getSource('box') as mapboxgl.GeoJSONSource;
-    const pointAnnotationSource: mapboxgl.GeoJSONSource = map.getSource('points') as mapboxgl.GeoJSONSource;
     const textAnnotationSource: mapboxgl.GeoJSONSource = map.getSource('texts') as mapboxgl.GeoJSONSource;
 
     reportSource.setData({
@@ -53,30 +52,8 @@ export function updateDataSources(
     });
 
     const layerIds = map.getStyle().layers?.map((item) => item.id).filter((s) => s.includes('gl-draw'));
-    if (isSearchMode) {
-      layerIds?.forEach((id) => {
-        map.setLayoutProperty(id, 'visibility', 'none');
-      });
-    } else {
-      layerIds?.forEach((id) => {
-        map.setLayoutProperty(id, 'visibility', 'visible');
-      });
-    }
-
-    pointAnnotationSource.setData({
-      type: 'FeatureCollection',
-      features: annotations.points.map((point) => (
-        {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: isSearchMode ? [] : [point.lnglat.lng, point.lnglat.lat],
-          },
-          properties: {
-            name: 'Annotation Point',
-          },
-        }
-      )),
+    layerIds?.forEach((id) => {
+      map.setLayoutProperty(id, 'visibility', isSearchMode ? 'none' : 'visible');
     });
 
     textAnnotationSource.setData({
@@ -140,43 +117,25 @@ function setupDataSources(
         },
       },
     });
-    map.addSource('points', {
-      type: 'geojson',
-      data: {
-        type: 'FeatureCollection',
-        features: annotations.points.map((point) => (
-          {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [point.lnglat.lng, point.lnglat.lat],
-            },
-            properties: {
-              name: 'Annotation Point',
-            },
-          }
-        )),
-      },
-    });
-    map.addSource('texts', {
-      type: 'geojson',
-      data: {
-        type: 'FeatureCollection',
-        features: annotations.texts.map((text) => (
-          {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: isSearchMode ? [] : [text.lnglat.lng, text.lnglat.lat],
-            },
-            properties: {
-              title: text.text,
-            },
-          }
-        )),
-      },
-    });
   }
+  map.addSource('texts', {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: annotations.texts.map((text) => (
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: isSearchMode ? [] : [text.lnglat.lng, text.lnglat.lat],
+          },
+          properties: {
+            title: text.text,
+          },
+        }
+      )),
+    },
+  });
 }
 
 function setupLayers(map: mapboxgl.Map) {
