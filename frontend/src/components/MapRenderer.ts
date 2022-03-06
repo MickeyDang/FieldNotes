@@ -178,8 +178,8 @@ export function setupMapFeatures(
   isSearchMode: boolean,
   annotations: Annotations,
   draw: MapboxDraw,
-  map: mapboxgl.Map,
   selectedProject: Project,
+  map: mapboxgl.Map,
 ) {
   if (!sourceLoaded) {
     setupDataSources(reports, relationships, box, isSearchMode, annotations, selectedProject, map);
