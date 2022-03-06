@@ -28,7 +28,6 @@ export function updateDataSources(
     const reportSource: mapboxgl.GeoJSONSource = map.getSource('reports') as mapboxgl.GeoJSONSource;
     const relationshipSource: mapboxgl.GeoJSONSource = map.getSource('relationships') as mapboxgl.GeoJSONSource;
     const boxSource: mapboxgl.GeoJSONSource = map.getSource('box') as mapboxgl.GeoJSONSource;
-    const pointAnnotationSource: mapboxgl.GeoJSONSource = map.getSource('points') as mapboxgl.GeoJSONSource;
 
     reportSource.setData({
       type: 'FeatureCollection',
@@ -54,22 +53,6 @@ export function updateDataSources(
     const layerIds = map.getStyle().layers?.map((item) => item.id).filter((s) => s.includes('gl-draw'));
     layerIds?.forEach((id) => {
       map.setLayoutProperty(id, 'visibility', isSearchMode ? 'none' : 'visible');
-    });
-
-    pointAnnotationSource.setData({
-      type: 'FeatureCollection',
-      features: annotations.points.map((point) => (
-        {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: isSearchMode ? [] : [point.lnglat.lng, point.lnglat.lat],
-          },
-          properties: {
-            name: 'Annotation Point',
-          },
-        }
-      )),
     });
   }
 }
@@ -115,24 +98,6 @@ function setupDataSources(
         properties: {
           title: 'bounding box',
         },
-      },
-    });
-    map.addSource('points', {
-      type: 'geojson',
-      data: {
-        type: 'FeatureCollection',
-        features: annotations.points.map((point) => (
-          {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [point.lnglat.lng, point.lnglat.lat],
-            },
-            properties: {
-              name: 'Annotation Point',
-            },
-          }
-        )),
       },
     });
   }
