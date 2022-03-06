@@ -89,19 +89,7 @@ function MapPanel({
   };
 
   const updateAnnotationMode = (updatedMode: string) => {
-    console.log(updatedMode);
     setAnnotationMode(updatedMode);
-
-    switch (annotationMode) {
-      case 'polygon':
-        console.log('polygon!');
-        drawRef.current?.changeMode('draw_polygon');
-        break;
-
-      default:
-        drawRef.current?.changeMode('simple_select');
-        break;
-    }
   };
 
   useEffect(() => {
@@ -167,6 +155,7 @@ function MapPanel({
 
         case 'polygon':
           console.log('polygon!');
+          drawRef.current?.changeMode('draw_polygon');
           break;
 
         case 'text':
@@ -174,14 +163,19 @@ function MapPanel({
           break;
 
         default:
+          drawRef.current?.changeMode('simple_select');
           break;
       }
 
       map.on('draw.create', () => {
         console.log('creating');
+        const features = draw?.getAll();
+        if (features) updatedAnnotations.polygons = features;
       });
       map.on('draw.update', () => {
         console.log('update');
+        const features = draw?.getAll();
+        if (features) updatedAnnotations.polygons = features;
       });
 
       setupMapInteractions(map);
@@ -194,7 +188,7 @@ function MapPanel({
         map,
       );
     }
-  }, [reportResults, relationshipResults, annotationMode, annotations]);
+  }, [reportResults, relationshipResults, isSearchMode, annotationMode, annotations]);
 
   return (
     <div className="map-panel-container">

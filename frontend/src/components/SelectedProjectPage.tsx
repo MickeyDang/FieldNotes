@@ -28,7 +28,10 @@ function SelectedProjectPage() {
   const [dateRange, setDateRange] = useState({} as DateRangeProperties);
   const [annotations, setAnnotations] = useState({
     points: [],
-    polygons: [],
+    polygons: {
+      type: 'FeatureCollection',
+      features: [],
+    },
     texts: [],
   } as Annotations);
   const [isSearchMode, setIsSearchMode] = useState(true);

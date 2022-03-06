@@ -1,3 +1,4 @@
+import { FeatureCollection } from 'geojson';
 import { LngLat } from 'mapbox-gl';
 
 export type BoundingBox = [[number, number], [number, number]];
@@ -40,10 +41,6 @@ export type PointAnnotation = {
   lnglat: LngLat;
 }
 
-export type PolygonAnnotation = {
-  coordinates: LngLat[];
-}
-
 export type TextAnnotation = {
   lnglat: LngLat;
   text: string;
@@ -51,7 +48,7 @@ export type TextAnnotation = {
 
 export type Annotations = {
   points: PointAnnotation[],
-  polygons: PolygonAnnotation[],
+  polygons: FeatureCollection,
   texts: TextAnnotation[],
 }
 
