@@ -7,8 +7,8 @@ import { Annotations, Project } from '../models/types';
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
-const SEARCH_ITEM = '#1A85A7'; // teal
-const SELECTED_ITEM = '#E28D38'; // orange
+const SEARCH_ITEM_COLOUR = '#1A85A7'; // teal
+const SELECTED_ITEM_COLOUR = '#E28D38'; // orange
 
 // const LIGHT_BEIGE = '#D7CFBE';
 const navigation = new mapboxgl.NavigationControl({ showCompass: false });
@@ -171,8 +171,8 @@ function setupLayers(map: mapboxgl.Map) {
     type: 'fill',
     source: 'selected-reports',
     paint: {
-      'fill-color': SELECTED_ITEM,
-      'fill-opacity': 0.6,
+      'fill-color': SELECTED_ITEM_COLOUR,
+      'fill-opacity': 0.1,
     },
     filter: ['==', '$type', 'Polygon'],
   };
@@ -182,7 +182,7 @@ function setupLayers(map: mapboxgl.Map) {
     type: 'line',
     source: 'selected-reports',
     paint: {
-      'line-color': SELECTED_ITEM,
+      'line-color': SELECTED_ITEM_COLOUR,
       'line-width': 1,
     },
     filter: ['==', '$type', 'Polygon'],
@@ -195,7 +195,7 @@ function setupLayers(map: mapboxgl.Map) {
     paint: {
       // Make circles larger as the user zooms from z12 to z22.
       'circle-radius': { base: 5, stops: [[12, 10], [22, 180]] },
-      'circle-color': SELECTED_ITEM,
+      'circle-color': SELECTED_ITEM_COLOUR,
       'circle-opacity': 1,
     },
   };
@@ -205,8 +205,8 @@ function setupLayers(map: mapboxgl.Map) {
     type: 'fill',
     source: 'search-reports',
     paint: {
-      'fill-color': SEARCH_ITEM,
-      'fill-opacity': 0.6,
+      'fill-color': SEARCH_ITEM_COLOUR,
+      'fill-opacity': 0.1,
     },
     filter: ['==', '$type', 'Polygon'],
   };
@@ -216,7 +216,7 @@ function setupLayers(map: mapboxgl.Map) {
     type: 'line',
     source: 'search-reports',
     paint: {
-      'line-color': SEARCH_ITEM,
+      'line-color': SEARCH_ITEM_COLOUR,
       'line-width': 1,
     },
     filter: ['==', '$type', 'Polygon'],
@@ -229,7 +229,7 @@ function setupLayers(map: mapboxgl.Map) {
     paint: {
       // Make circles larger as the user zooms from z12 to z22.
       'circle-radius': { base: 5, stops: [[12, 10], [22, 180]] },
-      'circle-color': SEARCH_ITEM,
+      'circle-color': SEARCH_ITEM_COLOUR,
       'circle-opacity': 1,
     },
   };
@@ -239,7 +239,7 @@ function setupLayers(map: mapboxgl.Map) {
     type: 'line',
     source: 'box',
     paint: {
-      'line-color': SEARCH_ITEM,
+      'line-color': SEARCH_ITEM_COLOUR,
       'line-width': 3,
     },
     filter: ['==', '$type', 'Polygon'],
