@@ -143,26 +143,19 @@ function SelectedProjectPage() {
         {
           isSearchMode
             ? (
-              <>
-                <SearchPanel
-                  reportResults={reports}
-                  relationshipResults={relationships}
-                  onSearchChange={updateSearchQuery}
-                  onTimeRangeChange={updateTimeRange}
-                  dateRangeResults={dateRange}
-                  onSortChange={updateSortQuery}
-                  annotations={annotations}
-                  project={selectedProject}
-                  onProjectUpdate={handleProjectUpdate}
-                  toDetails={handleToDetails}
-                />
-                {isDetailsMode && (
-                  <DetailsPage
-                    backToSearch={handleBackToSearch}
-                    selectedReport={selectedReport}
-                  />
-                )}
-              </>
+              <SearchPanel
+                reportResults={reports}
+                relationshipResults={relationships}
+                onSearchChange={updateSearchQuery}
+                onTimeRangeChange={updateTimeRange}
+                dateRangeResults={dateRange}
+                onSortChange={updateSortQuery}
+                annotations={annotations}
+                project={selectedProject}
+                onProjectUpdate={handleProjectUpdate}
+                toDetails={handleToDetails}
+                searchParams={searchParams}
+              />
             ) : (
               <NotebookPanel
                 reportResults={reports}
@@ -172,6 +165,12 @@ function SelectedProjectPage() {
               />
             )
         }
+        {isDetailsMode && (
+          <DetailsPage
+            backToSearch={handleBackToSearch}
+            selectedReport={selectedReport}
+          />
+        )}
       </div>
       <div className="map-panel-container">
         <MapPanel

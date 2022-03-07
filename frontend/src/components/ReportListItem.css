@@ -12,7 +12,6 @@
 }
 
 .fn-hoverable-select:hover {
-  text-decoration: underline;
   font-weight: bold;
 }
 
