@@ -13,7 +13,7 @@ import {
   setupMapFeatures, updateDataSources, setupMapInteractions,
 } from './MapRenderer';
 import {
-  Annotations, Project, TextAnnotation,
+  Annotations, Project, ReportProperties, TextAnnotation,
 } from '../models/types';
 import AnnotationBar from './AnnotationBar';
 
@@ -30,6 +30,7 @@ interface MapPanelProps {
   isSearchMode: boolean,
   selectedProject: Project,
   reportClicked: Function,
+  selectedReport: ReportProperties | null,
 }
 
 mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_API}`;
@@ -48,6 +49,7 @@ function MapPanel({
   isSearchMode,
   selectedProject,
   reportClicked,
+  selectedReport,
 }: MapPanelProps) {
   const mapContainerRef = useRef(null);
   const mapRef = useRef<mapboxgl.Map>(null);
@@ -177,6 +179,7 @@ function MapPanel({
           draw!,
           selectedProject,
           map,
+          selectedReport,
         );
       });
 
@@ -247,6 +250,7 @@ function MapPanel({
         updatedAnnotations,
         selectedProject,
         map,
+        selectedReport,
       );
     }
   }, [
@@ -256,6 +260,7 @@ function MapPanel({
     annotationMode,
     annotations,
     selectedProject,
+    selectedReport,
   ]);
 
   const handleTextOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -2,7 +2,33 @@ import mapboxgl from 'mapbox-gl';
 
 const SEARCH_ITEM_COLOUR = '#1A85A7'; // teal
 const SELECTED_ITEM_COLOUR = '#E28D38'; // orange
+
+const FOCUS_SEARCH_ITEM_COLOUR = '#055C77';
+const FOCUS_SELECTED_ITEM_COLOUR = '#B96817';
+
 // const LIGHT_BEIGE = '#D7CFBE';
+
+export const getFocusReportFillLayer = (isInProject: boolean) => ({
+  id: isInProject ? 'focus-selected-report-fill' : 'focus-search-report-fill',
+  type: 'fill',
+  source: isInProject ? 'focus-selected-reports' : 'focus-search-reports',
+  paint: {
+    'fill-color': isInProject ? FOCUS_SELECTED_ITEM_COLOUR : FOCUS_SEARCH_ITEM_COLOUR,
+    'fill-opacity': 0.3,
+  },
+  filter: ['==', '$type', 'Polygon'],
+} as mapboxgl.AnyLayer);
+
+export const getFocusReportLineLayer = (isInProject: boolean) => ({
+  id: isInProject ? 'focus-selected-report-line' : 'focus-search-report-line',
+  type: 'line',
+  source: isInProject ? 'focus-selected-reports' : 'focus-search-reports',
+  paint: {
+    'line-color': isInProject ? FOCUS_SELECTED_ITEM_COLOUR : FOCUS_SEARCH_ITEM_COLOUR,
+    'line-width': 3,
+  },
+  filter: ['==', '$type', 'Polygon'],
+} as mapboxgl.AnyLayer);
 
 export const selReportFillLayer: mapboxgl.AnyLayer = {
   id: 'sel-report-fill',

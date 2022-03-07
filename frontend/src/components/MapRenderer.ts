@@ -13,6 +13,8 @@ import {
   selReportFillLayer,
   selReportLineLayer,
   textAnnotationFillLayer,
+  getFocusReportFillLayer,
+  getFocusReportLineLayer,
 } from './MapUtils';
 
 // @ts-ignore
@@ -27,11 +29,13 @@ function seperateProjectSources(
   reports: ReportProperties[],
   relationships: RelationshipProperties[],
   selectedProject: { repIds: string | any[]; relIds: string | any[]; },
+  selectedReport: ReportProperties | null,
 ) {
   const selectedReports = reports.filter(
     (report: {
       properties: { id: any; };
-    }) => selectedProject.repIds.includes(report.properties.id),
+    }) => selectedProject.repIds.includes(report.properties.id)
+    && report.properties.id !== selectedReport?.properties.id,
   );
   const selectedRelationships = relationships.filter(
     (relationship: {
@@ -41,12 +45,21 @@ function seperateProjectSources(
   const searchReports = reports.filter(
     (report: {
       properties: { id: any; };
-    }) => !selectedProject.repIds.includes(report.properties.id),
+    }) => !selectedProject.repIds.includes(report.properties.id)
+    && report.properties.id !== selectedReport?.properties.id,
   );
   const searchRelationships = relationships.filter(
     (relationship: {
       properties: { id: any; };
     }) => !selectedProject.relIds.includes(relationship.properties.id),
+  );
+  const focusSelReport = reports.filter(
+    (report: ReportProperties) => report.properties.id === selectedReport?.properties.id
+    && selectedProject.repIds.includes(report.properties.id),
+  );
+  const focusSearchReport = reports.filter(
+    (report: ReportProperties) => report.properties.id === selectedReport?.properties.id
+    && !selectedProject.repIds.includes(report.properties.id),
   );
 
   return {
@@ -54,6 +67,8 @@ function seperateProjectSources(
     selRel: selectedRelationships,
     searchRep: searchReports,
     searchRel: searchRelationships,
+    focusSelRep: focusSelReport,
+    focusSearchRep: focusSearchReport,
   };
 }
 
@@ -65,6 +80,7 @@ export function updateDataSources(
   annotations: Annotations,
   selectedProject: Project,
   map: mapboxgl.Map,
+  selectedReport: ReportProperties | null,
 ) {
   if (sourceLoaded) {
     const {
@@ -72,13 +88,27 @@ export function updateDataSources(
       selRel,
       searchRep,
       searchRel,
-    } = seperateProjectSources(reports, relationships, selectedProject);
+      focusSelRep,
+      focusSearchRep,
+    } = seperateProjectSources(reports, relationships, selectedProject, selectedReport);
     const selReportSource: mapboxgl.GeoJSONSource = map.getSource('selected-reports') as mapboxgl.GeoJSONSource;
     const selRelationshipSource: mapboxgl.GeoJSONSource = map.getSource('selected-relationships') as mapboxgl.GeoJSONSource;
+    const focusSearchRepSource: mapboxgl.GeoJSONSource = map.getSource('focus-search-reports') as mapboxgl.GeoJSONSource;
+    const focusSelRepSource: mapboxgl.GeoJSONSource = map.getSource('focus-selected-reports') as mapboxgl.GeoJSONSource;
     const searchReportSource: mapboxgl.GeoJSONSource = map.getSource('search-reports') as mapboxgl.GeoJSONSource;
     const searchRelationshipSource: mapboxgl.GeoJSONSource = map.getSource('search-relationships') as mapboxgl.GeoJSONSource;
     const boxSource: mapboxgl.GeoJSONSource = map.getSource('box') as mapboxgl.GeoJSONSource;
     const textAnnotationSource: mapboxgl.GeoJSONSource = map.getSource('texts') as mapboxgl.GeoJSONSource;
+
+    focusSelRepSource.setData({
+      type: 'FeatureCollection',
+      features: (focusSelRep as any[]),
+    });
+
+    focusSearchRepSource.setData({
+      type: 'FeatureCollection',
+      features: (focusSearchRep as any[]),
+    });
 
     selReportSource.setData({
       type: 'FeatureCollection',
@@ -149,14 +179,31 @@ function setupDataSources(
   annotations: Annotations,
   selectedProject: Project,
   map: mapboxgl.Map,
+  selectedReport: ReportProperties | null,
 ) {
   const {
     selRep,
     selRel,
     searchRep,
     searchRel,
-  } = seperateProjectSources(reports, relationships, selectedProject);
+    focusSearchRep,
+    focusSelRep,
+  } = seperateProjectSources(reports, relationships, selectedProject, selectedReport);
 
+  map.addSource('focus-search-reports', {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: focusSearchRep as any[],
+    },
+  });
+  map.addSource('focus-selected-reports', {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: focusSelRep as any[],
+    },
+  });
   map.addSource('selected-reports', {
     type: 'geojson',
     data: {
@@ -231,6 +278,10 @@ function setupLayers(map: mapboxgl.Map) {
   map.addLayer(searchRelationshipFillLayer);
   map.addLayer(boxLineLayer);
   map.addLayer(textAnnotationFillLayer);
+  map.addLayer(getFocusReportFillLayer(true));
+  map.addLayer(getFocusReportFillLayer(false));
+  map.addLayer(getFocusReportLineLayer(true));
+  map.addLayer(getFocusReportLineLayer(false));
 }
 
 export function setupMapFeatures(
@@ -242,9 +293,19 @@ export function setupMapFeatures(
   draw: MapboxDraw,
   selectedProject: Project,
   map: mapboxgl.Map,
+  selectedReport: ReportProperties | null,
 ) {
   if (!sourceLoaded) {
-    setupDataSources(reports, relationships, box, isSearchMode, annotations, selectedProject, map);
+    setupDataSources(
+      reports,
+      relationships,
+      box,
+      isSearchMode,
+      annotations,
+      selectedProject,
+      map,
+      selectedReport,
+    );
     setupLayers(map);
     map.addControl((draw as any));
     sourceLoaded = true;

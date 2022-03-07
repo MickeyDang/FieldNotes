@@ -115,7 +115,11 @@ function SelectedProjectPage() {
 
   const handleSearchToggle = () => setIsSearchMode(true);
   const handleNotebookToggle = () => setIsSearchMode(false);
-  const handleBackToSearch = () => setIsDetailsMode(false);
+
+  const handleBackToSearch = () => {
+    setIsDetailsMode(false);
+    setSelectedReport(null);
+  };
   const handleToDetails = (report: ReportProperties) => {
     setIsDetailsMode(true);
     setSelectedReport(report);
@@ -179,6 +183,7 @@ function SelectedProjectPage() {
           setAnnotations={setAnnotations}
           selectedProject={selectedProject}
           reportClicked={handleReportClicked}
+          selectedReport={selectedReport}
         />
       </div>
     </div>

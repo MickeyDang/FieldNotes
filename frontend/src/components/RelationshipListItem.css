@@ -15,16 +15,19 @@
 .list-item-header {
   font-size: small;
   color: #ffffff;
+  text-align: start;
 }
 
 .project-list-item-header {
   font-size: small;
   color: #FFC285;
+  text-align: start;
 }
 
 .description {
   font-size: x-small;
   margin-bottom: 8px;
+  text-align: start;
 }
 
 .dot {
