@@ -115,7 +115,7 @@ function MapPanel({
   };
 
   const updateAnnotationMode = (updatedMode: string) => {
-    setAnnotationMode(updatedMode);
+    setAnnotationMode((annotationMode === updatedMode) ? '' : updatedMode);
   };
 
   const enableDrawingByMode = (map: any) => {
@@ -252,6 +252,7 @@ function MapPanel({
           <>
             <AnnotationBar
               onAnnotationModeSelect={updateAnnotationMode}
+              annotationMode={annotationMode}
             />
             {annotationMode === 'text' ? (
               <Box
