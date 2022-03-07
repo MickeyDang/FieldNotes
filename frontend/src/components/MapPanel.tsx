@@ -120,23 +120,17 @@ function MapPanel({
   };
 
   const updateAnnotationMode = (updatedMode: string) => {
-    setAnnotationMode(updatedMode);
+    setAnnotationMode((annotationMode === updatedMode) ? '' : updatedMode);
   };
 
   const enableDrawingByMode = (map: any) => {
     switch (annotationMode) {
-      case 'off':
-        console.log('off!');
-        break;
-
       case 'polygon':
-        console.log('polygon!');
         drawRef.current?.changeMode('draw_polygon');
         map.off('click', onClickTextRef.current);
         break;
 
       case 'text':
-        console.log('text!');
         drawRef.current?.changeMode('simple_select');
         map.once('click', onClickTextRef.current);
         break;
@@ -296,6 +290,7 @@ function MapPanel({
           <>
             <AnnotationBar
               onAnnotationModeSelect={updateAnnotationMode}
+              annotationMode={annotationMode}
             />
             {annotationMode === 'text' ? (
               <Box

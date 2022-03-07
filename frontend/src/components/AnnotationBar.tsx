@@ -3,21 +3,24 @@ import './AnnotationBar.css';
 
 interface AnnotationBarProps {
   onAnnotationModeSelect: Function,
+  annotationMode: string,
 }
 
 function AnnotationBar({
   onAnnotationModeSelect,
+  annotationMode,
 }: AnnotationBarProps) {
   const updateMode = (updatedMode: string) => {
     onAnnotationModeSelect(updatedMode);
   };
+  const polygonButtonClass = annotationMode === 'polygon' ? 'annotation-button polygon active' : 'annotation-button polygon';
+  const textButtonClass = annotationMode === 'text' ? 'annotation-button text active' : 'annotation-button text';
 
   return (
     <div className="annotation-bar-container">
-      <button className="annotation-button-polygon" type="button" onClick={() => updateMode('polygon')}>Polygon</button>
-      <button className="annotation-button-text" type="button" onClick={() => updateMode('text')}>Text</button>
-      <button className="annotation-button-off" type="button" onClick={() => updateMode('off')}>X</button>
-      <h3 className="annotation-label">Annotation Tools</h3>
+      <button className={polygonButtonClass} type="button" onClick={() => updateMode('polygon')}> </button>
+      <button className={textButtonClass} type="button" onClick={() => updateMode('text')}> </button>
+      <div className="annotation-label">ANNOTATION TOOLS</div>
     </div>
   );
 }
