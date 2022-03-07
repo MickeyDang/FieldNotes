@@ -61,6 +61,7 @@ export function updateDataSources(
     const searchReportSource: mapboxgl.GeoJSONSource = map.getSource('search-reports') as mapboxgl.GeoJSONSource;
     const searchRelationshipSource: mapboxgl.GeoJSONSource = map.getSource('search-relationships') as mapboxgl.GeoJSONSource;
     const boxSource: mapboxgl.GeoJSONSource = map.getSource('box') as mapboxgl.GeoJSONSource;
+    const textAnnotationSource: mapboxgl.GeoJSONSource = map.getSource('texts') as mapboxgl.GeoJSONSource;
 
     selReportSource.setData({
       type: 'FeatureCollection',
@@ -96,6 +97,22 @@ export function updateDataSources(
     const layerIds = map.getStyle().layers?.map((item) => item.id).filter((s) => s.includes('gl-draw'));
     layerIds?.forEach((id) => {
       map.setLayoutProperty(id, 'visibility', isSearchMode ? 'none' : 'visible');
+    });
+
+    textAnnotationSource.setData({
+      type: 'FeatureCollection',
+      features: annotations.texts.map((text) => (
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: isSearchMode ? [] : [text.lnglat.lng, text.lnglat.lat],
+          },
+          properties: {
+            title: text.text,
+          },
+        }
+      )),
     });
   }
 }
@@ -162,6 +179,24 @@ function setupDataSources(
       },
     });
   }
+  map.addSource('texts', {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: annotations.texts.map((text) => (
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: isSearchMode ? [] : [text.lnglat.lng, text.lnglat.lat],
+          },
+          properties: {
+            title: text.text,
+          },
+        }
+      )),
+    },
+  });
 }
 
 function setupLayers(map: mapboxgl.Map) {
@@ -233,6 +268,19 @@ function setupLayers(map: mapboxgl.Map) {
     },
   };
 
+  const textAnnotationFillLayer: mapboxgl.AnyLayer = {
+    id: 'text-fill',
+    type: 'symbol',
+    source: 'texts',
+    layout: {
+      'text-field': ['get', 'title'],
+    },
+    paint: {
+      'text-halo-color': '#D7CFBE',
+      'text-halo-width': 2,
+    },
+  };
+
   const boxLineLayer: mapboxgl.AnyLayer = {
     id: 'box-boundary',
     type: 'line',
@@ -251,6 +299,7 @@ function setupLayers(map: mapboxgl.Map) {
   map.addLayer(searchReportLineLayer);
   map.addLayer(searchRelationshipFillLayer);
   map.addLayer(boxLineLayer);
+  map.addLayer(textAnnotationFillLayer);
 }
 
 export function setupMapFeatures(
