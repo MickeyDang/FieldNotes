@@ -95,3 +95,18 @@ export const boxLineLayer: mapboxgl.AnyLayer = {
   },
   filter: ['==', '$type', 'Polygon'],
 };
+
+export const findMidpoint = (coordinates: any) => {
+  const sum = coordinates[0].reduce((a: any, b: any) => {
+    // eslint-disable-next-line no-param-reassign
+    a[0] += b[0];
+    // eslint-disable-next-line no-param-reassign
+    a[1] += b[1];
+    return a;
+  }, [0, 0]);
+
+  return {
+    lng: sum[0] / coordinates[0].length,
+    lat: sum[1] / coordinates[0].length,
+  };
+};

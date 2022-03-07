@@ -1,6 +1,8 @@
 .details-container {
-  height: 100%;
-  width: 100%;
+  position: absolute;
+  top: 7vh;
+  height: 93vh;
+  width: 40vw;
   overflow-y: scroll;
   background-color: white;
 }

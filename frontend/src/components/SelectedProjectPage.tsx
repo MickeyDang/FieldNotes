@@ -130,13 +130,8 @@ function SelectedProjectPage() {
         />
         {
           isSearchMode
-            ? (isDetailsMode
-              ? (
-                <DetailsPage
-                  backToSearch={handleBackToSearch}
-                  selectedReport={selectedReport}
-                />
-              ) : (
+            ? (
+              <>
                 <SearchPanel
                   reportResults={reports}
                   relationshipResults={relationships}
@@ -149,8 +144,13 @@ function SelectedProjectPage() {
                   onProjectUpdate={handleProjectUpdate}
                   toDetails={handleToDetails}
                 />
-              )
-
+                {isDetailsMode && (
+                  <DetailsPage
+                    backToSearch={handleBackToSearch}
+                    selectedReport={selectedReport}
+                  />
+                )}
+              </>
             ) : (
               <NotebookPanel
                 reportResults={reports}

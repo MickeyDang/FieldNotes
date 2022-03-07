@@ -8,6 +8,7 @@ import './MapPanel.css';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { findMidpoint } from './MapUtils';
 import {
   setupMapFeatures, updateDataSources, setupMapInteractions,
 } from './MapRenderer';
@@ -193,17 +194,37 @@ function MapPanel({
         }
       });
 
-      // change cursor to pointer when user hovers over a clickable feature
-      map.on('mouseenter', (e: any) => {
-        if (e.features.length) {
-          map.getCanvas().style.cursor = 'pointer';
-        }
+      const popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false,
       });
 
-      // reset cursor to default when user is no longer hovering over a clickable feature
-      map.on('mouseleave', () => {
+      const handleHoverOn = (e: any) => {
+        if (e.features.length) {
+          map.getCanvas().style.cursor = 'pointer';
+          const coordinates = e.features[0].geometry.coordinates.slice();
+          const { type } = e.features[0].geometry;
+          // eslint-disable-next-line no-unused-vars
+          const { name, id } = e.features[0].properties;
+          const midpoint = type === 'Polygon' ? findMidpoint(coordinates) : coordinates;
+          popup.setLngLat(midpoint).setHTML(name).addTo(map);
+        }
+      };
+
+      map.on('mouseenter', 'search-report-fill', handleHoverOn);
+      map.on('mouseenter', 'search-relationship-fill', handleHoverOn);
+      map.on('mouseenter', 'sel-report-fill', handleHoverOn);
+      map.on('mouseenter', 'sel-relationship-fill', handleHoverOn);
+
+      const handleHoverOff = () => {
         map.getCanvas().style.cursor = '';
-      });
+        popup.remove();
+      };
+
+      map.on('mouseleave', 'search-report-fill', handleHoverOff);
+      map.on('mouseleave', 'search-relationship-fill', handleHoverOff);
+      map.on('mouseleave', 'sel-report-fill', handleHoverOff);
+      map.on('mouseleave', 'sel-relationship-fill', handleHoverOff);
 
       setupMapInteractions(map);
       updateDataSources(
