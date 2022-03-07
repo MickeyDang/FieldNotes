@@ -1,0 +1,31 @@
+.keyword-overview-container {
+  position: relative;
+  bottom: 215px;
+  left: 25px;
+  padding: 20px;
+  margin-right: 16px;
+  width: 20%;
+  min-width: 210px;
+  height: 192px;
+  border-radius: 4px;
+  border-color: #00000020;
+  border-width: 2px;
+  background-color: #ffffff;
+  box-shadow: 2px 4px #00000005;
+  align-items: left;
+}
+
+.keyword-overview-title {
+  font-size: small;
+}
+
+.keyword-overview-label {
+  font-size: x-small;
+}
+
+.keyword-overview-list {
+  height: 100px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  font-size: small;
+}

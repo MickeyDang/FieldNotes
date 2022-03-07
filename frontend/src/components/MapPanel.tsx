@@ -13,9 +13,10 @@ import {
   setupMapFeatures, updateDataSources, setupMapInteractions,
 } from './MapRenderer';
 import {
-  Annotations, Project, ReportProperties, TextAnnotation,
+  Annotations, Project, ReportProperties, TextAnnotation, TagCount,
 } from '../models/types';
 import AnnotationBar from './AnnotationBar';
+import KeywordOverview from './KeywordOverview';
 
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
@@ -28,6 +29,7 @@ interface MapPanelProps {
   annotations: Annotations,
   setAnnotations: Function,
   isSearchMode: boolean,
+  tagsSummary: TagCount[],
   selectedProject: Project,
   reportClicked: Function,
   selectedReport: ReportProperties | null,
@@ -47,12 +49,14 @@ function MapPanel({
   annotations,
   setAnnotations,
   isSearchMode,
+  tagsSummary,
   selectedProject,
   reportClicked,
   selectedReport,
 }: MapPanelProps) {
   const mapContainerRef = useRef(null);
   const mapRef = useRef<mapboxgl.Map>(null);
+  const [totalDataPoints, setTotalDataPoints] = useState(0);
   const searchBox = useRef<Position[]>([]);
   const [annotationMode, setAnnotationMode] = useState('none');
   const drawRef = useRef<MapboxDraw>(null);
@@ -247,6 +251,7 @@ function MapPanel({
         selectedReport,
       );
     }
+    setTotalDataPoints(reportResults.length + relationshipResults.length);
   }, [
     reportResults,
     relationshipResults,
@@ -284,7 +289,23 @@ function MapPanel({
       <div className="map" ref={mapContainerRef} />
       {isSearchMode
         ? (
-          <button className="search-button" type="button" onClick={updateSearch}>Search Area</button>
+          <>
+            <button className="search-button" type="button" onClick={updateSearch}>Search Area</button>
+            {/* { (reportResults.length > 0 || relationshipResults.length > 0)
+              ? (
+                <KeywordOverview
+                  tagsSummary={tagsSummary}
+                  totalDataPoints={totalDataPoints}
+                />
+              ) : null} */}
+            {(reportResults.length > 0 || relationshipResults.length > 0)
+                && (
+                <KeywordOverview
+                  tagsSummary={tagsSummary}
+                  totalDataPoints={totalDataPoints}
+                />
+                )}
+          </>
         )
         : (
           <>

@@ -36,6 +36,7 @@ export function formatRelationships(data: any) {
         type: rel.type,
         lastContacted: rel.lastContacted,
         reports: rel.reports,
+        tags: rel.tags,
         // eslint-disable-next-line no-underscore-dangle
         id: rel._id,
       },

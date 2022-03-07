@@ -12,6 +12,7 @@ import {
   DateRangeProperties,
   Annotations,
   Project,
+  TagCount,
   ReportProperties,
 } from '../models/types';
 import PanelNavigator from './PanelNavigator';
@@ -26,8 +27,8 @@ function SelectedProjectPage() {
     repIds: [],
     relIds: [],
   } as Project);
-  const [reports, setReports] = useState([]);
-  const [relationships, setRelationships] = useState([]);
+  const [reports, setReports] = useState<any[]>([]);
+  const [relationships, setRelationships] = useState<any[]>([]);
   const [dateRange, setDateRange] = useState({} as DateRangeProperties);
   const [annotations, setAnnotations] = useState({
     points: [],
@@ -38,6 +39,7 @@ function SelectedProjectPage() {
     texts: [],
   } as Annotations);
   const [isSearchMode, setIsSearchMode] = useState(true);
+  const [tagsSummary, setTagsSummary] = useState<TagCount[]>([]);
   const [isDetailsMode, setIsDetailsMode] = useState(false);
   const [selectedReport, setSelectedReport] = useState<ReportProperties | null>(null);
 
@@ -116,6 +118,19 @@ function SelectedProjectPage() {
   const handleSearchToggle = () => setIsSearchMode(true);
   const handleNotebookToggle = () => setIsSearchMode(false);
 
+  useEffect(() => {
+    const allTags = reports.map((report) => report.properties.tags).flat();
+    const tagsSummaryObj = allTags.reduce((total, value) => {
+      // eslint-disable-next-line no-param-reassign
+      total[value] = (total[value] || 0) + 1;
+      return total;
+    }, {});
+    const uniqueTags = Object.keys(tagsSummaryObj);
+
+    const tagsSummaryArr:TagCount[] = uniqueTags.map((tag) => [tag, tagsSummaryObj[tag]]);
+    const tagsSummaryArrSorted: TagCount[] = tagsSummaryArr.sort((a, b) => b[1] - a[1]);
+    setTagsSummary(tagsSummaryArrSorted);
+  }, [reports, relationships]);
   const handleBackToSearch = () => {
     setIsDetailsMode(false);
     setSelectedReport(null);
@@ -180,6 +195,7 @@ function SelectedProjectPage() {
           onBoundingBoxChange={updateBoundingBoxQuery}
           annotations={annotations}
           setAnnotations={setAnnotations}
+          tagsSummary={tagsSummary}
           selectedProject={selectedProject}
           reportClicked={handleReportClicked}
           selectedReport={selectedReport}
