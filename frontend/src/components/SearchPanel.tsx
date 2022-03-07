@@ -147,7 +147,7 @@ function SearchPanel({
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...params}
               hiddenLabel
-              placeholder="keywords"
+              placeholder="Search Keywords"
             />
           )}
           renderTags={(value, getTagProps) => value.map((option, index) => (
