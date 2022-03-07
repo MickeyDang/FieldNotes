@@ -61,16 +61,6 @@ function MapPanel({
   const onClickTextRef = useRef(onClickText);
   onClickTextRef.current = onClickText;
 
-  const addText = () => {
-    if (annotationMode === 'text' && textAnnotation.length > 0 && textAnnotationLngLat) {
-      const newText: TextAnnotation = { lnglat: textAnnotationLngLat, text: textAnnotation };
-      const updatedAnnotations = { ...annotations };
-      updatedAnnotations.texts.push(newText);
-      setAnnotations(updatedAnnotations);
-      setTextAnnotation('');
-    }
-  };
-
   useEffect(() => {
     if (annotationMode === 'text' && textAnnotationLngLat && mapRef.current && !isSearchMode) {
       const map = mapRef.current;
@@ -119,13 +109,37 @@ function MapPanel({
   const updateSearch = () => {
     const box = extractBoundingBox();
     if (box.length > 0) {
-      onBoundingBoxChange(extractBoundingBox());
+      onBoundingBoxChange(box);
       (searchBox as any).current = getSearchedAreaBox();
     }
   };
 
   const updateAnnotationMode = (updatedMode: string) => {
     setAnnotationMode(updatedMode);
+  };
+
+  const enableDrawingByMode = (map: any) => {
+    switch (annotationMode) {
+      case 'off':
+        console.log('off!');
+        break;
+
+      case 'polygon':
+        console.log('polygon!');
+        drawRef.current?.changeMode('draw_polygon');
+        map.off('click', onClickTextRef.current);
+        break;
+
+      case 'text':
+        console.log('text!');
+        drawRef.current?.changeMode('simple_select');
+        map.once('click', onClickTextRef.current);
+        break;
+
+      default:
+        map.off('click', onClickTextRef.current);
+        break;
+    }
   };
 
   useEffect(() => {
@@ -163,41 +177,9 @@ function MapPanel({
         );
       });
 
-      // change cursor to pointer when user hovers over a clickable feature
-      map.on('mouseenter', (e: any) => {
-        if (e.features.length) {
-          map.getCanvas().style.cursor = 'pointer';
-        }
-      });
-
-      // reset cursor to default when user is no longer hovering over a clickable feature
-      map.on('mouseleave', () => {
-        map.getCanvas().style.cursor = '';
-      });
+      enableDrawingByMode(map);
 
       const updatedAnnotations = { ...annotations };
-      switch (annotationMode) {
-        case 'off':
-          console.log('off!');
-          break;
-
-        case 'polygon':
-          console.log('polygon!');
-          drawRef.current?.changeMode('draw_polygon');
-          map.off('click', onClickTextRef.current);
-          break;
-
-        case 'text':
-          console.log('text!');
-          drawRef.current?.changeMode('simple_select');
-          map.once('click', onClickTextRef.current);
-          break;
-
-        default:
-          map.off('click', onClickTextRef.current);
-          break;
-      }
-
       map.on('draw.create', () => {
         const features = draw?.getAll();
         if (features) {
@@ -209,6 +191,18 @@ function MapPanel({
         if (features) {
           updatedAnnotations.polygons = features;
         }
+      });
+
+      // change cursor to pointer when user hovers over a clickable feature
+      map.on('mouseenter', (e: any) => {
+        if (e.features.length) {
+          map.getCanvas().style.cursor = 'pointer';
+        }
+      });
+
+      // reset cursor to default when user is no longer hovering over a clickable feature
+      map.on('mouseleave', () => {
+        map.getCanvas().style.cursor = '';
       });
 
       setupMapInteractions(map);
@@ -234,6 +228,16 @@ function MapPanel({
   const handleTextOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setTextAnnotation(event.target.value);
+  };
+
+  const addText = () => {
+    if (annotationMode === 'text' && textAnnotation.length > 0 && textAnnotationLngLat) {
+      const newText: TextAnnotation = { lnglat: textAnnotationLngLat, text: textAnnotation };
+      const updatedAnnotations = { ...annotations };
+      updatedAnnotations.texts.push(newText);
+      setAnnotations(updatedAnnotations);
+      setTextAnnotation('');
+    }
   };
 
   const handleTextSubmit = () => {
