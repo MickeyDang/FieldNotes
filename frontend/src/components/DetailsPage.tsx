@@ -38,10 +38,12 @@ function DetailsPage({ backToSearch, selectedReport }: DetailsPageProps) {
             </div>
           </div>
           <div className="details-body">
-            <p>Details</p>
-            <p></p>
-            <p>Participating Relationships</p>
-            <p>Britannia Community Centre</p>
+            <p><b>Details</b></p>
+            <p>The Victoria Park Playground Asset Mapping was a participatory planning activity organized at Victoria Park over two weekends in May of 2021. The activity engaged parents and children who visited the park, many from local neighbourhoods.
+            <br><br>This engagement highlighted the use by local daycare centres including Britannia Childcare Centre as well as a group of new parents championed by Kritika Mishra. The report highlights concerns regarding traffic volumes on Victoria Drive, and concerns for visibility and safety on the west side of the playground. Community members also brought forth concerns for safe places for older youth to gather.</p>
+            <p><b>Participating Relationships</b></p>
+            <p><i>Britannia Community Centre</i></p>
+            <p><u>View Full Report</u><p>
           </div>
         </>
       )}
