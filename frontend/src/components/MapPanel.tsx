@@ -29,6 +29,7 @@ interface MapPanelProps {
   setAnnotations: Function,
   isSearchMode: boolean,
   selectedProject: Project,
+  reportClicked: Function,
 }
 
 mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_API}`;
@@ -46,6 +47,7 @@ function MapPanel({
   setAnnotations,
   isSearchMode,
   selectedProject,
+  reportClicked,
 }: MapPanelProps) {
   const mapContainerRef = useRef(null);
   const mapRef = useRef<mapboxgl.Map>(null);
@@ -225,6 +227,16 @@ function MapPanel({
       map.on('mouseleave', 'search-relationship-fill', handleHoverOff);
       map.on('mouseleave', 'sel-report-fill', handleHoverOff);
       map.on('mouseleave', 'sel-relationship-fill', handleHoverOff);
+
+      const handleReportClicked = (e: any) => {
+        if (e.features.length) {
+          const { id } = e.features[0].properties;
+          reportClicked(id);
+        }
+      };
+
+      map.on('click', 'search-report-fill', handleReportClicked);
+      map.on('click', 'sel-report-fill', handleReportClicked);
 
       setupMapInteractions(map);
       updateDataSources(

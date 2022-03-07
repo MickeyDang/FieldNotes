@@ -121,6 +121,14 @@ function SelectedProjectPage() {
     setSelectedReport(report);
   };
 
+  const handleReportClicked = (id: string) => {
+    const reportFromId = reports.filter((rep: ReportProperties) => rep.properties.id === id);
+    if (reportFromId.length === 1) {
+      setIsDetailsMode(true);
+      setSelectedReport(reportFromId[0]);
+    }
+  };
+
   return (
     <div className="project-view">
       <div className="list-panel-container">
@@ -170,6 +178,7 @@ function SelectedProjectPage() {
           annotations={annotations}
           setAnnotations={setAnnotations}
           selectedProject={selectedProject}
+          reportClicked={handleReportClicked}
         />
       </div>
     </div>
