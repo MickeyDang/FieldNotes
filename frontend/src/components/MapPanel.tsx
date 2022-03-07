@@ -8,11 +8,12 @@ import './MapPanel.css';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { findMidpoint } from './MapUtils';
 import {
   setupMapFeatures, updateDataSources, setupMapInteractions,
 } from './MapRenderer';
 import {
-  Annotations, Project, TextAnnotation,
+  Annotations, Project, ReportProperties, TextAnnotation,
 } from '../models/types';
 import AnnotationBar from './AnnotationBar';
 
@@ -28,6 +29,8 @@ interface MapPanelProps {
   setAnnotations: Function,
   isSearchMode: boolean,
   selectedProject: Project,
+  reportClicked: Function,
+  selectedReport: ReportProperties | null,
 }
 
 mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_API}`;
@@ -45,6 +48,8 @@ function MapPanel({
   setAnnotations,
   isSearchMode,
   selectedProject,
+  reportClicked,
+  selectedReport,
 }: MapPanelProps) {
   const mapContainerRef = useRef(null);
   const mapRef = useRef<mapboxgl.Map>(null);
@@ -174,6 +179,7 @@ function MapPanel({
           draw!,
           selectedProject,
           map,
+          selectedReport,
         );
       });
 
@@ -193,17 +199,47 @@ function MapPanel({
         }
       });
 
-      // change cursor to pointer when user hovers over a clickable feature
-      map.on('mouseenter', (e: any) => {
-        if (e.features.length) {
-          map.getCanvas().style.cursor = 'pointer';
-        }
+      const popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false,
       });
 
-      // reset cursor to default when user is no longer hovering over a clickable feature
-      map.on('mouseleave', () => {
+      const handleHoverOn = (e: any) => {
+        if (e.features.length) {
+          map.getCanvas().style.cursor = 'pointer';
+          const coordinates = e.features[0].geometry.coordinates.slice();
+          const { type } = e.features[0].geometry;
+          // eslint-disable-next-line no-unused-vars
+          const { name, id } = e.features[0].properties;
+          const midpoint = type === 'Polygon' ? findMidpoint(coordinates) : coordinates;
+          popup.setLngLat(midpoint).setHTML(name).addTo(map);
+        }
+      };
+
+      map.on('mouseenter', 'search-report-fill', handleHoverOn);
+      map.on('mouseenter', 'search-relationship-fill', handleHoverOn);
+      map.on('mouseenter', 'sel-report-fill', handleHoverOn);
+      map.on('mouseenter', 'sel-relationship-fill', handleHoverOn);
+
+      const handleHoverOff = () => {
         map.getCanvas().style.cursor = '';
-      });
+        popup.remove();
+      };
+
+      map.on('mouseleave', 'search-report-fill', handleHoverOff);
+      map.on('mouseleave', 'search-relationship-fill', handleHoverOff);
+      map.on('mouseleave', 'sel-report-fill', handleHoverOff);
+      map.on('mouseleave', 'sel-relationship-fill', handleHoverOff);
+
+      const handleReportClicked = (e: any) => {
+        if (e.features.length) {
+          const { id } = e.features[0].properties;
+          reportClicked(id);
+        }
+      };
+
+      map.on('click', 'search-report-fill', handleReportClicked);
+      map.on('click', 'sel-report-fill', handleReportClicked);
 
       setupMapInteractions(map);
       updateDataSources(
@@ -214,6 +250,7 @@ function MapPanel({
         updatedAnnotations,
         selectedProject,
         map,
+        selectedReport,
       );
     }
   }, [
@@ -223,6 +260,7 @@ function MapPanel({
     annotationMode,
     annotations,
     selectedProject,
+    selectedReport,
   ]);
 
   const handleTextOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -24,8 +24,8 @@ function ReportListItem({
   const buttonPrompt = isInProject ? 'x' : '+';
   const tooltipPrompt = isInProject ? 'Remove from Notebook' : 'Add to Notebook';
   const headerStyle = isInProject
-    ? 'fn-hoverable-select project-list-item-header'
-    : 'fn-hoverable-select list-item-header';
+    ? 'project-list-item-header'
+    : 'list-item-header';
 
   const handleToggle = () => {
     onToggle(report.properties.id, !isInProject);
@@ -35,16 +35,16 @@ function ReportListItem({
 
   return (
     <div className="search-item-container">
-      <div
-        className="item-details-container"
+      <button
+        className="fn-hoverable-select item-details-container"
+        type="button"
+        onClick={goToDetails}
       >
-        <button
+        <div
           className={headerStyle}
-          type="button"
-          onClick={goToDetails}
         >
           {report.properties.name}
-        </button>
+        </div>
         <div className="description">
           <span className="tag-color">{formatTags(report.properties.tags)}</span>
           {' '}
@@ -52,7 +52,7 @@ function ReportListItem({
           {' '}
           <span className="date-color">{new Date(report.properties.creationDate).toLocaleDateString()}</span>
         </div>
-      </div>
+      </button>
       <button type="button" className="toggle-button" onClick={handleToggle}>
         <span className="tooltiptext">{tooltipPrompt}</span>
         <span className="toggle-button-text">{buttonPrompt}</span>

@@ -115,10 +115,22 @@ function SelectedProjectPage() {
 
   const handleSearchToggle = () => setIsSearchMode(true);
   const handleNotebookToggle = () => setIsSearchMode(false);
-  const handleBackToSearch = () => setIsDetailsMode(false);
+
+  const handleBackToSearch = () => {
+    setIsDetailsMode(false);
+    setSelectedReport(null);
+  };
   const handleToDetails = (report: ReportProperties) => {
     setIsDetailsMode(true);
     setSelectedReport(report);
+  };
+
+  const handleReportClicked = (id: string) => {
+    const reportFromId = reports.filter((rep: ReportProperties) => rep.properties.id === id);
+    if (reportFromId.length === 1) {
+      setIsDetailsMode(true);
+      setSelectedReport(reportFromId[0]);
+    }
   };
 
   return (
@@ -130,13 +142,8 @@ function SelectedProjectPage() {
         />
         {
           isSearchMode
-            ? (isDetailsMode
-              ? (
-                <DetailsPage
-                  backToSearch={handleBackToSearch}
-                  selectedReport={selectedReport}
-                />
-              ) : (
+            ? (
+              <>
                 <SearchPanel
                   reportResults={reports}
                   relationshipResults={relationships}
@@ -149,8 +156,13 @@ function SelectedProjectPage() {
                   onProjectUpdate={handleProjectUpdate}
                   toDetails={handleToDetails}
                 />
-              )
-
+                {isDetailsMode && (
+                  <DetailsPage
+                    backToSearch={handleBackToSearch}
+                    selectedReport={selectedReport}
+                  />
+                )}
+              </>
             ) : (
               <NotebookPanel
                 reportResults={reports}
@@ -170,6 +182,8 @@ function SelectedProjectPage() {
           annotations={annotations}
           setAnnotations={setAnnotations}
           selectedProject={selectedProject}
+          reportClicked={handleReportClicked}
+          selectedReport={selectedReport}
         />
       </div>
     </div>

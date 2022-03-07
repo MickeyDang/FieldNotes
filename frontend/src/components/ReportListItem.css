@@ -2,6 +2,7 @@
   font-size: small;
   color: #ffffff;
   margin-bottom: -6px;
+  text-align: start;
 }
 
 .fn-hoverable-select {
@@ -18,6 +19,7 @@
 .description {
   font-size: x-small;
   margin-bottom: 8px;
+  text-align: start;
 }
 
 .dot {
