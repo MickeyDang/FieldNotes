@@ -39,7 +39,9 @@ function DetailsPage({ backToSearch, selectedReport }: DetailsPageProps) {
           </div>
           <div className="details-body">
             <p>Details</p>
+            <p></p>
             <p>Participating Relationships</p>
+            <p>Britannia Community Centre</p>
           </div>
         </>
       )}
