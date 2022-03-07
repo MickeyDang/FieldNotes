@@ -6,9 +6,12 @@ interface ReportListItemProps {
   report: ReportProperties,
   isInProject: boolean,
   onToggle: Function,
+  toDetails: Function,
 }
 
-function ReportListItem({ report, isInProject, onToggle }: ReportListItemProps) {
+function ReportListItem({
+  report, isInProject, onToggle, toDetails,
+}: ReportListItemProps) {
   const formatTags = (tags: string[]) => (
     // eslint-disable-next-line no-nested-ternary
     tags.length > 1
@@ -19,16 +22,29 @@ function ReportListItem({ report, isInProject, onToggle }: ReportListItemProps) 
   );
 
   const buttonPrompt = isInProject ? 'x' : '+';
-  const headerStyle = isInProject ? 'project-list-item-header' : 'list-item-header';
+  const tooltipPrompt = isInProject ? 'Remove from Notebook' : 'Add to Notebook';
+  const headerStyle = isInProject
+    ? 'project-list-item-header'
+    : 'list-item-header';
 
   const handleToggle = () => {
     onToggle(report.properties.id, !isInProject);
   };
 
+  const goToDetails = () => toDetails(report);
+
   return (
     <div className="search-item-container">
-      <div className="item-details-container">
-        <div className={headerStyle}>{report.properties.name}</div>
+      <button
+        className="fn-hoverable-select item-details-container"
+        type="button"
+        onClick={goToDetails}
+      >
+        <div
+          className={headerStyle}
+        >
+          {report.properties.name}
+        </div>
         <div className="description">
           <span className="tag-color">{formatTags(report.properties.tags)}</span>
           {' '}
@@ -36,8 +52,11 @@ function ReportListItem({ report, isInProject, onToggle }: ReportListItemProps) 
           {' '}
           <span className="date-color">{new Date(report.properties.creationDate).toLocaleDateString()}</span>
         </div>
-      </div>
-      <button type="button" className="toggle-button" onClick={handleToggle}>{buttonPrompt}</button>
+      </button>
+      <button type="button" className="toggle-button" onClick={handleToggle}>
+        <span className="tooltiptext">{tooltipPrompt}</span>
+        <span className="toggle-button-text">{buttonPrompt}</span>
+      </button>
     </div>
   );
 }

@@ -16,8 +16,8 @@
   width: 10%;
   height: 36px;
   border-radius: 8px;
-  background-color: #FCF9F2;
-  font-size: small;
+  background-color: #fcf9f2;
+  font-size: medium;
 }
 
 /* code below hides logos to match our Figma, but should be removed for non-prototyping purposes */
@@ -27,4 +27,28 @@
 
 .mapbox-improve-map {
   display: none !important;
+}
+
+.text-annotation-input-box {
+  position: absolute;
+  top: 20%;
+  right: 0%;
+  padding: 6px;
+  margin-right: 16px;
+  border-radius: 4px;
+  border-color: #00000020;
+  border-width: 2px;
+  box-shadow: 2px 4px #00000005;
+  background-color: #ffffff;
+}
+
+.text-annotation-input-field {
+  height: 100%;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.text-annotation-input-button {
+  background-color: #e28d38 !important;
+  height: 100%;
 }

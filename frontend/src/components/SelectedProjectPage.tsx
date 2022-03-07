@@ -1,9 +1,11 @@
+/* eslint-disable no-nested-ternary */
 import React, { useCallback, useEffect, useState } from 'react';
 import _ from 'lodash';
 import searchData from '../models/services/SearchService';
 import findDateRange from '../models/services/DateRangeService';
 import SearchPanel from './SearchPanel';
 import MapPanel from './MapPanel';
+import DetailsPage from './DetailsPage';
 import './SelectedProjectPage.css';
 import {
   BoundingBox,
@@ -11,6 +13,7 @@ import {
   Annotations,
   Project,
   TagCount,
+  ReportProperties,
 } from '../models/types';
 import PanelNavigator from './PanelNavigator';
 import NotebookPanel from './NotebookPanel';
@@ -28,12 +31,17 @@ function SelectedProjectPage() {
   const [relationships, setRelationships] = useState<any[]>([]);
   const [dateRange, setDateRange] = useState({} as DateRangeProperties);
   const [annotations, setAnnotations] = useState({
-    point: [],
-    polygon: [],
-    text: [],
+    points: [],
+    polygons: {
+      type: 'FeatureCollection',
+      features: [],
+    },
+    texts: [],
   } as Annotations);
   const [isSearchMode, setIsSearchMode] = useState(true);
   const [tagsSummary, setTagsSummary] = useState<TagCount[]>([]);
+  const [isDetailsMode, setIsDetailsMode] = useState(false);
+  const [selectedReport, setSelectedReport] = useState<ReportProperties | null>(null);
 
   const executeSearch = useCallback(async () => {
     const response = await searchData(searchParams);
@@ -108,7 +116,6 @@ function SelectedProjectPage() {
   };
 
   const handleSearchToggle = () => setIsSearchMode(true);
-
   const handleNotebookToggle = () => setIsSearchMode(false);
 
   useEffect(() => {
@@ -124,6 +131,22 @@ function SelectedProjectPage() {
     const tagsSummaryArrSorted: TagCount[] = tagsSummaryArr.sort((a, b) => b[1] - a[1]);
     setTagsSummary(tagsSummaryArrSorted);
   }, [reports, relationships]);
+  const handleBackToSearch = () => {
+    setIsDetailsMode(false);
+    setSelectedReport(null);
+  };
+  const handleToDetails = (report: ReportProperties) => {
+    setIsDetailsMode(true);
+    setSelectedReport(report);
+  };
+
+  const handleReportClicked = (id: string) => {
+    const reportFromId = reports.filter((rep: ReportProperties) => rep.properties.id === id);
+    if (reportFromId.length === 1) {
+      setIsDetailsMode(true);
+      setSelectedReport(reportFromId[0]);
+    }
+  };
 
   return (
     <div className="project-view">
@@ -132,27 +155,37 @@ function SelectedProjectPage() {
           onSearchToggled={handleSearchToggle}
           onNotebookToggled={handleNotebookToggle}
         />
-        {isSearchMode
-          ? (
-            <SearchPanel
-              reportResults={reports}
-              relationshipResults={relationships}
-              onSearchChange={updateSearchQuery}
-              onTimeRangeChange={updateTimeRange}
-              dateRangeResults={dateRange}
-              onSortChange={updateSortQuery}
-              annotations={annotations}
-              project={selectedProject}
-              onProjectUpdate={handleProjectUpdate}
-            />
-          ) : (
-            <NotebookPanel
-              reportResults={reports}
-              relationshipResults={relationships}
-              project={selectedProject}
-              onProjectUpdate={handleProjectUpdate}
-            />
-          )}
+        {
+          isSearchMode
+            ? (
+              <SearchPanel
+                reportResults={reports}
+                relationshipResults={relationships}
+                onSearchChange={updateSearchQuery}
+                onTimeRangeChange={updateTimeRange}
+                dateRangeResults={dateRange}
+                onSortChange={updateSortQuery}
+                annotations={annotations}
+                project={selectedProject}
+                onProjectUpdate={handleProjectUpdate}
+                toDetails={handleToDetails}
+                searchParams={searchParams}
+              />
+            ) : (
+              <NotebookPanel
+                reportResults={reports}
+                relationshipResults={relationships}
+                project={selectedProject}
+                onProjectUpdate={handleProjectUpdate}
+              />
+            )
+        }
+        {isDetailsMode && (
+          <DetailsPage
+            backToSearch={handleBackToSearch}
+            selectedReport={selectedReport}
+          />
+        )}
       </div>
       <div className="map-panel-container">
         <MapPanel
@@ -163,6 +196,9 @@ function SelectedProjectPage() {
           annotations={annotations}
           setAnnotations={setAnnotations}
           tagsSummary={tagsSummary}
+          selectedProject={selectedProject}
+          reportClicked={handleReportClicked}
+          selectedReport={selectedReport}
         />
       </div>
     </div>

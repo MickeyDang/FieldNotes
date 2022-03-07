@@ -1,11 +1,26 @@
 import React from 'react';
 import './AnnotationBar.css';
 
-function AnnotationBar() {
+interface AnnotationBarProps {
+  onAnnotationModeSelect: Function,
+  annotationMode: string,
+}
+
+function AnnotationBar({
+  onAnnotationModeSelect,
+  annotationMode,
+}: AnnotationBarProps) {
+  const updateMode = (updatedMode: string) => {
+    onAnnotationModeSelect(updatedMode);
+  };
+  const polygonButtonClass = annotationMode === 'polygon' ? 'annotation-button polygon active' : 'annotation-button polygon';
+  const textButtonClass = annotationMode === 'text' ? 'annotation-button text active' : 'annotation-button text';
+
   return (
     <div className="annotation-bar-container">
-      <p className="annotation-button">BUTTONS HERE</p>
-      <h3 className="annotation-label">Annotation Tools</h3>
+      <button className={polygonButtonClass} type="button" onClick={() => updateMode('polygon')}> </button>
+      <button className={textButtonClass} type="button" onClick={() => updateMode('text')}> </button>
+      <div className="annotation-label">ANNOTATION TOOLS</div>
     </div>
   );
 }

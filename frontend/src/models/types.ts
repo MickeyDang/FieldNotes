@@ -1,3 +1,6 @@
+import { FeatureCollection } from 'geojson';
+import { LngLat } from 'mapbox-gl';
+
 export type BoundingBox = [[number, number], [number, number]];
 
 export interface SearchParameters {
@@ -34,10 +37,19 @@ export type DateRangeProperties = {
   newestYearMonth: number[],
 }
 
+export type PointAnnotation = {
+  lnglat: LngLat;
+}
+
+export type TextAnnotation = {
+  lnglat: LngLat;
+  text: string;
+}
+
 export type Annotations = {
-  point: number[],
-  polygon: number[],
-  text: string[],
+  points: PointAnnotation[],
+  polygons: FeatureCollection,
+  texts: TextAnnotation[],
 }
 
 export type RelationshipFeature = {

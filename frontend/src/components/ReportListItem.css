@@ -2,11 +2,23 @@
   font-size: small;
   color: #ffffff;
   margin-bottom: -6px;
+  text-align: start;
+}
+
+.fn-hoverable-select {
+  border-width: 0px;
+  background-color: #2a2925;
+  padding: 0px;
+}
+
+.fn-hoverable-select:hover {
+  font-weight: bold;
 }
 
 .description {
   font-size: x-small;
   margin-bottom: 8px;
+  text-align: start;
 }
 
 .dot {
