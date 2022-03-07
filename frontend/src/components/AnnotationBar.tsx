@@ -14,10 +14,9 @@ function AnnotationBar({
 
   return (
     <div className="annotation-bar-container">
-      <button className="annotation-button-polygon" type="button" onClick={() => updateMode('polygon')}>Polygon</button>
-      <button className="annotation-button-text" type="button" onClick={() => updateMode('text')}>Text</button>
-      <button className="annotation-button-off" type="button" onClick={() => updateMode('off')}>X</button>
-      <h3 className="annotation-label">Annotation Tools</h3>
+      <button className="annotation-button polygon" type="button" onClick={() => updateMode('polygon')}> </button>
+      <button className="annotation-button text" type="button" onClick={() => updateMode('text')}> </button>
+      <h3 className="annotation-label">ANNOTATION TOOLS</h3>
     </div>
   );
 }
