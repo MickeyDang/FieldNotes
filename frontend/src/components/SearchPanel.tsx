@@ -12,7 +12,12 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import {
-  RelationshipProperties, ReportProperties, DateRangeProperties, Annotations, Project,
+  RelationshipProperties,
+  ReportProperties,
+  DateRangeProperties,
+  Annotations,
+  Project,
+  SearchParameters,
 } from '../models/types';
 import './SearchPanel.css';
 import RelationshipList from './RelationshipList';
@@ -32,6 +37,7 @@ interface SearchPanelProps {
   project: Project,
   onProjectUpdate: Function,
   toDetails: Function,
+  searchParams: SearchParameters,
 }
 
 const PAGE_LENGTH = 6;
@@ -46,9 +52,7 @@ function SearchPanel({
   project,
   onProjectUpdate,
   toDetails,
-  // Remove this statement once annotations is implemented
-  // eslint-disable-next-line no-unused-vars
-  annotations,
+  searchParams,
 }: SearchPanelProps) {
   const updateSearch = (_: any, values: string[]) => onSearchChange(values);
   const updateTimeRange = (values: number[]) => onTimeRangeChange(values);
@@ -151,6 +155,7 @@ function SearchPanel({
             <Chip variant="outlined" label={option} {...getTagProps({ index })} />
           ))}
           onChange={updateSearch}
+          value={searchParams.searchQuery ?? []}
         />
       </Row>
       <Row>
