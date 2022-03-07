@@ -26,27 +26,37 @@
   font-weight: bold;
   font-family: 'DM Mono';
   margin-bottom: 0px !important;
+  margin-left: 10px;
+  margin-right: 5px;
   border-left: 1px solid rgb(141, 141, 141);
   height: 20px;
 }
 
 .annotation-button {
-  flex: 0.2;
   text-align: start;
   vertical-align: middle;
-  margin-bottom: 0px !important;
-  width: 30px;
-  height: 30px;
+  margin: 1px;
+  width: 30px !important;
+  height: 30px !important;
+  border: 0px;
+}
+
+.annotation-button:hover {
+  background-color: #F8F5F0;
+  box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
 }
 
 .annotation-button.polygon {
   background: url(../../public/Polygon.svg) no-repeat;
+  background-position: center;
   width: 14px;
   height: 14px;
 }
 
 .annotation-button.text {
   background: url(../../public/Text.svg) no-repeat;
+  background-position: center;
   width: 14px;
   height: 14px;
 }
