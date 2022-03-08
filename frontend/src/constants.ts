@@ -7,6 +7,15 @@ const hints = [
   'Homes',
   'Green Infrastructure',
   'Transit',
+  'Playground Access',
+  'Park',
+  'School',
+  'Low Income Households',
+  'Senior',
+  'Youth',
+  'Education',
+  'Accessibility',
+  'New Immigrants',
 ];
 
 export default hints;
