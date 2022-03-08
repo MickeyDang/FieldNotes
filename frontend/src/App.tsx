@@ -8,7 +8,7 @@ import SelectedProjectPage from './components/SelectedProjectPage';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App no-scrollbar">
       <Row className="app-header-bar">
         <Header />
       </Row>

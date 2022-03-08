@@ -14,7 +14,7 @@ function DetailsPage({ backToSearch, selectedReport }: DetailsPageProps) {
   const formatTags = (tags: string[]) => tags.join(', ');
 
   return (
-    <div className="details-container">
+    <div className="details-container no-scrollbar">
       <button
         type="button"
         onClick={handleBackToSearch}

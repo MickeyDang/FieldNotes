@@ -149,8 +149,8 @@ function SelectedProjectPage() {
   };
 
   return (
-    <div className="project-view">
-      <div className="list-panel-container">
+    <div className="project-view no-scrollbar">
+      <div className="list-panel-container no-scrollbar">
         <PanelNavigator
           onSearchToggled={handleSearchToggle}
           onNotebookToggled={handleNotebookToggle}
@@ -187,7 +187,7 @@ function SelectedProjectPage() {
           />
         )}
       </div>
-      <div className="map-panel-container">
+      <div className="map-panel-container no-scrollbar">
         <MapPanel
           isSearchMode={isSearchMode}
           reportResults={reports}

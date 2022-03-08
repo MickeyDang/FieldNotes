@@ -147,7 +147,7 @@ function SearchPanel({
   }, [maxMonths]);
 
   return (
-    <Container fluid className="list-container">
+    <Container fluid className="list-container no-scrollbar">
       <Row className="searchbar-container">
         <Autocomplete
           className="searchbar"
