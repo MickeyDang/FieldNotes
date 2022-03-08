@@ -51,7 +51,7 @@ function ReportListItem({
           <span className="dot">&#8226;</span>
           {' '}
           <span className="date-color">
-            Created date
+            Created
             {' '}
             {new Date(report.properties.creationDate).toLocaleDateString()}
           </span>
