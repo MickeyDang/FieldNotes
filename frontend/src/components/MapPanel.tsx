@@ -62,7 +62,7 @@ function MapPanel({
   const drawRef = useRef<MapboxDraw>(null);
   const [textAnnotation, setTextAnnotation] = useState('');
   const [textAnnotationLngLat, setTextAnnotationLngLat] = useState<LngLat>();
-  const [textAnnotationMarker, setTextAnnotationMarker] = useState<mapboxgl.Marker>();
+  const textMarker = useRef<mapboxgl.Marker>(null);
 
   const onClickText = (e: { lngLat: any; }) => {
     setTextAnnotationLngLat(e.lngLat);
@@ -73,17 +73,14 @@ function MapPanel({
   useEffect(() => {
     if (annotationMode === 'text' && textAnnotationLngLat && mapRef.current && !isSearchMode) {
       const map = mapRef.current;
-      setTextAnnotationMarker(new mapboxgl.Marker({ color: '#D7CFBE' })
+      (textMarker as any).current = new mapboxgl.Marker({ color: '#D7CFBE' })
         .setLngLat(textAnnotationLngLat)
-        .addTo(map));
+        .addTo(map);
+    } else if ((isSearchMode || annotationMode !== 'text') && mapRef.current && textMarker.current) {
+      textMarker.current?.remove();
+      setTextAnnotationLngLat(undefined);
     }
-  }, [textAnnotationLngLat]);
-
-  useEffect(() => {
-    if (isSearchMode && textAnnotationMarker) {
-      textAnnotationMarker.remove();
-    }
-  }, [isSearchMode]);
+  }, [textAnnotationLngLat, annotationMode, isSearchMode]);
 
   const extractBoundingBox = () => {
     if (mapRef.current) {
@@ -279,9 +276,7 @@ function MapPanel({
   };
 
   const handleTextSubmit = () => {
-    if (textAnnotationMarker) {
-      textAnnotationMarker.remove();
-    }
+    textMarker.current?.remove();
     addText();
   };
 
@@ -292,13 +287,6 @@ function MapPanel({
         ? (
           <>
             <button className="search-button" type="button" onClick={updateSearch}>Search Area</button>
-            {/* { (reportResults.length > 0 || relationshipResults.length > 0)
-              ? (
-                <KeywordOverview
-                  tagsSummary={tagsSummary}
-                  totalDataPoints={totalDataPoints}
-                />
-              ) : null} */}
             {(reportResults.length > 0 || relationshipResults.length > 0)
                 && (
                 <KeywordOverview
