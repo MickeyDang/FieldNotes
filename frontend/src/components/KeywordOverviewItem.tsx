@@ -12,7 +12,7 @@ function KeywordOverviewItem({ tagCount }: KeywordOverviewItemProps) {
 
   return (
     <div className="row keyword-overview-items" key={tag}>
-      <div className="col-10">
+      <div className="col-10 keyword-overview-label">
         {tag}
       </div>
       <div className="col-2 text-end keyword-overview-count">
