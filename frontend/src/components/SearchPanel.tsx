@@ -215,23 +215,17 @@ function SearchPanel({
                         value={sortReports}
                         label="Sort by"
                         onChange={handleSortReportsChange}
-                        classes={{
-                          standard: 'fieldnotes-select-label',
-                        }}
+                        classes={{ standard: 'fieldnotes-select-label' }}
                       >
                         <MenuItem
                           value="creationDate"
-                          classes={{
-                            root: 'fieldnotes-select-label',
-                          }}
+                          classes={{ root: 'fieldnotes-select-label' }}
                         >
                           Created Date
                         </MenuItem>
                         <MenuItem
                           value="name"
-                          classes={{
-                            root: 'fieldnotes-select-label',
-                          }}
+                          classes={{ root: 'fieldnotes-select-label' }}
                         >
                           Alphabetical
                         </MenuItem>
@@ -287,35 +281,6 @@ function SearchPanel({
                       onNext={handleRelCursorNext}
                       onPrev={handleRelCursorPrev}
                     />
-                    <div className="footer-container">
-                      <FormControl
-                        hiddenLabel
-                        size="small"
-                        variant="filled"
-                        id="sort-relationships-form"
-                      >
-                        <Select
-                          autoWidth
-                          variant="standard"
-                          labelId="sort-relationships-on"
-                          id="sort-relationships-select"
-                          value={sortRelationships}
-                          label="Sort by"
-                          onChange={handleSortRelationshipsChange}
-                        >
-                          <MenuItem value="lastContacted">Last Contacted</MenuItem>
-                          <MenuItem value="firstContacted">First Contacted</MenuItem>
-                          <MenuItem value="name">Alphabetical</MenuItem>
-                        </Select>
-                      </FormControl>
-                      <PaginationSelector
-                        items={relationshipResults}
-                        pageLimit={PAGE_LENGTH}
-                        cursor={relCursor}
-                        onNext={handleRelCursorNext}
-                        onPrev={handleRelCursorPrev}
-                      />
-                    </div>
                   </div>
                 </Card.Body>
               </Accordion.Collapse>
