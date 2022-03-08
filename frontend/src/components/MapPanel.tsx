@@ -70,7 +70,14 @@ function MapPanel({
   const onClickTextRef = useRef(onClickText);
   onClickTextRef.current = onClickText;
 
+  const updateAnnotationMode = (updatedMode: string) => {
+    setAnnotationMode(((annotationMode === updatedMode)) ? '' : updatedMode);
+  };
+
   useEffect(() => {
+    if (isSearchMode) {
+      updateAnnotationMode('');
+    }
     if (annotationMode === 'text' && textAnnotationLngLat && mapRef.current && !isSearchMode) {
       const map = mapRef.current;
       (textMarker as any).current = new mapboxgl.Marker({ color: '#D7CFBE' })
@@ -120,10 +127,6 @@ function MapPanel({
     }
   };
 
-  const updateAnnotationMode = (updatedMode: string) => {
-    setAnnotationMode((annotationMode === updatedMode) ? '' : updatedMode);
-  };
-
   const enableDrawingByMode = (map: any) => {
     switch (annotationMode) {
       case 'polygon':
@@ -139,6 +142,11 @@ function MapPanel({
 
       default:
         (mapRef as any).current.getCanvas().style.cursor = '';
+        try {
+          drawRef.current?.changeMode('simple_select');
+        } catch (e) {
+          console.log(e);
+        }
         map.off('click', onClickTextRef.current);
         break;
     }
@@ -303,6 +311,7 @@ function MapPanel({
             <AnnotationBar
               onAnnotationModeSelect={updateAnnotationMode}
               annotationMode={annotationMode}
+              isSearchMode={isSearchMode}
             />
             {annotationMode === 'text' ? (
               <Box
