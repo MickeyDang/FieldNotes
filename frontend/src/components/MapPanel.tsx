@@ -135,11 +135,13 @@ function MapPanel({
         break;
 
       case 'text':
+        (mapRef as any).current.getCanvas().style.cursor = 'crosshair';
         drawRef.current?.changeMode('simple_select');
         map.once('click', onClickTextRef.current);
         break;
 
       default:
+        (mapRef as any).current.getCanvas().style.cursor = '';
         map.off('click', onClickTextRef.current);
         break;
     }
