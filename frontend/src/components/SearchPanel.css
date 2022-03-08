@@ -64,3 +64,7 @@
 .fieldnotes-select-label {
   font-size: small !important;
 }
+
+.empty-screen-prompt {
+  color: white;
+}
