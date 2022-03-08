@@ -5,7 +5,7 @@ function Header() {
   return (
     <div className="header">
       <div className="project-text">
-        Draft Engagement Plan for East Vancouver Recreation Access
+        Engagement Plan: East Vancouver Recreation
       </div>
       <div>
         <div className="header-text">
