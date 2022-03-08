@@ -171,125 +171,128 @@ function SearchPanel({
           value={searchParams.searchQuery ?? []}
         />
       </Row>
-      <Row>
-        <Accordion defaultActiveKey={['reports', 'relationships']} flush alwaysOpen>
-          <ContextAwareToggle textBody="Reports" numItems={reportResults.length} eventKey="reports" />
-          <Accordion.Collapse className="section-body" eventKey="reports">
-            <Card.Body>
-              <Slider
-                id="time-range-slider"
-                value={timeRange}
-                onChange={handleTimeRangeChange}
-                valueLabelDisplay="auto"
-                defaultValue={[0, maxMonths]}
-                step={1}
-                marks={marks}
-                min={0}
-                max={maxMonths}
-                valueLabelFormat={formatDatePopup}
-                classes={{
-                  markLabel: 'fieldnotes-mark-label',
-                }}
-              />
-              <ReportList
-                isSearchMode
-                reports={reportResults.slice(reportCursor, reportCursor + PAGE_LENGTH)}
-                projectRepIds={project.repIds}
-                onRepIdsUpdate={handleRepIdsUpdate}
-                toDetails={toDetails}
-              />
-              <div className="footer-container">
-                <FormControl
-                  hiddenLabel
-                  size="small"
-                  variant="filled"
-                  id="sort-reports-form"
-                >
-                  <Select
-                    autoWidth
-                    variant="standard"
-                    labelId="sort-reports-on"
-                    id="sort-reports-select"
-                    value={sortReports}
-                    label="Sort by"
-                    onChange={handleSortReportsChange}
+      {
+        (searchParams.searchQuery || searchParams.boundingBox) ? (
+          <Row>
+            <Accordion defaultActiveKey={['reports', 'relationships']} flush alwaysOpen>
+              <ContextAwareToggle textBody="Reports" numItems={reportResults.length} eventKey="reports" />
+              <Accordion.Collapse className="section-body" eventKey="reports">
+                <Card.Body>
+                  <Slider
+                    id="time-range-slider"
+                    value={timeRange}
+                    onChange={handleTimeRangeChange}
+                    valueLabelDisplay="auto"
+                    defaultValue={[0, maxMonths]}
+                    step={1}
+                    marks={marks}
+                    min={0}
+                    max={maxMonths}
+                    valueLabelFormat={formatDatePopup}
                     classes={{
-                      standard: 'fieldnotes-select-label',
+                      markLabel: 'fieldnotes-mark-label',
                     }}
-                  >
-                    <MenuItem
-                      value="creationDate"
-                      classes={{
-                        root: 'fieldnotes-select-label',
-                      }}
+                  />
+                  <ReportList
+                    isSearchMode
+                    reports={reportResults.slice(reportCursor, reportCursor + PAGE_LENGTH)}
+                    projectRepIds={project.repIds}
+                    onRepIdsUpdate={handleRepIdsUpdate}
+                    toDetails={toDetails}
+                  />
+                  <div className="footer-container">
+                    <FormControl
+                      hiddenLabel
+                      size="small"
+                      variant="filled"
+                      id="sort-reports-form"
                     >
-                      Created Date
-                    </MenuItem>
-                    <MenuItem
-                      value="name"
-                      classes={{
-                        root: 'fieldnotes-select-label',
-                      }}
+                      <Select
+                        autoWidth
+                        variant="standard"
+                        labelId="sort-reports-on"
+                        id="sort-reports-select"
+                        value={sortReports}
+                        label="Sort by"
+                        onChange={handleSortReportsChange}
+                        classes={{ standard: 'fieldnotes-select-label' }}
+                      >
+                        <MenuItem
+                          value="creationDate"
+                          classes={{ root: 'fieldnotes-select-label' }}
+                        >
+                          Created Date
+                        </MenuItem>
+                        <MenuItem
+                          value="name"
+                          classes={{ root: 'fieldnotes-select-label' }}
+                        >
+                          Alphabetical
+                        </MenuItem>
+                      </Select>
+                    </FormControl>
+                    <PaginationSelector
+                      items={reportResults}
+                      pageLimit={PAGE_LENGTH}
+                      cursor={reportCursor}
+                      onNext={handleReportCursorNext}
+                      onPrev={handleReportCursorPrev}
+                    />
+                  </div>
+                </Card.Body>
+              </Accordion.Collapse>
+              <ContextAwareToggle textBody="Relationships" numItems={relationshipResults.length} eventKey="relationships" />
+              <Accordion.Collapse className="section-body" eventKey="relationships">
+                <Card.Body>
+                  <RelationshipList
+                    isSearchMode
+                    relationships={relationshipResults.slice(relCursor, relCursor + PAGE_LENGTH)}
+                    projectRelIds={project.relIds}
+                    onRelIdsUpdate={handleRelIdsUpdate}
+                  />
+                  <div className="footer-container">
+                    <FormControl
+                      hiddenLabel
+                      size="small"
+                      variant="filled"
+                      id="sort-relationships-form"
                     >
-                      Alphabetical
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-                <PaginationSelector
-                  items={reportResults}
-                  pageLimit={PAGE_LENGTH}
-                  cursor={reportCursor}
-                  onNext={handleReportCursorNext}
-                  onPrev={handleReportCursorPrev}
-                />
-              </div>
-            </Card.Body>
-          </Accordion.Collapse>
-          <ContextAwareToggle textBody="Relationships" numItems={relationshipResults.length} eventKey="relationships" />
-          <Accordion.Collapse className="section-body" eventKey="relationships">
-            <Card.Body>
-              <RelationshipList
-                isSearchMode
-                relationships={relationshipResults.slice(relCursor, relCursor + PAGE_LENGTH)}
-                projectRelIds={project.relIds}
-                onRelIdsUpdate={handleRelIdsUpdate}
-              />
-              <div className="footer-container">
-                <FormControl
-                  hiddenLabel
-                  size="small"
-                  variant="filled"
-                  id="sort-relationships-form"
-                >
-                  <Select
-                    autoWidth
-                    variant="standard"
-                    labelId="sort-relationships-on"
-                    id="sort-relationships-select"
-                    value={sortRelationships}
-                    label="Sort by"
-                    onChange={handleSortRelationshipsChange}
-                    classes={{
-                      standard: 'fieldnotes-select-label',
-                    }}
-                  >
-                    <MenuItem value="lastContacted" classes={{ root: 'fieldnotes-select-label' }}>Last Contacted</MenuItem>
-                    <MenuItem value="firstContacted" classes={{ root: 'fieldnotes-select-label' }}>First Contacted</MenuItem>
-                    <MenuItem value="name" classes={{ root: 'fieldnotes-select-label' }}>Alphabetical</MenuItem>
-                  </Select>
-                </FormControl>
-                <PaginationSelector
-                  items={relationshipResults}
-                  pageLimit={PAGE_LENGTH}
-                  cursor={relCursor}
-                  onNext={handleRelCursorNext}
-                  onPrev={handleRelCursorPrev}
-                />
-              </div>
-            </Card.Body>
-          </Accordion.Collapse>
-        </Accordion>
-      </Row>
+                      <Select
+                        autoWidth
+                        variant="standard"
+                        labelId="sort-relationships-on"
+                        id="sort-relationships-select"
+                        value={sortRelationships}
+                        label="Sort by"
+                        onChange={handleSortRelationshipsChange}
+                        classes={{
+                          standard: 'fieldnotes-select-label',
+                        }}
+                      >
+                        <MenuItem value="lastContacted" classes={{ root: 'fieldnotes-select-label' }}>Last Contacted</MenuItem>
+                        <MenuItem value="firstContacted" classes={{ root: 'fieldnotes-select-label' }}>First Contacted</MenuItem>
+                        <MenuItem value="name" classes={{ root: 'fieldnotes-select-label' }}>Alphabetical</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <PaginationSelector
+                      items={relationshipResults}
+                      pageLimit={PAGE_LENGTH}
+                      cursor={relCursor}
+                      onNext={handleRelCursorNext}
+                      onPrev={handleRelCursorPrev}
+                    />
+                  </div>
+                </Card.Body>
+              </Accordion.Collapse>
+            </Accordion>
+          </Row>
+        ) : (
+          <p className="empty-screen-prompt">
+            Use keywords or the map to search for reports and relationships
+            within The City of Vancouver.
+          </p>
+        )
+      }
     </Container>
   );
 }
