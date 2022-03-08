@@ -50,7 +50,11 @@ function ReportListItem({
           {' '}
           <span className="dot">&#8226;</span>
           {' '}
-          <span className="date-color">{new Date(report.properties.creationDate).toLocaleDateString()}</span>
+          <span className="date-color">
+            Created
+            {' '}
+            {new Date(report.properties.creationDate).toLocaleDateString()}
+          </span>
         </div>
       </button>
       <button type="button" className="toggle-button" onClick={handleToggle}>

@@ -27,6 +27,8 @@ function RelationshipListItem({ relationship, isInProject, onToggle }: Relations
           <span className="dot">&#8226;</span>
           {' '}
           <span className="date-color">
+            Last contacted
+            {' '}
             {new Date(relationship.properties.lastContacted).toLocaleDateString()}
           </span>
         </div>
