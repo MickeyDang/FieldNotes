@@ -3,12 +3,12 @@ import { useAccordionButton } from 'react-bootstrap';
 import './ContextAwareToggle.css';
 
 function ContextAwareToggle({ textBody, numItems, eventKey }: any) {
-  const [visibleText, setVisibleText] = useState('Visible');
+  const [visibleText, setVisibleText] = useState('Collapse');
 
   const decoratedOnClick = useAccordionButton(
     eventKey,
     () => {
-      setVisibleText(visibleText === 'Visible' ? 'Hidden' : 'Visible');
+      setVisibleText(visibleText === 'Collapse' ? 'Expand' : 'Collapse');
     },
   );
 

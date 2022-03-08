@@ -25,6 +25,7 @@ import ReportList from './ReportList';
 import hints from '../constants';
 import ContextAwareToggle from './ContextAwareToggle';
 import PaginationSelector from './PaginationSelector';
+import { getDateWithAddedMonths } from '../models/services/Utils';
 
 interface SearchPanelProps {
   reportResults: ReportProperties[],
@@ -118,6 +119,18 @@ function SearchPanel({
     setSortRelationships(event.target.value as string);
   };
 
+  const formatDatePopup = (index: number) => {
+    const { oldestYearMonth } = dateRangeResults;
+    if (oldestYearMonth && oldestYearMonth.length === 2) {
+      const d = getDateWithAddedMonths(
+        new Date(oldestYearMonth[0], oldestYearMonth[1], 1),
+        index - 1,
+      );
+      return d.toLocaleDateString('en-us', { month: 'short', year: 'numeric' });
+    }
+    return '0';
+  };
+
   useEffect(() => {
     updateSort([sortReports, sortRelationships]);
   }, [sortReports, sortRelationships]);
@@ -147,7 +160,7 @@ function SearchPanel({
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...params}
               hiddenLabel
-              placeholder="keywords"
+              placeholder="Search Keywords"
             />
           )}
           renderTags={(value, getTagProps) => value.map((option, index) => (
@@ -173,6 +186,7 @@ function SearchPanel({
                 marks={marks}
                 min={0}
                 max={maxMonths}
+                valueLabelFormat={formatDatePopup}
                 classes={{
                   markLabel: 'fieldnotes-mark-label',
                 }}
@@ -199,9 +213,26 @@ function SearchPanel({
                     value={sortReports}
                     label="Sort by"
                     onChange={handleSortReportsChange}
+                    classes={{
+                      standard: 'fieldnotes-select-label',
+                    }}
                   >
-                    <MenuItem value="creationDate">Created Date</MenuItem>
-                    <MenuItem value="name">Alphabetical</MenuItem>
+                    <MenuItem
+                      value="creationDate"
+                      classes={{
+                        root: 'fieldnotes-select-label',
+                      }}
+                    >
+                      Created Date
+                    </MenuItem>
+                    <MenuItem
+                      value="name"
+                      classes={{
+                        root: 'fieldnotes-select-label',
+                      }}
+                    >
+                      Alphabetical
+                    </MenuItem>
                   </Select>
                 </FormControl>
                 <PaginationSelector
@@ -238,10 +269,13 @@ function SearchPanel({
                     value={sortRelationships}
                     label="Sort by"
                     onChange={handleSortRelationshipsChange}
+                    classes={{
+                      standard: 'fieldnotes-select-label',
+                    }}
                   >
-                    <MenuItem value="lastContacted">Last Contacted</MenuItem>
-                    <MenuItem value="firstContacted">First Contacted</MenuItem>
-                    <MenuItem value="name">Alphabetical</MenuItem>
+                    <MenuItem value="lastContacted" classes={{ root: 'fieldnotes-select-label' }}>Last Contacted</MenuItem>
+                    <MenuItem value="firstContacted" classes={{ root: 'fieldnotes-select-label' }}>First Contacted</MenuItem>
+                    <MenuItem value="name" classes={{ root: 'fieldnotes-select-label' }}>Alphabetical</MenuItem>
                   </Select>
                 </FormControl>
                 <PaginationSelector

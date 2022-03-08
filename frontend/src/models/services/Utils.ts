@@ -1,5 +1,14 @@
 import { RelationshipFeature, ReportFeature } from '../types';
 
+export const getDateWithAddedMonths = (date: Date, months: number) => {
+  const originalDate = date.getDate();
+  date.setMonth(date.getMonth() + +months);
+  if (date.getDate() !== originalDate) {
+    date.setDate(0);
+  }
+  return date;
+};
+
 export function formatReports(data: any) {
   const reports = data.map((report: ReportFeature) => (
     {

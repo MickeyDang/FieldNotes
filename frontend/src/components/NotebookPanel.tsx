@@ -33,7 +33,7 @@ function NotebookPanel({
 
   return (
     <div className="notebook-container">
-      <NotebookHeader textValue="Data" numItems={reportResults.length + relationshipResults.length} />
+      <NotebookHeader textValue="Added Data Points" numItems={reportResults.length + relationshipResults.length} />
       <ReportList
         toDetails={() => console.log('No Operation on toDetails()')}
         reports={reportResults}
@@ -47,8 +47,6 @@ function NotebookPanel({
         projectRelIds={project.relIds}
         onRelIdsUpdate={handleRelIdsUpdate}
       />
-      <hr className="nb-divider" />
-      <NotebookHeader textValue="Annotations" numItems={0} />
     </div>
   );
 }

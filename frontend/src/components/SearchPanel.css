@@ -58,4 +58,9 @@
 
 .fieldnotes-mark-label {
   color: #B4A88C !important;
+  font-size: x-small !important;
+}
+
+.fieldnotes-select-label {
+  font-size: small !important;
 }
