@@ -8,7 +8,7 @@ import './MapPanel.css';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { findMidpoint } from './MapUtils';
+import { findMidpoint, polygonAnnotationStyle } from './MapUtils';
 import {
   setupMapFeatures, updateDataSources, setupMapInteractions,
 } from './MapRenderer';
@@ -157,6 +157,7 @@ function MapPanel({
       (drawRef as any).current = new MapboxDraw({
         displayControlsDefault: false,
         defaultMode: 'simple_select',
+        styles: polygonAnnotationStyle,
       });
     } else {
       const map = mapRef.current;
