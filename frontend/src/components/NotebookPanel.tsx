@@ -32,7 +32,7 @@ function NotebookPanel({
   };
 
   return (
-    <div className="notebook-container">
+    <div className="notebook-container no-scrollbar">
       <NotebookHeader textValue="Added Data Points" numItems={reportResults.length + relationshipResults.length} />
       <ReportList
         toDetails={() => console.log('No Operation on toDetails()')}

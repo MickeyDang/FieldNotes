@@ -1,6 +1,7 @@
 .App {
   background-color: #2A2925;
-  height: 100vh;
+  height: 99vh;
+  width: 99vw;
 }
 
 .app-header-bar {
@@ -8,7 +9,18 @@
 }
 
 .app-page {
-  height: 93vh;
+  height: 92vh;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  scrollbar-width: none !important;  /* Firefox */
 }
 
 @import url('https://fonts.googleapis.com/css?family=DM+Mono');
