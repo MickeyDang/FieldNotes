@@ -3,7 +3,7 @@ const hints = [
   'Rain and Snow',
   'Temperature',
   'Nature Restoration',
-  'Parks and Recreation',
+  'Recreation',
   'Homes',
   'Green Infrastructure',
   'Transit',

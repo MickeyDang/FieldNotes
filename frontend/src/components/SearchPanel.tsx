@@ -65,7 +65,7 @@ function SearchPanel({
   const [timeRange, setTimeRange] = useState<number[]>(defaultTimeRange);
   const [reportCursor, setReportCursor] = useState(0);
   const [relCursor, setRelCursor] = useState(0);
-  const [sortReports, setSortReports] = useState('creationDate');
+  const [sortReports, setSortReports] = useState('name');
   const [sortRelationships, setSortRelationships] = useState('name');
 
   const handleReportCursorNext = () => setReportCursor(reportCursor + PAGE_LENGTH);
