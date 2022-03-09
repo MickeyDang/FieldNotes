@@ -176,6 +176,10 @@ app.get('/projectdata/:id', async (req: any, res: any) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running at https://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`Server is running at https://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
