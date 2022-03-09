@@ -22,6 +22,10 @@ Launches the linter configured using [ESLint](https://eslint.org/docs/user-guide
 
 Compiles the TypeScript into JavaScript. Do this before deploying code anywhere.
 
+### `npm test`
+
+Runs the endpoint tests we set up for verification tasks.
+
 ## Deployment
 
 * Checkout to the `heroku-deployment` branch or create it if you don't have it locally.
