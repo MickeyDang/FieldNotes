@@ -16,6 +16,9 @@ const {
   RELATIOSHIP_RESPONSE_FIELDS,
   /* eslint-disable import/no-unresolved, import/extensions */
 } = require('./helpers');
+const {
+  getCachedResult, isCached, cacheSearch, cacheResult,
+} = require('./cache');
 /* eslint-enable import/no-unresolved, import/extensions */
 
 // Convert body of JSON requests to an object
@@ -28,10 +31,11 @@ app.get('/', (req: any, res: any) => res.send('Express and TypeScript Server'));
 
 app.get('/alldata', async (req: any, res: any) => {
   const queryParams = req.query;
-  const keywords = (<string>queryParams.query).split(',').filter((s) => s !== '');
-  const coordinates = (<string>queryParams.box).split(',').filter((s) => s !== '').map((x) => Number(x));
-  const timeRange = (<string>queryParams.time).split(',').filter((s) => s !== '').map((x) => Number(x));
-  const sortOrderParams = (<string>queryParams.sortOrderParams).split(',').filter((s) => s !== '');
+
+  const keywords = (<string>queryParams.query)?.split(',').filter((s) => s !== '') ?? [];
+  const coordinates = (<string>queryParams.box)?.split(',').filter((s) => s !== '').map((x) => Number(x)) ?? [];
+  const timeRange = (<string>queryParams.time)?.split(',').filter((s) => s !== '').map((x) => Number(x)) ?? [];
+  const sortOrderParams = (<string>queryParams.sortOrderParams)?.split(',').filter((s) => s !== '') ?? [];
 
   // Expected behaviour is that if no filters are applied, no data is returned.
   if (keywords.length === 0 && coordinates.length === 0 && queryParams.time === 'undefined') {
@@ -46,6 +50,19 @@ app.get('/alldata', async (req: any, res: any) => {
   const polygon = [
     lowerLeft, [lowerLeft[0], upperRight[1]], upperRight, [upperRight[0], lowerLeft[1]], lowerLeft,
   ];
+
+  const map = {
+    keywords, coordinates, timeRange,
+  };
+
+  if (isCached(map)) {
+    console.log('Is cached!');
+    return res.status(200).json(getCachedResult());
+  }
+
+  // As an LRU, you would call a function which adds it,
+  // and possibly removes LRU result if size is met.
+  cacheSearch(map);
 
   const reportFilters = [];
   const relationshipFilters = [];
@@ -114,10 +131,14 @@ app.get('/alldata', async (req: any, res: any) => {
     }).sort(relSortOrder)
     : [];
 
-  return res.status(200).json({
+  const result = {
     reports: await reportQuery,
     relationships: await relationshipQuery,
-  });
+  };
+
+  cacheResult(result);
+
+  return res.status(200).json(result);
 });
 
 app.get('/daterange', async (req: any, res: any) => {
