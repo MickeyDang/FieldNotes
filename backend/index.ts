@@ -22,7 +22,7 @@ const {
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(process.env.DATABASE_CONNECTION_TOKEN);
+mongoose.connect(process.env.DATABASE_CONTROL_CONNECTION_TOKEN);
 
 app.get('/', (req: any, res: any) => res.send('Express and TypeScript Server'));
 
@@ -131,8 +131,9 @@ app.get('/daterange', async (req: any, res: any) => {
 });
 
 app.get('/projects/:id', async (req: any, res: any) => {
-  // In theory, we would extract the project id, but for prototype, we only have one project.
-  const project = (await ProjectModel.find({}))[0];
+  const { id } = req.params;
+
+  const project = await ProjectModel.findById(id);
   return res.status(200).json({
     project,
   });
@@ -158,7 +159,8 @@ app.put('/projects/:id', async (req: any, res: any) => {
 
 app.get('/projectdata/:id', async (req: any, res: any) => {
   // In theory, we would extract the project id, but for prototype, we only have one project.
-  const project = (await ProjectModel.find({}))[0];
+  const { id } = req.params;
+  const project = (await ProjectModel.findById(id));
   const repIds = project.reports;
   const relIds = project.relationships;
 
