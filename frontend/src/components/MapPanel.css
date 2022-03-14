@@ -17,7 +17,10 @@
   height: 36px;
   border-radius: 8px;
   background-color: #fcf9f2;
-  font-size: medium;
+  font-size: small;
+  font-family: 'DM Mono'
+  font-weight: bold;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* code below hides logos to match our Figma, but should be removed for non-prototyping purposes */

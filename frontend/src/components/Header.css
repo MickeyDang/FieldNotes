@@ -11,15 +11,17 @@
   text-align: start;
   margin-left: 16px;
   color: #ffffff;
-  font-size: large;
-  font-weight: bold;
+  font-size: medium;
+  font-weight: 600;
 }
 
 .header-text {
   margin-left: 4em;
   text-align: start;
-  font-size: small;
-  color: #ffffff50
+  font-size: x-small;
+  color: #ffffff60;
+  font-family: 'DM Mono';
+  font-weight: 600;
 }
 
 .description-text {
