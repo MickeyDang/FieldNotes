@@ -8,7 +8,7 @@ function ContextAwareToggle({ textBody, numItems, eventKey }: any) {
   const decoratedOnClick = useAccordionButton(
     eventKey,
     () => {
-      setVisibleText(visibleText === 'Collapse' ? 'Expand' : 'Collapse');
+      setVisibleText(visibleText === ' ' ? ' ' : '');
     },
   );
 

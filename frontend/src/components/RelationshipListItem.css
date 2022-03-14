@@ -45,11 +45,13 @@
 
 .toggle-button {
   background-color: #2a2925;
-  color: #D7CFBE40;
+  color: #D7CFBE50;
   border-width: 0px;
   display: flex;
   flex: 1;
   font-size: x-large;
+  font-family: 'DM Mono';
+  font-weight: 500;
 }
 
 .toggle-button:hover {
