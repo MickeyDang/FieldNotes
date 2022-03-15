@@ -4,7 +4,7 @@
   "description": "Server for FieldNotes",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --coverage --collectCoverageFrom=index.ts",
     "start": "nodemon index.ts",
     "build": "tsc --project ./",
     "fix": "eslint . --ext .ts --fix",
