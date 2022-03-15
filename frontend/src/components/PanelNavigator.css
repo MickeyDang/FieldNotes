@@ -3,7 +3,7 @@
   position: absolute;
   top: 5%;
   left: 40vw;
-  width: 20%;
+  width: 18%;
   height: 5%;
   max-height: 100px;
   display: flex;
@@ -23,9 +23,15 @@
 .nav-search {
   background-color: #2A2925;
   color: #D7CFBE;
+  font-family: 'DM Mono';
+  font-size: small;
+  font-weight: bold;
 }
 
 .nav-notebook {
   color: #2A2925;
   background-color: #D7CFBE;
+  font-family: 'DM Mono';
+  font-size: small;
+  font-weight: bold;
 }
