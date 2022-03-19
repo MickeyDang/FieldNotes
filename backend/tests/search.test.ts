@@ -11,7 +11,45 @@ afterAll(async () => {
   await testMongoose.disconnect();
 });
 
+describe('Testing Date Range Endpoint', () => {
+  it('Return min and max dates', async () => {
+    const res = await request(server)
+      .get('/daterange');
+    const oldest = new Date(res.body.oldestDate[0].creationDate);
+    const newest = new Date(res.body.newestDate[0].creationDate);
+    expect(oldest).toEqual(new Date('2016-05-01'));
+    expect(newest).toEqual(new Date('2021-09-01'));
+  });
+});
+
 describe('Testing Search Results', () => {
+  it('Empty search, should return nothing', async () => {
+    const res = await request(server)
+      .get('/alldata')
+      .query({
+        query: '',
+        box: '',
+        time: '',
+        sortOrderParams: '',
+      });
+    expect(res.body.reports.length).toEqual(0);
+    expect(res.body.relationships.length).toEqual(0);
+  });
+
+  it('Empty search with undefined time, should return nothing', async () => {
+    const res = await request(server)
+      .get('/alldata')
+      .query({
+        query: '',
+        box: '',
+        time: 'undefined',
+        sortOrderParams: '',
+      });
+    expect(res.status).toEqual(200);
+    expect(res.body.reports.length).toEqual(0);
+    expect(res.body.relationships.length).toEqual(0);
+  });
+
   it('View of all Vancouver - expecting all documents in database to show', async () => {
     const res = await request(server)
       .get('/alldata')
@@ -23,6 +61,21 @@ describe('Testing Search Results', () => {
       });
     expect(res.body.reports.length).toEqual(23);
     expect(res.body.relationships.length).toEqual(55);
+  });
+
+  it('Testing garbage keyword', async () => {
+    const res = await request(server)
+      .get('/alldata')
+      .query({
+        query: 'Garbage Word',
+        box: '-123.11846249244809,49.24556198667986,-123.02592778969033,49.28536308241266',
+        time: '0,64,2016,5,2021,9,64',
+        sortOrderParams: '',
+      });
+    const { reports } = res.body;
+    const { relationships } = res.body;
+    expect(reports.length).toEqual(0);
+    expect(relationships.length).toEqual(0);
   });
 
   it('Testing 1 keyword (Rain and Snow), should return 1 relationship, 3 reports', async () => {
@@ -273,7 +326,6 @@ describe('Testing Search Results', () => {
     });
     relationships.forEach((relationship: any) => {
       const coords = relationship.location.coordinates;
-      console.log('coords: ', coords);
       const lng = coords[0];
       const lat = coords[1];
       expect(lng).toBeLessThanOrEqual(lngMax);
@@ -338,7 +390,6 @@ describe('Testing Search Results', () => {
     });
     relationships.forEach((relationship: any) => {
       const coords = relationship.location.coordinates;
-      console.log('coords: ', coords);
       const lng = coords[0];
       const lat = coords[1];
       expect(lng).toBeLessThanOrEqual(lngMax);
