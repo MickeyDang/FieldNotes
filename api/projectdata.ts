@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { createMongoDBDataAPI } from 'mongodb-data-api';
+import { Types } from 'mongoose';
 
 const api = createMongoDBDataAPI({
   apiKey: process.env.DATA_API_KEY,
@@ -18,8 +19,8 @@ export default async function handler(
     filter: {},
   })).documents[0];
 
-  const repIds = ((project && project.reports) ?? []);
-  const relIds = ((project && project.relationships) ?? []);
+  const repIds = ((project && project.reports) ?? []).map((x: any) => ({ $oid: x }));
+  const relIds = ((project && project.relationships) ?? []).map((x: any) => ({ $oid: x }));
 
   const reports = (await reportCollection.find({
     filter: {
@@ -36,5 +37,7 @@ export default async function handler(
   return res.status(200).json({
     reports,
     relationships,
+    repIds,
+    relIds,
   });
 }
