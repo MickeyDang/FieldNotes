@@ -1,6 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { createMongoDBDataAPI } from 'mongodb-data-api';
-import { Types } from 'mongoose';
 
 const api = createMongoDBDataAPI({
   apiKey: process.env.DATA_API_KEY,
