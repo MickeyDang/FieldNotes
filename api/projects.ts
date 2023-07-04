@@ -1,6 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { createMongoDBDataAPI } from 'mongodb-data-api';
-import { Types } from 'mongoose';
 
 const api = createMongoDBDataAPI({
   apiKey: process.env.DATA_API_KEY,
@@ -21,8 +20,8 @@ export default async function handler(
       filter: { _id: { $oid: id } },
       update: {
         $set: {
-          reports: repIds.map((x:any) => new Types.ObjectId(x)),
-          relationships: relIds.map((x:any) => new Types.ObjectId(x)),
+          reports: repIds.map((x: any) => ({ $oid: x })),
+          relationships: relIds.map((x: any) => ({ $oid: x })),
         },
       },
     });
