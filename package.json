@@ -7,7 +7,7 @@
     "start": "node backend/build/index.js"
   },
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "author": "mickeymdang",
   "license": "ISC",
