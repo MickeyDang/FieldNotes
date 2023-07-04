@@ -22,7 +22,9 @@ const {
 app.use(express.json());
 app.use(cors());
 
+console.log(process.env.DATABASE_CONNECTION_TOKEN);
 mongoose.connect(process.env.DATABASE_CONNECTION_TOKEN);
+mongoose.set('strictQuery', true);
 
 app.get('/', (req: any, res: any) => res.send('Express and TypeScript Server'));
 

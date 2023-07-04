@@ -210,8 +210,12 @@
     ]
   },
   "name": "Jericho Beach Plan",
-  "creationDate": "2017-02",
-  "lastUpdated": "2017-02",
+  "creationDate": {
+    "$date": "2017-02-01T00:00:00.000Z"
+  },
+  "lastUpdated": {
+    "$date": "2017-02-01T00:00:00.000Z"
+  },
   "department": "GV",
   "tags": [
     "Sea Level Rise",
@@ -225,7 +229,8 @@
     "OS"
   ],
   "description": "Local community consultation project for a coastal area."
-},{
+},
+{
   "_id": {
     "$oid": "61f176664c843262d91d4dfb"
   },
@@ -317,8 +322,12 @@
     ]
   },
   "name": "English Bay Plan",
-  "creationDate": "2020-05",
-  "lastUpdated": "2020-05",
+  "creationDate": {
+    "$date": "2020-05-01T00:00:00.000Z"
+  },
+  "lastUpdated": {
+    "$date": "2020-05-01T00:00:00.000Z"
+  },
   "tags": [
     "Sea Level Rise",
     "Rain and Snow",
@@ -331,7 +340,8 @@
     "QS"
   ],
   "description": "Local community consultation project for a coastal area."
-},{
+},
+{
   "_id": {
     "$oid": "61f176664c843262d91d4df8"
   },
@@ -408,8 +418,12 @@
     ]
   },
   "name": "Gastown Complete Streets",
-  "creationDate": "2020-02",
-  "lastUpdated": "2020-02",
+  "creationDate": {
+    "$date": "2020-02-01T00:00:00.000Z"
+  },
+  "lastUpdated": {
+    "$date": "2020-02-01T00:00:00.000Z"
+  },
   "tags": [
     "Sea Level Rise",
     "Green Infrastructure",
@@ -422,7 +436,8 @@
     "OS"
   ],
   "description": "Gastown Complete Streets considers the future of the area to create a plan for the streets and transportation network."
-},{
+},
+{
   "_id": {
     "$oid": "61f176664c843262d91d4e01"
   },
@@ -479,8 +494,12 @@
     ]
   },
   "name": "Connaught Park Plan",
-  "creationDate": "2019-07",
-  "lastUpdated": "2019-07",
+  "creationDate": {
+    "$date": "2019-07-01T00:00:00.000Z"
+  },
+  "lastUpdated": {
+    "$date": "2019-07-01T00:00:00.000Z"
+  },
   "tags": [
     "Nature Restoration",
     "Temperature",
@@ -492,7 +511,8 @@
   ],
   "department": "PRC",
   "description": "Local community consultation project for a park."
-},{
+},
+{
   "_id": {
     "$oid": "61f176664c843262d91d4df9"
   },
@@ -569,8 +589,12 @@
     ]
   },
   "name": "Grandview-Woodland Community Plan",
-  "creationDate": "2021-09",
-  "lastUpdated": "2021-09",
+  "creationDate": {
+    "$date": "2021-09-01T00:00:00.000Z"
+  },
+  "lastUpdated": {
+    "$date": "2021-09-01T00:00:00.000Z"
+  },
   "tags": [
     "Homes",
     "Transit",
@@ -582,7 +606,8 @@
     "WK"
   ],
   "description": "The goal is for the community to continue to evolve as a mixed-income, socially-sensitive place that is transit-oriented and rich in heritage and culture."
-},{
+},
+{
   "_id": {
     "$oid": "61f176664c843262d91d4dfe"
   },
@@ -644,8 +669,12 @@
     ]
   },
   "name": "Granville Island Plan",
-  "creationDate": "2016-11",
-  "lastUpdated": "2016-11",
+  "creationDate": {
+    "$date": "2016-11-01T00:00:00.000Z"
+  },
+  "lastUpdated": {
+    "$date": "2016-11-01T00:00:00.000Z"
+  },
   "department": "GV",
   "tags": [
     "Sea Level Rise",
@@ -659,7 +688,8 @@
     "OS"
   ],
   "description": "Local community consultation project for Granville Island."
-},{
+},
+{
   "_id": {
     "$oid": "61f176664c843262d91d4dff"
   },
@@ -706,8 +736,12 @@
     ]
   },
   "name": "Granville Park Plan",
-  "creationDate": "2016-08",
-  "lastUpdated": "2020-01",
+  "creationDate": {
+    "$date": "2016-08-01T00:00:00.000Z"
+  },
+  "lastUpdated": {
+    "$date": "2020-01-01T00:00:00.000Z"
+  },
   "department": "PRC",
   "tags": [
     "Sea Level Rise",
@@ -721,7 +755,8 @@
     "OS"
   ],
   "description": "Local community consultation project for a park."
-},{
+},
+{
   "_id": {
     "$oid": "61f176664c843262d91d4dfa"
   },
@@ -773,8 +808,12 @@
     ]
   },
   "name": "John Hendry Park Development",
-  "creationDate": "2021-01",
-  "lastUpdated": "2021-02",
+  "creationDate": {
+    "$date": "2021-01-01T00:00:00.000Z"
+  },
+  "lastUpdated": {
+    "$date": "2021-02-01T00:00:00.000Z"
+  },
   "tags": [
     "Parks and Recreation",
     "Nature Restoration",
@@ -787,7 +826,8 @@
     "QS"
   ],
   "description": "Local community consultation project for a park."
-},{
+},
+{
   "_id": {
     "$oid": "61f176664c843262d91d4df5"
   },
@@ -834,8 +874,12 @@
     ]
   },
   "name": "Kensington-Cedar Cottage Study",
-  "creationDate": "2017-04",
-  "lastUpdated": "2017-04",
+  "creationDate": {
+    "$date": "2017-04-01T00:00:00.000Z"
+  },
+  "lastUpdated": {
+    "$date": "2017-04-01T00:00:00.000Z"
+  },
   "tags": [
     "Homes",
     "Temperature",
@@ -848,7 +892,8 @@
     "QS"
   ],
   "description": "The strategy and its action plans reimagine how we can manage rainwater, representing a significant opportunity to take bold strides toward becoming a water-sensitive city."
-},{
+},
+{
   "_id": {
     "$oid": "61f176664c843262d91d4dfc"
   },
@@ -1010,8 +1055,12 @@
     ]
   },
   "name": "Kitsilano Beach Plan",
-  "creationDate": "2016-05",
-  "lastUpdated": "2016-05",
+  "creationDate": {
+    "$date": "2016-05-01T00:00:00.000Z"
+  },
+  "lastUpdated": {
+    "$date": "2016-05-01T00:00:00.000Z"
+  },
   "department": "PRC",
   "tags": [
     "Sea Level Rise",
@@ -1024,7 +1073,8 @@
     "WK"
   ],
   "description": "Local community consultation project for a coastal area."
-},{
+},
+{
   "_id": {
     "$oid": "61f176664c843262d91d4e02"
   },
@@ -1141,8 +1191,12 @@
     ]
   },
   "name": "Olympic Village Consultation Plan",
-  "creationDate": "2018-12",
-  "lastUpdated": "2018-12",
+  "creationDate": {
+    "$date": "2018-12-01T00:00:00.000Z"
+  },
+  "lastUpdated": {
+    "$date": "2018-12-01T00:00:00.000Z"
+  },
   "tags": [
     "Nature Restoration",
     "Sea Level Rise",
@@ -1155,7 +1209,8 @@
   ],
   "department": "UZD",
   "description": "Local community consultation project for flood mitigation around Olympic Village."
-},{
+},
+{
   "_id": {
     "$oid": "61f176664c843262d91d4df6"
   },
@@ -1202,8 +1257,12 @@
     ]
   },
   "name": "Jericho Lands Planning Program",
-  "creationDate": "2019-09",
-  "lastUpdated": "2019-09",
+  "creationDate": {
+    "$date": "2019-09-01T00:00:00.000Z"
+  },
+  "lastUpdated": {
+    "$date": "2019-09-01T00:00:00.000Z"
+  },
   "tags": [
     "Parks and Recreation",
     "Nature Restoration",
@@ -1216,7 +1275,8 @@
     "OS"
   ],
   "description": "The Jericho Lands planning program is a comprehensive planning process which will help create a policy statement to guide future development of the site."
-},{
+},
+{
   "_id": {
     "$oid": "61f176664c843262d91d4df7"
   },
@@ -1313,8 +1373,12 @@
     ]
   },
   "name": "Broadway Plan",
-  "creationDate": "2020-05",
-  "lastUpdated": "2020-05",
+  "creationDate": {
+    "$date": "2020-05-01T00:00:00.000Z"
+  },
+  "lastUpdated": {
+    "$date": "2020-05-01T00:00:00.000Z"
+  },
   "tags": [
     "Transit",
     "Rain and Snow",
@@ -1327,7 +1391,8 @@
     "FG"
   ],
   "description": "The 30-year plan will focus on opportunities to integrate new housing, jobs, and amenities around the new Broadway Subway in the neighbourhoods of Mount Pleasant, Fairview, and Kitsilano."
-},{
+},
+{
   "_id": {
     "$oid": "61f176664c843262d91d4e00"
   },
@@ -1379,8 +1444,12 @@
     ]
   },
   "name": "Children's Hospital Plan",
-  "creationDate": "2019-10",
-  "lastUpdated": "2019-10",
+  "creationDate": {
+    "$date": "2019-10-01T00:00:00.000Z"
+  },
+  "lastUpdated": {
+    "$date": "2019-10-01T00:00:00.000Z"
+  },
   "department": "UZD",
   "tags": [
     "Nature Restoration",
