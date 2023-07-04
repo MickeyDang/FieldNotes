@@ -12,6 +12,7 @@
   "author": "mickeymdang",
   "license": "ISC",
   "dependencies": {
+    "@vercel/node": "^2.15.3",
     "cors": "^2.8.5",
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
