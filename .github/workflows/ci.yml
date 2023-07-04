@@ -37,7 +37,7 @@ jobs:
 
     # Install dependencies
     - name: Install dependencies
-      run: npm --prefix ./frontend install && npm --prefix ./api install
+      run: npm --prefix ./frontend install && npm --prefix ./frontend/api install
 
     # Linting check
     - name: Run lint for frontend
@@ -45,5 +45,5 @@ jobs:
       run: npm run lint
 
     - name: Run lint for api
-      working-directory: ./api
+      working-directory: ./frontend/api
       run: npm run lint
