@@ -1,35 +1,38 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { createMongoDBDataAPI } from 'mongodb-data-api';
+import { Types } from 'mongoose';
 
-const mongoose = require('mongoose');
-const ProjectModel = require('./models/Projects');
-
-mongoose.connect(process.env.DATABASE_CONNECTION_TOKEN);
-mongoose.set('strictQuery', true);
+const api = createMongoDBDataAPI({
+  apiKey: process.env.DATA_API_KEY,
+  urlEndpoint: process.env.DATA_API_URL,
+});
 
 export default async function handler(
   req: VercelRequest,
   res: VercelResponse,
 ) {
+  const projectCollection = api.$cluster('Cluster0').$database('Main').$collection<any>('projects');
   if (req.method === 'PUT') {
     const { repIds, relIds } = req.body;
-    // Hardcoded P.O.C.
+    // TODO: Hardcoded P.O.C.
     const id = '64a3d65d50e980c2fbee11fa';
 
-    const updatedProject = await ProjectModel.findByIdAndUpdate(
-      id,
-      {
-        reports: repIds,
-        relationships: relIds,
+    const updatedProject = await projectCollection.updateOne({
+      filter: { _id: { $oid: id } },
+      update: {
+        $set: {
+          reports: repIds.map((x:any) => new Types.ObjectId(x)),
+          relationships: relIds.map((x:any) => new Types.ObjectId(x)),
+        },
       },
-      { new: true },
-    );
+    });
 
     return res.status(200).json({
       updatedProject,
     });
   }
   // Handles the GET case
-  const project = (await ProjectModel.find({}))[0];
+  const project = (await projectCollection.find({})).documents[0];
   return res.status(200).json({
     project,
   });

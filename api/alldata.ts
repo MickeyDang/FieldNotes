@@ -1,8 +1,13 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { createMongoDBDataAPI } from 'mongodb-data-api';
 
-const mongoose = require('mongoose');
-const ReportModel = require('./models/Reports');
-const RelationshipModel = require('./models/Relationships');
+const api = createMongoDBDataAPI({
+  apiKey: process.env.DATA_API_KEY,
+  urlEndpoint: process.env.DATA_API_URL,
+});
+
+const reportCollection = api.$cluster('Cluster0').$database('Main').$collection<any>('reports');
+const relationshipCollection = api.$cluster('Cluster0').$database('Main').$collection<any>('relationships');
 
 const {
   getDateWithAddedMonths,
@@ -13,9 +18,6 @@ const {
   /* eslint-disable import/no-unresolved, import/extensions */
 } = require('./helpers');
 /* eslint-enable import/no-unresolved, import/extensions */
-
-mongoose.connect(process.env.DATABASE_CONNECTION_TOKEN);
-mongoose.set('strictQuery', true);
 
 export default async function handler(
   req: VercelRequest,
@@ -95,21 +97,23 @@ export default async function handler(
 
   const searching = (keywords.length > 0 || coordinates.length > 0);
   const reportQuery = (reportFilters.length > 0 && searching)
-    ? ReportModel.find({
-      $and: reportFilters,
-      REPORT_RESPONSE_FIELDS,
-    }).sort(reportSortOrder)
+    ? (await reportCollection.find({
+      filter: { $and: reportFilters },
+      sort: reportSortOrder,
+      projection: REPORT_RESPONSE_FIELDS,
+    })).documents
     : [];
 
   const relationshipQuery = (relationshipFilters.length > 0 && searching)
-    ? RelationshipModel.find({
-      $and: relationshipFilters,
-      RELATIOSHIP_RESPONSE_FIELDS,
-    }).sort(relSortOrder)
+    ? (await relationshipCollection.find({
+      filter: { $and: relationshipFilters },
+      sort: relSortOrder,
+      projection: RELATIOSHIP_RESPONSE_FIELDS,
+    })).documents
     : [];
 
   return res.status(200).json({
-    reports: await reportQuery,
-    relationships: await relationshipQuery,
+    reports: reportQuery,
+    relationships: relationshipQuery,
   });
 }

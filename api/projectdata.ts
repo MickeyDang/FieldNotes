@@ -1,8 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { createMongoDBDataAPI } from 'mongodb-data-api';
-import { Types } from 'mongoose';
 
-// init by URL Endpoint
 const api = createMongoDBDataAPI({
   apiKey: process.env.DATA_API_KEY,
   urlEndpoint: process.env.DATA_API_URL,
@@ -20,9 +18,8 @@ export default async function handler(
     filter: {},
   })).documents[0];
 
-  // TODO: the issue is that these ids are strings and not mongo ids so they don't get filtered.
-  const repIds = ((project && project.reports) ?? []).map((x: any) => new Types.ObjectId(x));
-  const relIds = ((project && project.relationships) ?? []).map((x: any) => new Types.ObjectId(x));
+  const repIds = ((project && project.reports) ?? []);
+  const relIds = ((project && project.relationships) ?? []);
 
   const reports = (await reportCollection.find({
     filter: {

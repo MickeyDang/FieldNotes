@@ -1,20 +1,31 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { createMongoDBDataAPI } from 'mongodb-data-api';
 
-const mongoose = require('mongoose');
-const ReportModel = require('./models/Reports');
-
-mongoose.connect(process.env.DATABASE_CONNECTION_TOKEN);
-mongoose.set('strictQuery', true);
+const api = createMongoDBDataAPI({
+  apiKey: process.env.DATA_API_KEY,
+  urlEndpoint: process.env.DATA_API_URL,
+});
 
 export default async function handler(
   req: VercelRequest,
   res: VercelResponse,
 ) {
-  const oldest = ReportModel.find({}, { creationDate: 1 }).sort({ creationDate: 1 }).limit(1);
-  const newest = ReportModel.find({}, { creationDate: 1 }).sort({ creationDate: -1 }).limit(1);
+  const reportCollection = api.$cluster('Cluster0').$database('Main').$collection<any>('reports');
+
+  const oldest = reportCollection.find({
+    filter: {},
+    sort: { creationDate: 1 },
+    limit: 1,
+  });
+
+  const newest = reportCollection.find({
+    filter: {},
+    sort: { creationDate: -1 },
+    limit: 1,
+  });
 
   return res.status(200).json({
-    oldestDate: await oldest,
-    newestDate: await newest,
+    oldestDate: (await oldest).documents,
+    newestDate: (await newest).documents,
   });
 }
