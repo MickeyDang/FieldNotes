@@ -1,28 +1,40 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { createMongoDBDataAPI } from 'mongodb-data-api';
+import { Types } from 'mongoose';
 
-const mongoose = require('mongoose');
-const ReportModel = require('./models/Reports');
-const RelationshipModel = require('./models/Relationships');
-const ProjectModel = require('./models/Projects');
-
-mongoose.connect(process.env.DATABASE_CONNECTION_TOKEN);
-mongoose.set('strictQuery', true);
+// init by URL Endpoint
+const api = createMongoDBDataAPI({
+  apiKey: process.env.DATA_API_KEY,
+  urlEndpoint: process.env.DATA_API_URL,
+});
 
 export default async function handler(
   req: VercelRequest,
   res: VercelResponse,
 ) {
-  const project = (await ProjectModel.find({}))[0];
-  const repIds = project.reports;
-  const relIds = project.relationships;
+  const projectCollection = api.$cluster('Cluster0').$database('Main').$collection<any>('projects');
+  const reportCollection = api.$cluster('Cluster0').$database('Main').$collection<any>('reports');
+  const relationshipCollection = api.$cluster('Cluster0').$database('Main').$collection<any>('relationships');
 
-  const reports = await ReportModel.find({
-    _id: { $in: repIds },
-  });
+  const project = (await projectCollection.find({
+    filter: {},
+  })).documents[0];
 
-  const relationships = await RelationshipModel.find({
-    _id: { $in: relIds },
-  });
+  // TODO: the issue is that these ids are strings and not mongo ids so they don't get filtered.
+  const repIds = ((project && project.reports) ?? []).map((x: any) => new Types.ObjectId(x));
+  const relIds = ((project && project.relationships) ?? []).map((x: any) => new Types.ObjectId(x));
+
+  const reports = (await reportCollection.find({
+    filter: {
+      _id: { $in: repIds },
+    },
+  })).documents;
+
+  const relationships = (await relationshipCollection.find({
+    filter: {
+      _id: { $in: relIds },
+    },
+  })).documents;
 
   return res.status(200).json({
     reports,
