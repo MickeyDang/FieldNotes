@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [18.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -37,13 +37,13 @@ jobs:
 
     # Install dependencies
     - name: Install dependencies
-      run: npm --prefix ./frontend install && npm --prefix ./backend install
+      run: npm --prefix ./frontend install && npm --prefix ./frontend/api install
 
     # Linting check
     - name: Run lint for frontend
       working-directory: ./frontend
       run: npm run lint
 
-    - name: Run lint for backend
-      working-directory: ./backend
+    - name: Run lint for api
+      working-directory: ./frontend/api
       run: npm run lint

@@ -1,0 +1,17 @@
+[{
+  "_id": {
+    "$oid": "64a3d65d50e980c2fbee11fa"
+  },
+  "reports": [
+    "61f176664c843262d91d4dfb",
+    "61f176664c843262d91d4dfd"
+  ],
+  "relationships": [
+    "61f187a24c843262d91d4e84"
+  ],
+  "name": "Engagement Plan: East Vancouver Recreation",
+  "researchStatus": "In Progress",
+  "lastUpdated": "2022-02",
+  "createdDate": "2022-02",
+  "department": "PRC"
+}]

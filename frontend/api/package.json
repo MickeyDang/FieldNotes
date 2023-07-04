@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "api",
   "version": "1.0.0",
   "description": "Server for FieldNotes",
   "main": "index.js",
@@ -12,9 +12,11 @@
   "author": "mickeymdang",
   "license": "ISC",
   "dependencies": {
+    "@vercel/node": "^2.15.3",
     "cors": "^2.8.5",
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
+    "mongodb-data-api": "^0.4.0",
     "mongoose": "^6.1.7"
   },
   "devDependencies": {

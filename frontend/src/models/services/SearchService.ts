@@ -23,7 +23,6 @@ async function searchData(params: SearchParameters) {
     reports: formatReports(res.reports),
     relationships: formatRelationships(res.relationships),
   };
-
   return allData;
 }
 

@@ -31,7 +31,7 @@ function formatDateRange(data: any): DateRangeProperties {
 }
 
 async function findDateRange() {
-  const res = await (await fetch(`${ROOT_URL}/dateRange`)).json();
+  const res = await (await fetch(`${ROOT_URL}/daterange`)).json();
   return formatDateRange(res);
 }
 

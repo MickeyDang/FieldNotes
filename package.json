@@ -1,13 +1,13 @@
 {
-  "name": "backend",
+  "name": "api",
   "version": "1.0.0",
   "description": "Server for FieldNotes",
   "main": "index.js",
   "scripts": {
-    "start": "node backend/build/index.js"
+    "start": "node api/build/index.js"
   },
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "author": "mickeymdang",
   "license": "ISC",

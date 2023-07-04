@@ -1,13 +1,14 @@
-require('dotenv').config();
-const express = require('express');
+import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { createMongoDBDataAPI } from 'mongodb-data-api';
 
-const app = express();
-const PORT = process.env.PORT || 8000;
-const mongoose = require('mongoose');
-const cors = require('cors');
-const ReportModel = require('./models/Reports');
-const RelationshipModel = require('./models/Relationships');
-const ProjectModel = require('./models/Projects');
+const api = createMongoDBDataAPI({
+  apiKey: process.env.DATA_API_KEY,
+  urlEndpoint: process.env.DATA_API_URL,
+});
+
+const reportCollection = api.$cluster('Cluster0').$database('Main').$collection<any>('reports');
+const relationshipCollection = api.$cluster('Cluster0').$database('Main').$collection<any>('relationships');
+
 const {
   getDateWithAddedMonths,
   getRelSortOrder,
@@ -18,15 +19,10 @@ const {
 } = require('./helpers');
 /* eslint-enable import/no-unresolved, import/extensions */
 
-// Convert body of JSON requests to an object
-app.use(express.json());
-app.use(cors());
-
-mongoose.connect(process.env.DATABASE_CONNECTION_TOKEN);
-
-app.get('/', (req: any, res: any) => res.send('Express and TypeScript Server'));
-
-app.get('/alldata', async (req: any, res: any) => {
+export default async function handler(
+  req: VercelRequest,
+  res: VercelResponse,
+) {
   const queryParams = req.query;
   const keywords = (<string>queryParams.query).split(',').filter((s) => s !== '');
   const coordinates = (<string>queryParams.box).split(',').filter((s) => s !== '').map((x) => Number(x));
@@ -101,81 +97,23 @@ app.get('/alldata', async (req: any, res: any) => {
 
   const searching = (keywords.length > 0 || coordinates.length > 0);
   const reportQuery = (reportFilters.length > 0 && searching)
-    ? ReportModel.find({
-      $and: reportFilters,
-      REPORT_RESPONSE_FIELDS,
-    }).sort(reportSortOrder)
+    ? (await reportCollection.find({
+      filter: { $and: reportFilters },
+      sort: reportSortOrder,
+      projection: REPORT_RESPONSE_FIELDS,
+    })).documents
     : [];
 
   const relationshipQuery = (relationshipFilters.length > 0 && searching)
-    ? RelationshipModel.find({
-      $and: relationshipFilters,
-      RELATIOSHIP_RESPONSE_FIELDS,
-    }).sort(relSortOrder)
+    ? (await relationshipCollection.find({
+      filter: { $and: relationshipFilters },
+      sort: relSortOrder,
+      projection: RELATIOSHIP_RESPONSE_FIELDS,
+    })).documents
     : [];
 
   return res.status(200).json({
-    reports: await reportQuery,
-    relationships: await relationshipQuery,
+    reports: reportQuery,
+    relationships: relationshipQuery,
   });
-});
-
-app.get('/daterange', async (req: any, res: any) => {
-  const oldest = ReportModel.find({}, { creationDate: 1 }).sort({ creationDate: 1 }).limit(1);
-  const newest = ReportModel.find({}, { creationDate: 1 }).sort({ creationDate: -1 }).limit(1);
-
-  return res.status(200).json({
-    oldestDate: await oldest,
-    newestDate: await newest,
-  });
-});
-
-app.get('/projects/:id', async (req: any, res: any) => {
-  // In theory, we would extract the project id, but for prototype, we only have one project.
-  const project = (await ProjectModel.find({}))[0];
-  return res.status(200).json({
-    project,
-  });
-});
-
-app.put('/projects/:id', async (req: any, res: any) => {
-  const { repIds, relIds } = req.body;
-  const { id } = req.params;
-
-  const updatedProject = await ProjectModel.findByIdAndUpdate(
-    id,
-    {
-      reports: repIds,
-      relationships: relIds,
-    },
-    { new: true },
-  );
-
-  return res.status(200).json({
-    updatedProject,
-  });
-});
-
-app.get('/projectdata/:id', async (req: any, res: any) => {
-  // In theory, we would extract the project id, but for prototype, we only have one project.
-  const project = (await ProjectModel.find({}))[0];
-  const repIds = project.reports;
-  const relIds = project.relationships;
-
-  const reports = await ReportModel.find({
-    _id: { $in: repIds },
-  });
-
-  const relationships = await RelationshipModel.find({
-    _id: { $in: relIds },
-  });
-
-  return res.status(200).json({
-    reports,
-    relationships,
-  });
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running at https://localhost:${PORT}`);
-});
+}
