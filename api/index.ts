@@ -26,9 +26,9 @@ console.log(process.env.DATABASE_CONNECTION_TOKEN);
 mongoose.connect(process.env.DATABASE_CONNECTION_TOKEN);
 mongoose.set('strictQuery', true);
 
-app.get('/', (req: any, res: any) => res.send('Express and TypeScript Server'));
+app.get('/api', (req: any, res: any) => res.send('Express and TypeScript Server'));
 
-app.get('/alldata', async (req: any, res: any) => {
+app.get('/api/alldata', async (req: any, res: any) => {
   const queryParams = req.query;
   const keywords = (<string>queryParams.query).split(',').filter((s) => s !== '');
   const coordinates = (<string>queryParams.box).split(',').filter((s) => s !== '').map((x) => Number(x));
@@ -122,7 +122,7 @@ app.get('/alldata', async (req: any, res: any) => {
   });
 });
 
-app.get('/daterange', async (req: any, res: any) => {
+app.get('/api/daterange', async (req: any, res: any) => {
   const oldest = ReportModel.find({}, { creationDate: 1 }).sort({ creationDate: 1 }).limit(1);
   const newest = ReportModel.find({}, { creationDate: 1 }).sort({ creationDate: -1 }).limit(1);
 
@@ -132,7 +132,7 @@ app.get('/daterange', async (req: any, res: any) => {
   });
 });
 
-app.get('/projects/:id', async (req: any, res: any) => {
+app.get('/api/projects/:id', async (req: any, res: any) => {
   // In theory, we would extract the project id, but for prototype, we only have one project.
   const project = (await ProjectModel.find({}))[0];
   return res.status(200).json({
@@ -140,7 +140,7 @@ app.get('/projects/:id', async (req: any, res: any) => {
   });
 });
 
-app.put('/projects/:id', async (req: any, res: any) => {
+app.put('/api/projects/:id', async (req: any, res: any) => {
   const { repIds, relIds } = req.body;
   const { id } = req.params;
 
@@ -158,7 +158,7 @@ app.put('/projects/:id', async (req: any, res: any) => {
   });
 });
 
-app.get('/projectdata/:id', async (req: any, res: any) => {
+app.get('/api/projectdata/:id', async (req: any, res: any) => {
   // In theory, we would extract the project id, but for prototype, we only have one project.
   const project = (await ProjectModel.find({}))[0];
   const repIds = project.reports;
