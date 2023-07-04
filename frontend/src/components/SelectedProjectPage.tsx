@@ -50,7 +50,7 @@ function SelectedProjectPage() {
   }, [searchParams]);
 
   const executeNotebookSearch = useCallback(async () => {
-    const response = await searchDataInProject('1234567890');
+    const response = await searchDataInProject();
     setReports(response.reports);
     setRelationships(response.relationships);
   }, [isSearchMode]);

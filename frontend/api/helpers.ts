@@ -28,5 +28,5 @@ module.exports.REPORT_RESPONSE_FIELDS = {
   _id: 1, name: 1, relationships: 1, tags: 1, location: 1, creationDate: 1,
 };
 module.exports.RELATIOSHIP_RESPONSE_FIELDS = {
-  _id: 1, name: 1, reports: 1, tags: 1, location: 1,
+  _id: 1, name: 1, reports: 1, tags: 1, location: 1, lastContacted: 1,
 };
