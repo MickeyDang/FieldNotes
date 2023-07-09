@@ -21,7 +21,7 @@ export async function updateProject(project: Project) {
       repIds: project.repIds,
     }),
   };
-  const { updatedProject } = await (await fetch(`${ROOT_URL}/projects`, requestOptions)).json();
+  const updatedProject = (await (await fetch(`${ROOT_URL}/projects`, requestOptions)).json()).project;
   return {
     // eslint-disable-next-line no-underscore-dangle
     projectId: updatedProject._id,
