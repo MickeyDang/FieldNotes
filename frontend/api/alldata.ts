@@ -81,19 +81,19 @@ export default async function handler(
   if (queryParams.time !== 'undefined' && timeRange.length > 6) {
     const startDate = timeRange.slice(2, 4);
     const endDate = timeRange.slice(4, 6);
-    const lowerRange = getDateWithAddedMonths(
+    const lowerRange: Date = getDateWithAddedMonths(
       new Date(startDate[0], startDate[1], 1),
       timeRange[0] - 1,
     );
-    const upperRange = getDateWithAddedMonths(
+    const upperRange: Date = getDateWithAddedMonths(
       new Date(endDate[0], endDate[1], 1),
       -((timeRange[6] - timeRange[1]) + 1),
     );
     const TIME_RANGE_FILTER = {
-      $and: [
-        { creationDate: { $gte: lowerRange } },
-        { creationDate: { $lt: upperRange } },
-      ],
+      creationDate: {
+        $gte: { $date: { $numberLong: lowerRange.getUTCMilliseconds() } },
+        $lt: { $date: { $numberLong: upperRange.getUTCMilliseconds() } },
+      },
     };
 
     reportFilters.push(TIME_RANGE_FILTER);
