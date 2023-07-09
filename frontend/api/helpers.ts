@@ -1,4 +1,4 @@
-module.exports.getDateWithAddedMonths = (date: Date, months: number) => {
+module.exports.getDateWithAddedMonths = (date: Date, months: number): Date => {
   const originalDate = date.getDate();
   date.setMonth(date.getMonth() + +months);
   if (date.getDate() !== originalDate) {
