@@ -91,8 +91,8 @@ export default async function handler(
     );
     const TIME_RANGE_FILTER = {
       creationDate: {
-        $gte: { $date: { $numberLong: lowerRange.getTime() } },
-        $lt: { $date: { $numberLong: upperRange.getTime() } },
+        $gte: { $date: { $numberLong: lowerRange.getTime().toString() } },
+        $lt: { $date: { $numberLong: upperRange.getTime().toString() } },
       },
     };
 
