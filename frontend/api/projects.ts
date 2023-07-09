@@ -16,7 +16,7 @@ export default async function handler(
     // TODO: Hardcoded P.O.C.
     const id = '64a3d65d50e980c2fbee11fa';
 
-    const updatedProject = await projectCollection.updateOne({
+    await projectCollection.updateOne({
       filter: { _id: { $oid: id } },
       update: {
         $set: {
@@ -25,12 +25,9 @@ export default async function handler(
         },
       },
     });
-
-    return res.status(200).json({
-      updatedProject,
-    });
   }
-  // Handles the GET case
+
+  // Handles the GET case or returns the new update project in PUT case.
   const project = (await projectCollection.find({})).documents[0];
   return res.status(200).json({
     project,
