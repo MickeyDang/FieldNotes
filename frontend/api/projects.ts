@@ -27,7 +27,7 @@ export default async function handler(
     });
   }
 
-  // Handles the GET case or returns the new update project in PUT case.
+  // Handles the GET case or returns the updated project in PUT case.
   const project = (await projectCollection.find({})).documents[0];
   return res.status(200).json({
     project,
