@@ -69,6 +69,15 @@ export default async function handler(
     relationshipFilters.push(BOUNDING_BOX_FILTER);
   }
 
+  /**
+   * VARIABLE:
+   * timerange[0] = start month index of new time range filter
+   * timerange[1] = end month index of new time range filter
+   * CONSTANT:
+   * timerange[2,3] = year/month of earliest report (in whole dataset)
+   * timerange[4,5] = year/month of latest report (in whole dataset)
+   * timerange[6] = # of months in the total date range (out of whole dataset)
+   */
   if (queryParams.time !== 'undefined' && timeRange.length > 6) {
     const startDate = timeRange.slice(2, 4);
     const endDate = timeRange.slice(4, 6);
@@ -81,10 +90,10 @@ export default async function handler(
       -((timeRange[6] - timeRange[1]) + 1),
     );
     const TIME_RANGE_FILTER = {
-      creationDate: {
-        $gte: lowerRange,
-        $lt: upperRange,
-      },
+      $and: [
+        { creationDate: { $gte: lowerRange } },
+        { creationDate: { $lt: upperRange } },
+      ],
     };
 
     reportFilters.push(TIME_RANGE_FILTER);
